@@ -4,7 +4,7 @@
 #include <iostream>
 
 #define EXIT_SUCCESS    0
-//Test github
+
 
 int main(void) {
    LinkedList* list = new LinkedList();
