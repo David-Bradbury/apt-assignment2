@@ -10,8 +10,15 @@ public:
    LinkedList();
    ~LinkedList();
 
+   int size();
+   void addToBack();
+
+   //retrun node at index
+   Node* get(int index);
+
 private:
    Node* head;
+   
 };
 
 #endif // ASSIGN2_LINKEDLIST_H

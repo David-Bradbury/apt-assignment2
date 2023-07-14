@@ -21,3 +21,7 @@ Node::Node(const Node& other) {
    this-> tile = new Tile(*other.tile);
 
 }
+
+Node* Node::getNext() {
+   return this->next;
+}
