@@ -10,6 +10,8 @@ public:
    Node(Tile* tile, Node* next);
    Node(Node& other);
 
+private:
+
    Tile*    tile;
    Node*    next;
 };
