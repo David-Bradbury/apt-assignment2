@@ -16,8 +16,10 @@ int main(void) {
    Tile* tile2 = new Tile(STAR_4, PURPLE);
    Tile* tile3 = new Tile(SQUARE, BLUE);
    Tile* tile4 = new Tile(CLOVER, YELLOW);
-
+   std::cout<< list->size()<<std::endl;
    list->addBack(tile1);
+   std::cout<< tile1->getColour()<< " "<< tile1->getShape()<<std::endl;
+   std::cout<< list->get(1)->tile->getColour()<<std::endl;
    list->addBack(tile2);
    list->addBack(tile3);
    list->addBack(tile4);
