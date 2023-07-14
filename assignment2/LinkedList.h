@@ -11,10 +11,10 @@ public:
    ~LinkedList();
 
    int size();
-   void addToBack();
 
    //retrun node at index
    Node* get(int index);
+   void addBack(Tile* tile);
 
 private:
    Node* head;

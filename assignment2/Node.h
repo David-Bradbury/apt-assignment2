@@ -11,9 +11,6 @@ public:
    ~Node();
    Node(const Node& other);
 
-   Node* getNext();
-
-private:
 
    Tile*    tile;
    Node*    next;

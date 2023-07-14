@@ -22,6 +22,4 @@ Node::Node(const Node& other) {
 
 }
 
-Node* Node::getNext() {
-   return this->next;
-}
+

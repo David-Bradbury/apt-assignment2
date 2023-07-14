@@ -17,7 +17,7 @@ int LinkedList::size() {
 
    while(current != nullptr) {
       ++count;
-      current = current->getNext();
+      current = current->next;
 
    }
 
@@ -33,10 +33,26 @@ Node* LinkedList::get(int index) {
    if (index >= 0 && index < size()) {
       while(count < index) {
          ++count;
-         current = current->getNext();
+         current = current->next;
 
       }
    }
 
 return current;
+}
+
+void LinkedList::addBack(Tile* tile) {
+   Node* toAdd = new Node(tile, nullptr);
+
+   if(head == nullptr) {
+      head = toAdd;
+   }
+   Node* current = head;
+   while(current->next != nullptr) {
+      current = current->next;
+
+   }
+
+   current->next = toAdd;
+
 }
