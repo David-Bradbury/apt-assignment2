@@ -17,14 +17,14 @@ int main(void) {
    Tile* tile3 = new Tile(SQUARE, BLUE);
    Tile* tile4 = new Tile(CLOVER, YELLOW);
 
-   // list->addBack(tile1);
-   // list->addBack(tile2);
-   // list->addBack(tile3);
-   // list->addBack(tile4);
-
+   list->addBack(tile1);
+   list->addBack(tile2);
+   list->addBack(tile3);
+   list->addBack(tile4);
+std::cout << "TODO: Implement Qwirkle!" << std::endl;
    for(int i = 0; i != list->size()+1 ; i++ ) {
 
-      //std::cout<< "list[" << i << "] "<< list->get(i)->tile->getColour()<< " "<< list->get(i)->tile->getShape()<<std::endl;
+      std::cout<< "list[" << i << "] "<< list->get(i)->tile->getColour()<< " "<< list->get(i)->tile->getShape()<<std::endl;
    }
    delete list;
 
