@@ -14,6 +14,7 @@ public:
 
    //retrun node at index
    Node* get(int index);
+   void addFront(Tile* tile);
    void addBack(Tile* tile);
 
 private:
