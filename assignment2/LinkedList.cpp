@@ -92,21 +92,49 @@ void LinkedList::deleteTile(Tile* tileToDelete) {
    Node* previousNode = nullptr;
 
    //find the tile in the list
-   while(current != nullptr && !current->tile->isSameTile(tileToDelete)) {
+   while(current != nullptr ) {
+   if(current->tile-> isSameTile(tileToDelete)){
+
+      if (current == head) {
+         head = current->next;
+         delete current->tile;
+         delete current;
+         current = head;
+      } else {
+         previousNode->next = current->next;
+         delete current->tile;
+         Node* temp = current;
+         current = current->next;
+         delete temp;
+
+      }
+   } else {
       previousNode = current;
       current = current->next;
    }
 
-   if(current != nullptr) {
-      if(current == head) {
-         head = current->next;
-
-      } else {
-
-         previousNode = current->next;
-      }
+      previousNode = current;
+      current = current->next;
    }
 
-   delete current->tile;
-   delete current;
+}
+
+//return true if provided tile is in the list
+bool LinkedList::tileInList(Tile* tile) {
+   
+   bool tileInList = false;
+   Node* current = head;
+
+   //Iterate to the end of the list
+   while(current->next != nullptr) {
+
+         if(current->tile-> isSameTile(tile)){
+            tileInList = true;
+         }
+
+         current = current->next;
+       }
+
+   return tileInList;
+
 }

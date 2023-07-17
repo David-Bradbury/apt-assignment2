@@ -14,9 +14,14 @@ public:
 
    //retrun node at index
    Node* get(int index);
+   //Add to the front of the list
    void addFront(Tile* tile);
+   //Add to the back of the list
    void addBack(Tile* tile);
+   //delete tile from the list
    void deleteTile(Tile* tileToDelete);
+   //check if tile is in list
+   bool tileInList(Tile* tile);
 
 private:
    Node* head;
