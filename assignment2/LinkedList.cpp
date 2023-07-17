@@ -1,9 +1,10 @@
 
 #include "LinkedList.h"
+#include <iostream>
 
 LinkedList::LinkedList() {
    
-   head = nullptr;
+   this-> head = nullptr;
    
 }
 
@@ -41,18 +42,23 @@ Node* LinkedList::get(int index) {
 return current;
 }
 
+//Adds a node with provided tile to the end of the list
 void LinkedList::addBack(Tile* tile) {
    Node* toAdd = new Node(tile, nullptr);
-
+   
+   //If list is empty, make it the head
    if(head == nullptr) {
       head = toAdd;
-   }
-   Node* current = head;
-   while(current->next != nullptr) {
-      current = current->next;
 
-   }
+   } else {
 
-   current->next = toAdd;
+      Node* current = head;
+      while(current->next != nullptr) {
+         current = current->next;
+
+      }
+
+      current->next = toAdd;
+   }
 
 }
