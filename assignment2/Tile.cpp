@@ -17,3 +17,14 @@ Colour Tile::getColour() {
 
    return this->colour;
 }
+
+bool Tile::isSameTile(Tile* other){
+   bool isSame = false;
+
+   if (shape == other->getShape() && colour == other->getColour()) {
+      isSame = true;
+
+   }
+
+   return isSame;
+}

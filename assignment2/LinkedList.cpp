@@ -46,6 +46,8 @@ Node* LinkedList::get(int index) {
 return returnNode;
 }
 
+///*****WE MAY NOT NEED THIS ONE AND CAN BE DELETED IF WE DONT******
+//Adds a node to the front of the list
 void LinkedList::addFront(Tile* tile) {
 
    Node* toAdd = new Node(tile, nullptr);
@@ -58,6 +60,7 @@ void LinkedList::addFront(Tile* tile) {
    }
 
 }
+
 
 //Adds a node with provided tile to the end of the list
 void LinkedList::addBack(Tile* tile) {
@@ -78,4 +81,32 @@ void LinkedList::addBack(Tile* tile) {
       current->next = toAdd;
    }
 
+}
+
+
+//Delete a specified tile from the list
+//N.B. This will only currently delete the first occurance of the provided tile
+//it will not delete duplicates.
+void LinkedList::deleteTile(Tile* tileToDelete) {
+   Node* current = head;
+   Node* previousNode = nullptr;
+
+   //find the tile in the list
+   while(current != nullptr && !current->tile->isSameTile(tileToDelete)) {
+      previousNode = current;
+      current = current->next;
+   }
+
+   if(current != nullptr) {
+      if(current == head) {
+         head = current->next;
+
+      } else {
+
+         previousNode = current->next;
+      }
+   }
+
+   delete current->tile;
+   delete current;
 }

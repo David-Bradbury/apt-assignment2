@@ -39,6 +39,16 @@ int main(void) {
 
 
    std::cout<<"Size of Linked List: " << list->size()<<std::endl;
+
+   list->deleteTile(tile3);
+
+         for(int i = 0; i != list->size() ; i++ ) {
+
+      std::cout<< "list[" << i << "] "<< list->get(i)->tile->getColour()<< " "<< list->get(i)->tile->getShape()<<std::endl;
+   }
+
+
+   std::cout<<"Size of Linked List: " << list->size()<<std::endl;
    delete list;
    //------------------------------------------------
 

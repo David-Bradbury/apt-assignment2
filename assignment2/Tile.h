@@ -15,6 +15,7 @@ public:
    
    Shape getShape();
    Colour getColour();
+   bool isSameTile(Tile* other);
 
 private:
    Shape  shape;
