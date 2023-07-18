@@ -98,19 +98,13 @@ void LinkedList::deleteTile(Tile* tileToDelete) {
 
    } else {
 
-      while(current->next != nullptr || nodeToDelete == nullptr) {
-         previousNode = current;
-         
-         if(current->next != nullptr) {
+      while(current != nullptr && nodeToDelete == nullptr) {
+         if(current->tile->isSameTile(tileToDelete)) {
+            nodeToDelete = current;
+         } else {
+            previousNode = current;
             current = current->next;
          }
-             
-
-         if(current->tile-> isSameTile(tileToDelete)) {
-            nodeToDelete = current;
-               
-            }
-
 
       } 
 
