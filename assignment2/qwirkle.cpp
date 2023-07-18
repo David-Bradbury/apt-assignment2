@@ -28,7 +28,6 @@ int main(void) {
 
    std::cout<< "testing add front"<<std::endl;
 
-   list->addFront(tile3);
    list->addFront(tile2);
    list->addFront(tile1);
 
