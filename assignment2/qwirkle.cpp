@@ -43,6 +43,11 @@ int main(void) {
 
    std::cout<<"Size of Linked List: " << list->size()<<std::endl;
 
+      std::cout <<"Is tile 1 in the list: " << list->tileInList(tile1) << std::endl;
+   std::cout <<"Is tile 2 in the list: " << list->tileInList(tile2) << std::endl;
+   std::cout <<"Is tile 3 in the list: " << list->tileInList(tile3) << std::endl;
+   std::cout <<"Is tile 4 in the list: " << list->tileInList(tile4) << std::endl;
+
   // list->deleteTile(tile1);
    list->deleteTile(tile2);
    //list->deleteTile(tile3);
@@ -53,7 +58,10 @@ int main(void) {
       std::cout<< "list[" << i << "] "<< list->get(i)->tile->getColour()<< " "<< list->get(i)->tile->getShape()<<std::endl;
    }
 
-   std::cout <<"Is it in the list: " << list->tileInList(tile2) << std::endl;
+   std::cout <<"Is tile 1 in the list: " << list->tileInList(tile1) << std::endl;
+   std::cout <<"Is tile 2 in the list: " << list->tileInList(tile2) << std::endl;
+   std::cout <<"Is tile 3 in the list: " << list->tileInList(tile3) << std::endl;
+   std::cout <<"Is tile 4 in the list: " << list->tileInList(tile4) << std::endl;
    list->deleteTile(tile2);
    std::cout <<"Is it in the list after delete: " << list->tileInList(tile2) << std::endl;
 

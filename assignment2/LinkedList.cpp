@@ -131,7 +131,7 @@ bool LinkedList::tileInList(Tile* tile) {
    Node* current = head;
 
    //Iterate to the end of the list
-   while(current->next != nullptr) {
+   while(current != nullptr) {
 
          if(current->tile-> isSameTile(tile)){
             tileInList = true;
