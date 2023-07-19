@@ -10,7 +10,8 @@ int main(void) {
    LinkedList* list = new LinkedList();
    delete list;
 
-   std::cout << "TODO: Implement Qwirkle!" << std::endl;
+   std::cout << "Welcome to Qwirkle!" << std::endl;
+   std::cout << "-------------------" << std::endl;
 
    return EXIT_SUCCESS;
 }
