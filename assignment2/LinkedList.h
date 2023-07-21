@@ -9,11 +9,12 @@ public:
 
    LinkedList();
    ~LinkedList();
-
-   int size();
+   LinkedList(const LinkedList& other);
+   //return the size of the linked list
+   int size() const;
 
    //retrun node at index
-   Node* get(int index);
+   Node* get(const int index) const;
    //Add to the front of the list
    void addFront(Tile* tile);
    //Add to the back of the list

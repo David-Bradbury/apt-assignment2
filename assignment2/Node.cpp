@@ -17,7 +17,7 @@ Node::~Node() {
 
 Node::Node(const Node& other) {
 
-   this->next = other.next;
+   this->next = nullptr;
    this-> tile = new Tile(*other.tile);
 
 }

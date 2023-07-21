@@ -9,9 +9,42 @@ LinkedList::LinkedList() {
 }
 
 LinkedList::~LinkedList() {
+
+   Node* current = head;
+   while(current != nullptr) {
+
+      Node* nextNode = current->next;
+      delete current;
+      
+      current = nextNode;
+   }
 }
 
-int LinkedList::size() {
+LinkedList::LinkedList(const LinkedList& other) {
+
+   this->head = nullptr;
+   Node* current = other.head;
+   Node* previous = nullptr;
+
+   //deep copy of list
+   while(current != nullptr) {
+      Node* n = new Node(new Tile(*current->tile), nullptr);
+
+      if(previous == nullptr) {
+         this->head = n;
+
+      } else {
+
+         previous-> next = n;
+      }
+
+      previous = n;
+      current = current->next;
+   }
+
+}
+
+int LinkedList::size() const {
 
    int count = 0;
    Node* current = head;
@@ -27,7 +60,7 @@ int LinkedList::size() {
 }
 
 //Get a pointer to the node at index provided
-Node* LinkedList::get(int index) {
+Node* LinkedList::get(const int index) const {
    int count = 0;
    Node* current = head;
 
