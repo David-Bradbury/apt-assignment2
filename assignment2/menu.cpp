@@ -27,12 +27,12 @@ void Menu::printMenu() {
     bool validInput = false;
     bool endOfFile = false;
 
-    while(!validInput && input != EXIT && !endOfFile ) {
+    while (!validInput && input != EXIT && !endOfFile) {
 
         std::cout << "> ";
 
 
-        if(std::cin >> input){
+        if (std::cin >> input) {
 
             if (input == START) {
                 startNewGame();
@@ -53,25 +53,27 @@ void Menu::printMenu() {
                 std::cout << "Invalid Input" << std::endl;
 
             }
-        } else {
+        }
+        else {
 
-            if(std::cin.eof()){
+            if (std::cin.eof()) {
                 endOfFile = true;
                 std::cout << "End of file recieved" << std::endl;
 
-            } else {
+            }
+            else {
                 std::cout << "Invalid Input" << std::endl;
                 //clears error state from bad input to prevent infinite loop
                 std::cin.clear();
-                
+
                 //empty while loop to consume and discard bad input from user until newline is reached.
                 //uses std::cin.get() to keep receiving input.
                 char randomInput;
-                while((randomInput = std::cin.get()) != '\n') {
+                while ((randomInput = std::cin.get()) != '\n') {
 
                 }
 
-            }   
+            }
         }
 
     }
@@ -128,7 +130,7 @@ void Menu::printCredits() {
     std::cout << "Student ID: s3782003" << std::endl;
     std::cout << "Email: s3782003@student.rmit.edu.au" << std::endl;
 
-    std::cout << "Name: David Bradbury" << std::endl;
+    std::cout << "Name: David Pulvirenti" << std::endl;
     std::cout << "Student ID: s3858853" << std::endl;
     std::cout << "Email: s3858853@student.rmit.edu.au" << std::endl;
 
