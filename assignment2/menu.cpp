@@ -26,7 +26,7 @@ void Menu::printMenu() {
     int input = 0;
     bool validInput = false;
 
-    while(!validInput) {
+    while(!validInput && input != EXIT) {
 
         std::cout << "> ";
 
@@ -58,6 +58,7 @@ void Menu::printMenu() {
             std::cin.clear();
             
             //empty while loop to consume and discard bad input from user until newline is reached.
+            //uses std::cin.get() to keep receiving input.
             char randomInput;
             while((randomInput = std::cin.get()) != '\n') {
 
@@ -130,5 +131,4 @@ void Menu::quitGame() {
 
     std::cout << "Goodbye - Thanks For Playing Quirkle" << std::endl;
 
-    // Anything else we need to add.
 }
