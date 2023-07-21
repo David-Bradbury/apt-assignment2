@@ -1,4 +1,3 @@
-
 #include "LinkedList.h"
 #include <iostream>
 
@@ -176,3 +175,4 @@ bool LinkedList::tileInList(Tile* tile) {
    return tileInList;
 
 }
+

@@ -1,4 +1,3 @@
-
 #include "Tile.h"
 
 Tile::Tile (Shape shape, Colour colour) {
@@ -28,3 +27,4 @@ bool Tile::isSameTile(Tile* other){
 
    return isSame;
 }
+

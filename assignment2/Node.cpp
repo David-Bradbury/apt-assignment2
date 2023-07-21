@@ -1,4 +1,3 @@
-
 #include "Node.h"
 
 Node::Node(Tile* tile, Node* next) {
@@ -21,5 +20,4 @@ Node::Node(const Node& other) {
    this-> tile = new Tile(*other.tile);
 
 }
-
 
