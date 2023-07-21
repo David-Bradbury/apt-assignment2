@@ -7,9 +7,11 @@
 
 
 int main(void) {
-
+   std::cout << "Welcome to Qwirkle!" << std::endl;
+   std::cout << "-------------------" << std::endl;
+   
    Menu menu;
-
+  
    menu.printMenu();
   
 

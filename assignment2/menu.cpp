@@ -49,11 +49,11 @@ void Menu::printMenu() {
                 quitGame();
             }
             else {
-                std::cout << "You have made an invalid selection, please choose again" << std::endl;
+                std::cout << "Invalid Input" << std::endl;
 
             }
         } else {
-            std::cout << "Invalid input. Please enter a valid number." << std::endl;
+            std::cout << "Invalid Input" << std::endl;
             //clears error state from bad input to prevent infinite loop
             std::cin.clear();
             
