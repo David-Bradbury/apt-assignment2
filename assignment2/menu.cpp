@@ -25,8 +25,9 @@ void Menu::printMenu() {
 
     int input = 0;
     bool validInput = false;
+    bool endOfFile = false;
 
-    while(!validInput && input != EXIT && input != EOF) {
+    while(!validInput && input != EXIT && !endOfFile ) {
 
         std::cout << "> ";
 
@@ -53,17 +54,24 @@ void Menu::printMenu() {
 
             }
         } else {
-            std::cout << "Invalid Input" << std::endl;
-            //clears error state from bad input to prevent infinite loop
-            std::cin.clear();
-            
-            //empty while loop to consume and discard bad input from user until newline is reached.
-            //uses std::cin.get() to keep receiving input.
-            char randomInput;
-            while((randomInput = std::cin.get()) != '\n') {
 
-            }
+            if(std::cin.eof()){
+                endOfFile = true;
+                std::cout << "End of file recieved" << std::endl;
 
+            } else {
+                std::cout << "Invalid Input" << std::endl;
+                //clears error state from bad input to prevent infinite loop
+                std::cin.clear();
+                
+                //empty while loop to consume and discard bad input from user until newline is reached.
+                //uses std::cin.get() to keep receiving input.
+                char randomInput;
+                while((randomInput = std::cin.get()) != '\n') {
+
+                }
+
+            }   
         }
 
     }
