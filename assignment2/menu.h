@@ -1,6 +1,12 @@
 #ifndef MENU
 #define MENU 
 
+enum selection {
+    START = 1,
+    LOAD = 2,
+    CREDITS = 3,
+    EXIT = 4
+};
 
 class Menu
 {

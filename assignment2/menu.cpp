@@ -1,12 +1,8 @@
-#include "menu.h"
+#include "Menu.h"
 #include <iostream>
+#include <limits>
 
-enum selection {
-    START = 1,
-    LOAD = 2,
-    CREDITS = 3,
-    EXIT = 4
-};
+
 
 Menu::Menu() {
     // We need anything? 
@@ -27,29 +23,49 @@ void Menu::printMenu() {
     std::cout << "3. Credits (Show Student Information)" << std::endl;
     std::cout << "4. Quit" << std::endl;
 
-    char selection = 0;
+    int input = 0;
+    bool validInput = false;
 
-    std::cout << "> ";
-    std::cin >> selection;
+    while(!validInput) {
 
-    if (selection == START) {
-        startNewGame();
-    }
-    else if (selection == LOAD) {
-        loadGame();
-    }
-    else if (selection == CREDITS) {
-        printCredits();
-        printMenu();
-    }
-    else if (selection == EXIT || selection == '^D') {
-        quitGame();
-    }
-    else {
-        std::cout << "You have made an invalid selection, please choose again" << std::endl;
-        printMenu();
-    }
+        std::cout << "> ";
 
+
+        if(std::cin >> input){
+
+            if (input == START) {
+                startNewGame();
+                validInput = true;
+            }
+            else if (input == LOAD) {
+                loadGame();
+                validInput = true;
+            }
+            else if (input == CREDITS) {
+                printCredits();
+                validInput = true;
+            }
+            else if (input == EXIT) {
+                quitGame();
+            }
+            else {
+                std::cout << "You have made an invalid selection, please choose again" << std::endl;
+
+            }
+        } else {
+            std::cout << "Invalid input. Please enter a valid number." << std::endl;
+            //clears error state from bad input to prevent infinite loop
+            std::cin.clear();
+            
+            //empty while loop to consume and discard bad input from user until newline is reached.
+            char randomInput;
+            while((randomInput = std::cin.get()) != '\n') {
+
+            }
+
+        }
+
+    }
 }
 
 void Menu::startNewGame() {
