@@ -26,7 +26,7 @@ void Menu::printMenu() {
     int input = 0;
     bool validInput = false;
 
-    while(!validInput && input != EXIT) {
+    while(!validInput && input != EXIT && input != EOF) {
 
         std::cout << "> ";
 
