@@ -1,6 +1,8 @@
 #ifndef MENU
 #define MENU 
 
+#include <string>
+
 enum selection {
     START = 1,
     LOAD = 2,
@@ -21,6 +23,8 @@ public:
 
     // Starts a new game.
     void startNewGame();
+    //validate name input from user, pass by reference.
+    bool isValidName(std::string& input);
 
     // Loads game from file.
     void loadGame();

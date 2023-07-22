@@ -84,19 +84,59 @@ void Menu::startNewGame() {
 
     std::string p1Name, p2Name;
 
-    std::cout << "Enter A Name For Player 1" << std::endl;
-
+    std::cout << "Enter A Name For Player 1 (uppercase characters only)" << std::endl;
     std::cout << "> ";
     std::cin >> p1Name;
 
-    std::cout << "Enter A Name For Player 2" << std::endl;
+    //Validate input if not uppercase letters
+    if(!isValidName(p1Name)) {
+        do {
 
+        std::cout << "Error: please enter a valid name for Player 1(uppercase characters only)" << std::endl;
+
+        std::cout << "> ";
+        std::cin >> p1Name;
+
+        } while(!isValidName(p1Name));
+    }
+
+    std::cout << "Enter A Name For Player 2 (uppercase characters only)" << std::endl;
     std::cout << "> ";
     std::cin >> p2Name;
 
-    std::cout << "Lets Play!" << std::endl;
+    //Validate input if not uppercase letters
+    if(!isValidName(p2Name)) {
 
-    // Continue with gameplay code.
+    do {
+
+        std::cout << "Enter A Name For Player 2 (uppercase characters only)" << std::endl;
+
+        std::cout << "> ";
+        std::cin >> p2Name;
+
+        } while(!isValidName(p2Name));
+
+        std::cout << "Player 1's Name = " << p1Name <<std::endl;
+        std::cout << "Player 2's Name = " << p2Name <<std::endl;
+
+        std::cout << "Lets Play!" << std::endl;
+    }
+    
+}
+
+bool Menu::isValidName(std::string& input) {
+    bool valid = true;
+
+
+    for(char c :input) {
+        if(!std::isalpha(c) || !std::isupper(c)) {
+            valid = false;
+
+        }
+    }
+
+    return valid;
+
 }
 
 void Menu::loadGame() {
