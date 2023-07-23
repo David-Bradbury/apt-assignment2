@@ -1,40 +1,41 @@
 #include "LinkedList.h"
 #include <iostream>
+template <class T>
+LinkedList<T>::LinkedList() {
 
-LinkedList::LinkedList() {
-   
-   this-> head = nullptr;
-   
+   this->head = nullptr;
+
 }
+template <class T>
+LinkedList<T>::~LinkedList() {
 
-LinkedList::~LinkedList() {
+   Node<T>* current = head;
+   while (current != nullptr) {
 
-   Node* current = head;
-   while(current != nullptr) {
-
-      Node* nextNode = current->next;
+      Node<T>* nextNode = current->next;
       delete current;
-      
+
       current = nextNode;
    }
 }
-
-LinkedList::LinkedList(const LinkedList& other) {
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList& other) {
 
    this->head = nullptr;
-   Node* current = other.head;
-   Node* previous = nullptr;
+   Node<T>* current = other.head;
+   Node<T>* previous = nullptr;
 
    //deep copy of list
-   while(current != nullptr) {
-      Node* n = new Node(new Tile(*current->tile), nullptr);
+   while (current != nullptr) {
+      Node<T>* n = new Node<T>(new Tile(*current->tile), nullptr);
 
-      if(previous == nullptr) {
+      if (previous == nullptr) {
          this->head = n;
 
-      } else {
+      }
+      else {
 
-         previous-> next = n;
+         previous->next = n;
       }
 
       previous = n;
@@ -42,13 +43,13 @@ LinkedList::LinkedList(const LinkedList& other) {
    }
 
 }
-
-int LinkedList::size() const {
+template <class T>
+int LinkedList<T>::size() const {
 
    int count = 0;
-   Node* current = head;
+   Node<T>* current = head;
 
-   while(current != nullptr) {
+   while (current != nullptr) {
       ++count;
       current = current->next;
 
@@ -57,17 +58,17 @@ int LinkedList::size() const {
    return count;
 
 }
-
+template <class T>
 //Get a pointer to the node at index provided
-Node* LinkedList::get(const int index) const {
+Node<T>* LinkedList<T>::get(const int index) const {
    int count = 0;
-   Node* current = head;
+   Node<T>* current = head;
 
    //used to return null if index provided is out of bounds   
-   Node* returnNode = nullptr;
+   Node<T>* returnNode = nullptr;
 
    if (index >= 0 && index < size()) {
-      while(count < index) {
+      while (count < index) {
          ++count;
          current = current->next;
 
@@ -75,102 +76,108 @@ Node* LinkedList::get(const int index) const {
       returnNode = current;
    }
 
-return returnNode;
+   return returnNode;
 }
 
 ///*****WE MAY NOT NEED THIS ONE AND CAN BE DELETED IF WE DONT******
 //Adds a node to the front of the list
-void LinkedList::addFront(Tile* tile) {
+template <class T>
+void LinkedList<T>::addFront(T data) {
 
-   Node* toAdd = new Node(tile, nullptr);
+   Node<T>* toAdd = new Node<T>(data, nullptr);
    //check if list is empty and make toAdd the head if so
    if (head == nullptr) {
       head = toAdd;
-   } else {
+   }
+   else {
       toAdd->next = head;
-      head = toAdd; 
-   }
-
-}
-
-
-//Adds a node with provided tile to the end of the list
-void LinkedList::addBack(Tile* tile) {
-   Node* toAdd = new Node(tile, nullptr);
-
-   //If list is empty, make it the head
-   if(head == nullptr) {
       head = toAdd;
-
-   } else {
-
-      Node* current = head;
-      while(current->next != nullptr) {
-         current = current->next;
-
-      }
-
-      current->next = toAdd;
    }
 
 }
 
+template <class T>
+//Adds a node with provided tile to the end of the list
+void LinkedList<T>::addBack(T data) {
+   //    Node<T>* toAdd = new Node<T>(data, nullptr);
 
-//Delete a specified tile from the list
-//N.B. This will only currently delete the first occurance of the provided tile
-//it will not delete duplicates.
-void LinkedList::deleteTile(Tile* tileToDelete) {
-   Node* current = head;
-   Node* previousNode = nullptr;
-   Node* nodeToDelete = nullptr;
+   //    //If list is empty, make it the head
+   //    if (head == nullptr) {
+   //       head = toAdd;
 
-   if(head != nullptr && head->tile->isSameTile(tileToDelete)){
-      nodeToDelete = head;
-      head = head->next;
+   //    }
+   //    else {
 
-   } else {
+   //       Node<T>* current = head;
+   //       while (current->next != nullptr) {
+   //          current = current->next;
 
-      while(current != nullptr && nodeToDelete == nullptr) {
-         if(current->tile->isSameTile(tileToDelete)) {
-            nodeToDelete = current;
-         } else {
-            previousNode = current;
-            current = current->next;
-         }
+   //       }
 
-      } 
+   //       current->next = toAdd;
+   //    }
 
-         if (nodeToDelete != nullptr ) {
-            if(current->next == nullptr) {
-               previousNode->next = nullptr;
-            } else {
-               previousNode->next = current->next;
-            }
-         }
-   }  
+   // }
 
-    if(nodeToDelete != nullptr){
-       delete nodeToDelete;
-    }
-   
+   // template <class T>
+   // //Delete a specified tile from the list
+   // //N.B. This will only currently delete the first occurance of the provided tile
+   // //it will not delete duplicates.
+   // void LinkedList<T>::deleteTile(T data) {
+   //    Node<T>* current = head;
+   //    Node<T>* previousNode = nullptr;
+   //    Node<T>* nodeToDelete = nullptr;
+
+   //    if (head != nullptr && head->data->isSameTile(tileToDelete)) {
+   //       nodeToDelete = head;
+   //       head = head->next;
+
+   //    }
+   //    else {
+
+   //       while (current != nullptr && nodeToDelete == nullptr) {
+   //          if (current->tile->isSameTile(tileToDelete)) {
+   //             nodeToDelete = current;
+   //          }
+   //          else {
+   //             previousNode = current;
+   //             current = current->next;
+   //          }
+
+   //       }
+
+   //       if (nodeToDelete != nullptr) {
+   //          if (current->next == nullptr) {
+   //             previousNode->next = nullptr;
+   //          }
+   //          else {
+   //             previousNode->next = current->next;
+   //          }
+   //       }
+   //    }
+
+   //    if (nodeToDelete != nullptr) {
+   //       delete nodeToDelete;
+   //    }
+
 
 }
-
+template <class T>
 //return true if provided tile is in the list
-bool LinkedList::tileInList(Tile* tile) {
-   
+bool LinkedList<T>::inList(T data) {
+
    bool tileInList = false;
-   Node* current = head;
+   // Node<T>* current = head;
 
-   //Iterate to the end of the list
-   while(current != nullptr) {
+   // //Iterate to the end of the list
+   // while (current != nullptr) {
 
-         if(current->tile-> isSameTile(tile)){
-            tileInList = true;
-         }
+   //    if (current->tile->isSameTile(tile)) {
+   //       tileInList = true;
+   //    }
 
-         current = current->next;
-       }
+   //    current = current->next;
+   // }
 
    return tileInList;
 

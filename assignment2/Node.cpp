@@ -1,23 +1,24 @@
 #include "Node.h"
 
-Node::Node(Tile* tile, Node* next) {
+template <class T>
+Node<T>::Node(T data, Node<T>* next) {
 
-   Colour colour = tile->getColour();
-   Shape shape = tile->getShape();
+   // Colour colour = tile->getColour();
+   // Shape shape = tile->getShape();
 
    this->next = next;
-   this->tile =  new Tile(shape, colour);
+   this->data = data;
 }
+template <class T>
+Node<T>::~Node() {
 
-Node::~Node() {
-
-   delete this->tile;
+   delete this->generic;
 }
-
-Node::Node(const Node& other) {
+template <class T>
+Node<T>::Node(const Node& other) {
 
    this->next = nullptr;
-   this-> tile = new Tile(*other.tile);
+   this->data = other.data;
 
 }
 

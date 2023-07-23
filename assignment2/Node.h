@@ -3,16 +3,17 @@
 
 #include "Tile.h"
 
+template <class T>
 class Node {
 public:
 
-   Node(Tile* tile, Node* next);
+   Node(T data, Node* next);
    ~Node();
    Node(const Node& other);
 
 
-   Tile*    tile;
-   Node*    next;
+   T data;
+   Node<T>* next;
 };
 
 #endif // ASSIGN2_NODE_H

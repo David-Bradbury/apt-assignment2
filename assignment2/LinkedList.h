@@ -3,6 +3,7 @@
 
 #include "Node.h"
 
+template <class T>
 class LinkedList {
 public:
 
@@ -13,19 +14,20 @@ public:
    int size() const;
 
    //retrun node at index
-   Node* get(const int index) const;
+   Node<T>* get(const int index) const;
    //Add to the front of the list
-   void addFront(Tile* tile);
+   // template <class T>
+   void addFront(T data);
    //Add to the back of the list
-   void addBack(Tile* tile);
+   void addBack(T data);
    //delete tile from the list
-   void deleteTile(Tile* tileToDelete);
+   void deleteTile(T data);
    //check if tile is in list
-   bool tileInList(Tile* tile);
+   bool inList(T data);
 
 private:
-   Node* head;
-   
+   Node<T>* head;
+
 };
 
 #endif // ASSIGN2_LINKEDLIST_H

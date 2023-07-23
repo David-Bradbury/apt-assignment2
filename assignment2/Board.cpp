@@ -1,13 +1,23 @@
 #include "Board.h"
 #include <iostream>
 #include <vector>
-// #include "Tile.h"
+#include "LinkedList.h"
+#include "Tile.h"
 
 Board::Board() {
   // We need anything? 
   // this->board = new std::vector<std::vector<Tile>>;
 
   std::vector<Tile> temp;
+
+  // LinkedList<Tile> test = LinkedList<Tile>();
+  // LinkedList<Tile> test;
+  LinkedList<int> test;
+  // Tile te = Tile(4, 'Y');
+  test.addFront(4);
+
+  std::cout << test.get(0);
+
 
   for (int i = 0; i < 26; i++)
   {
@@ -22,7 +32,9 @@ Board::Board() {
         temp.push_back(Tile(3, 'O'));
       }
     }
-    this->board.push_back(temp);
+    // temp[1] = "  ";
+    this->playedTiles.push_back(temp);
+
     temp.clear();
   }
 }
@@ -72,7 +84,7 @@ void Board::printBoard() {
     // Prints the board
     for (int j = 0; j < 26; j++)
     {
-      if (!this->board.empty() && this->board[i][j].getShape() > 0)
+      if (!this->playedTiles.empty() && this->playedTiles[i][j].getShape() > 0)
       {
         tile = true;
       }
@@ -80,7 +92,7 @@ void Board::printBoard() {
       {
         if (tile)
         {
-          std::cout << this->board[i][j].getColour() << this->board[i][j].getShape();
+          std::cout << this->playedTiles[i][j].getColour() << this->playedTiles[i][j].getShape();
         }
         else
         {
@@ -91,7 +103,7 @@ void Board::printBoard() {
       {
         if (tile)
         {
-          std::cout << "" << this->board[i][j].getColour() << this->board[i][j].getShape();
+          std::cout << "" << this->playedTiles[i][j].getColour() << this->playedTiles[i][j].getShape();
         }
         else
         {
@@ -106,6 +118,6 @@ void Board::printBoard() {
   }
 }
 
-void Board::setTile() {
+// // void Board::setTile(Tile tile, std::string location) {
 
-}
+// }

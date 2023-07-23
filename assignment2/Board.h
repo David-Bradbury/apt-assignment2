@@ -13,10 +13,10 @@ public:
   //Print Board
   void printBoard();
   //Sets Tile in board
-  void setTile();
+  // void setTile(Tile tile, std::string location);
 
 private:
-  std::vector<std::vector<Tile>> board;
+  std::vector<std::vector<Tile>> playedTiles;
 
 };
 
