@@ -2,6 +2,9 @@
 #include <iostream>
 #include <vector>
 #include "LinkedList.h"
+#include "LinkedList.cpp"
+#include "Node.h"
+#include "Node.cpp"
 #include "Tile.h"
 
 Board::Board() {
@@ -11,10 +14,10 @@ Board::Board() {
   std::vector<Tile> temp;
 
   // LinkedList<Tile> test = LinkedList<Tile>();
-  // LinkedList<Tile> test;
-  LinkedList<int> test;
-  // Tile te = Tile(4, 'Y');
-  test.addFront(4);
+  LinkedList<Tile> test;
+  // LinkedList<int> test;
+  Tile te = Tile(4, 'Y');
+  test.addFront(te);
 
   std::cout << test.get(0);
 

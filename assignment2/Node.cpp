@@ -12,10 +12,10 @@ Node<T>::Node(T data, Node<T>* next) {
 template <class T>
 Node<T>::~Node() {
 
-   delete this->generic;
+   // delete this->data;
 }
 template <class T>
-Node<T>::Node(const Node& other) {
+Node<T>::Node(const Node<T>& other) {
 
    this->next = nullptr;
    this->data = other.data;

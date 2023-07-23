@@ -1,9 +1,16 @@
 #include "Tile.h"
 
-Tile::Tile (Shape shape, Colour colour) {
-    
-    this->shape = shape;
-    this->colour = colour;
+Tile::Tile(Shape shape, Colour colour) {
+
+   this->shape = shape;
+   this->colour = colour;
+
+}
+
+Tile::Tile(const Tile& other) {
+
+   this->shape = other.shape;
+   this->colour = other.colour;
 
 }
 
@@ -17,7 +24,7 @@ Colour Tile::getColour() {
    return this->colour;
 }
 
-bool Tile::isSameTile(Tile* other){
+bool Tile::isSameTile(Tile* other) {
    bool isSame = false;
 
    if (shape == other->getShape() && colour == other->getColour()) {

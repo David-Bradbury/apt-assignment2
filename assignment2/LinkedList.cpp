@@ -1,5 +1,6 @@
 #include "LinkedList.h"
 #include <iostream>
+
 template <class T>
 LinkedList<T>::LinkedList() {
 
@@ -19,7 +20,7 @@ LinkedList<T>::~LinkedList() {
    }
 }
 template <class T>
-LinkedList<T>::LinkedList(const LinkedList& other) {
+LinkedList<T>::LinkedList(const LinkedList<T>& other) {
 
    this->head = nullptr;
    Node<T>* current = other.head;
@@ -27,7 +28,7 @@ LinkedList<T>::LinkedList(const LinkedList& other) {
 
    //deep copy of list
    while (current != nullptr) {
-      Node<T>* n = new Node<T>(new Tile(*current->tile), nullptr);
+      Node<T>* n = new Node<T>(new T(*current->T), nullptr);
 
       if (previous == nullptr) {
          this->head = n;

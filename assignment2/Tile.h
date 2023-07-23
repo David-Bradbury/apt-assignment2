@@ -11,7 +11,8 @@ class Tile {
 public:
 
    Tile(Shape shape, Colour colour);
-   
+   Tile(const Tile& other);
+
    Shape getShape();
    Colour getColour();
    bool isSameTile(Tile* other);
@@ -19,7 +20,7 @@ public:
 private:
    Shape  shape;
    Colour colour;
-   
+
 };
 
 

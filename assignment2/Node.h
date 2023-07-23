@@ -7,9 +7,9 @@ template <class T>
 class Node {
 public:
 
-   Node(T data, Node* next);
+   Node(T data, Node<T>* next);
    ~Node();
-   Node(const Node& other);
+   Node(const Node<T>& other);
 
 
    T data;
