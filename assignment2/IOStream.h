@@ -11,9 +11,11 @@ public:
 
 
    //Saves game and returns true if successful
-   bool saveGame();
+   template<class T>
+   bool saveGame(T content, std::string fileName);
    //Loads game (possibly make it return a string?)
-   void loadGame();
+   void loadGame(std::string fileName);
+   std::string getFileType(std::string fileName);
 
 private:
 

@@ -33,7 +33,6 @@ Board::~Board() {
 }
 
 void Board::printBoard() {
-
   // Prints the numbers across the top of the board
   for (int i = 0; i < 27; i++)
   {
