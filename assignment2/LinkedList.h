@@ -22,6 +22,8 @@ public:
    void deleteTile(Tile* tileToDelete);
    //check if tile is in list
    bool tileInList(Tile* tile);
+   //remove the end of the list
+   void removeEnd();
 
 private:
    Node* head;

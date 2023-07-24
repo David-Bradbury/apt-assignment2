@@ -174,3 +174,25 @@ bool LinkedList::tileInList(Tile* tile) {
 
 }
 
+void LinkedList::removeEnd() {
+
+   if(tail == nullptr) {
+      std::cout << "There is nothing to delete (list is empty)." << std::endl;
+
+   } else if(head == tail) {
+      
+      delete tail;
+      head = nullptr;
+      tail = nullptr;
+
+   } else {
+
+      Node* previousToTail = tail->previous;
+      previousToTail->next = nullptr;
+      delete tail;
+      tail = previousToTail;
+
+   }
+
+}
+

@@ -64,6 +64,19 @@ int main(void) {
 
 
    std::cout<<"Size of Linked List: " << list->size()<<std::endl;
+   std::cout<<"List before remove end"<<std::endl;
+            for(int i = 0; i != list->size() ; i++ ) {
+
+      std::cout<< "list[" << i << "] "<< list->get(i)->tile->getColour()<< " "<< list->get(i)->tile->getShape()<<std::endl;
+   }
+   list->removeEnd();
+
+      std::cout<<"List after remove end"<<std::endl;
+            for(int i = 0; i != list->size() ; i++ ) {
+
+      std::cout<< "list[" << i << "] "<< list->get(i)->tile->getColour()<< " "<< list->get(i)->tile->getShape()<<std::endl;
+   }
+
    delete list;
 
    std::cout << "Welcome to Qwirkle!" << std::endl;
