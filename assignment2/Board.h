@@ -1,7 +1,8 @@
 #ifndef BOARD
 #define BOARD
 
-#include "Tile.h"
+// #include "Tile.h"
+#include "Coordinate.h"
 #include <vector>
 
 class Board {
@@ -16,7 +17,8 @@ public:
   // void setTile(Tile tile, std::string location);
 
 private:
-  std::vector<std::vector<Tile>> playedTiles;
+  // std::vector<std::vector<Tile>> playedTiles;
+  std::vector<std::vector<Coordinate>> coordinates;
 
 };
 

@@ -6,40 +6,40 @@
 #include "Node.h"
 #include "Node.cpp"
 #include "Tile.h"
+#include "Coordinate.h"
 
 Board::Board() {
-  // We need anything? 
-  // this->board = new std::vector<std::vector<Tile>>;
 
-  std::vector<Tile> temp;
-
+  //   // UNCOMMENT TO TEST GENERICS IN LINKEDLIST
+  // LinkedList<Tile> test;
+  // Tile te = Tile(4, 'Y');
+  // test.addFront(te);
   // LinkedList<Tile> test = LinkedList<Tile>();
-  LinkedList<Tile> test;
   // LinkedList<int> test;
-  Tile te = Tile(4, 'Y');
-  test.addFront(te);
+  // std::cout << test.get(0);
 
-  std::cout << test.get(0);
-
+  std::vector<Coordinate> temp;
 
   for (int i = 0; i < 26; i++)
   {
     for (int j = 0; j < 26; j++)
     {
-      if (j % 2 == 0)
-      {
-        temp.push_back(Tile(2, 'R'));
-      }
-      else
-      {
-        temp.push_back(Tile(3, 'O'));
-      }
+      temp.push_back(Coordinate(i, j));
     }
-    // temp[1] = "  ";
-    this->playedTiles.push_back(temp);
-
+    this->coordinates.push_back(temp);
     temp.clear();
   }
+
+  // this->coordinates[25][18].setPlayedTile(new Tile(3, 'O'));
+  // this->coordinates[25][18].setHasPlayedTile(true);
+  // int boardSize = this->coordinates.size();
+  // for (int i = 0; i < boardSize; i++)
+  // {
+  //   for (int j = 0; j < boardSize; j++)
+  //   {
+  //     std::cout << "y" << this->coordinates[i][j].getYCoordinate() << " x" << this->coordinates[i][j].getXCoordinate() << " Tile " << this->coordinates[i][j].getPlayedTile() << std::endl;
+  //   }
+  // }
 }
 
 Board::~Board() {
@@ -72,8 +72,6 @@ void Board::printBoard() {
   }
   std::cout << std::endl;
 
-  // std::string tempTile = "";
-  bool tile = false;
   char y = 'A';
   // Prints the board
   for (int i = 0; i < 26; i++)
@@ -82,41 +80,21 @@ void Board::printBoard() {
     std::cout << y << "  |";
     y++;
 
-    // this->board[1][1] = Tile(2, 'R');
-
     // Prints the board
     for (int j = 0; j < 26; j++)
     {
-      if (!this->playedTiles.empty() && this->playedTiles[i][j].getShape() > 0)
+      if (this->coordinates[i][j].getHasPlayedTile())
       {
-        tile = true;
-      }
-      if (j < 10)
-      {
-        if (tile)
-        {
-          std::cout << this->playedTiles[i][j].getColour() << this->playedTiles[i][j].getShape();
-        }
-        else
-        {
-          std::cout << "  ";
-        }
+        std::cout << "" << this->coordinates[i][j].getPlayedTile()->getColour() << this->coordinates[i][j].getPlayedTile()->getShape();
       }
       else
       {
-        if (tile)
-        {
-          std::cout << "" << this->playedTiles[i][j].getColour() << this->playedTiles[i][j].getShape();
-        }
-        else
-        {
-          std::cout << "  ";
-        }
+        std::cout << "  ";
       }
       std::cout << "|";
-      tile = false;
-      // tempTile = "";
+
     }
+
     std::cout << std::endl;
   }
 }
