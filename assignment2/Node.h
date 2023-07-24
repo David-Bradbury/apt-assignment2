@@ -6,13 +6,14 @@
 class Node {
 public:
 
-   Node(Tile* tile, Node* next);
+   Node(Tile* tile, Node* next, Node* previous);
    ~Node();
    Node(const Node& other);
 
 
    Tile*    tile;
    Node*    next;
+   Node*    previous;
 };
 
 #endif // ASSIGN2_NODE_H

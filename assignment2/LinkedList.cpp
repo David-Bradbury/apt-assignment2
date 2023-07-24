@@ -4,6 +4,7 @@
 LinkedList::LinkedList() {
    
    this-> head = nullptr;
+   this-> tail = nullptr;
    
 }
 
@@ -22,12 +23,13 @@ LinkedList::~LinkedList() {
 LinkedList::LinkedList(const LinkedList& other) {
 
    this->head = nullptr;
+   this->tail = nullptr;
    Node* current = other.head;
    Node* previous = nullptr;
 
    //deep copy of list
    while(current != nullptr) {
-      Node* n = new Node(new Tile(*current->tile), nullptr);
+      Node* n = new Node(new Tile(*current->tile), nullptr, previous);
 
       if(previous == nullptr) {
          this->head = n;
@@ -40,6 +42,8 @@ LinkedList::LinkedList(const LinkedList& other) {
       previous = n;
       current = current->next;
    }
+
+   tail = previous;
 
 }
 
@@ -82,36 +86,31 @@ return returnNode;
 //Adds a node to the front of the list
 void LinkedList::addFront(Tile* tile) {
 
-   Node* toAdd = new Node(tile, nullptr);
+   Node* toAdd = new Node(tile, head, nullptr);
    //check if list is empty and make toAdd the head if so
-   if (head == nullptr) {
-      head = toAdd;
+   if (head != nullptr) {
+      head->previous = toAdd;
    } else {
-      toAdd->next = head;
-      head = toAdd; 
+      tail = toAdd;
+
    }
+   head = toAdd;
 
 }
 
 
 //Adds a node with provided tile to the end of the list
 void LinkedList::addBack(Tile* tile) {
-   Node* toAdd = new Node(tile, nullptr);
+   Node* toAdd = new Node(tile, nullptr, tail);
 
-   //If list is empty, make it the head
-   if(head == nullptr) {
-      head = toAdd;
+   if(tail != nullptr) {
+      tail-> next = toAdd;
 
    } else {
-
-      Node* current = head;
-      while(current->next != nullptr) {
-         current = current->next;
-
-      }
-
-      current->next = toAdd;
+      //if list is empty, set the head as the new node;
+      head = toAdd;
    }
+   tail = toAdd;
 
 }
 
@@ -121,37 +120,35 @@ void LinkedList::addBack(Tile* tile) {
 //it will not delete duplicates.
 void LinkedList::deleteTile(Tile* tileToDelete) {
    Node* current = head;
-   Node* previousNode = nullptr;
-   Node* nodeToDelete = nullptr;
+   bool successful = false;
 
-   if(head != nullptr && head->tile->isSameTile(tileToDelete)){
-      nodeToDelete = head;
-      head = head->next;
+   while (current != nullptr && !successful) {
 
-   } else {
-
-      while(current != nullptr && nodeToDelete == nullptr) {
-         if(current->tile->isSameTile(tileToDelete)) {
-            nodeToDelete = current;
+      if(current->tile->isSameTile(tileToDelete)){
+         if(current->previous != nullptr){
+            //set the pointers to skip node
+            current->previous->next = current->next;
          } else {
-            previousNode = current;
-            current = current->next;
+            //node is the current head
+            head = current->next;
          }
 
-      } 
-
-         if (nodeToDelete != nullptr ) {
-            if(current->next == nullptr) {
-               previousNode->next = nullptr;
-            } else {
-               previousNode->next = current->next;
-            }
+         if(current->next != nullptr) {
+            current->next->previous = current->previous;
+         } else {
+            tail = current->previous;
          }
-   }  
 
-    if(nodeToDelete != nullptr){
-       delete nodeToDelete;
-    }
+         delete current;
+         successful = true;
+      }
+      current = current->next;
+
+   }
+   if(!successful) {
+      std::cout << "Tile was not found in the list" << std::endl;
+   }
+
    
 
 }
