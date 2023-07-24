@@ -17,7 +17,7 @@ public:
 
 
     int getScore();
-    int setScore(int points);
+    void setScore(int points);
     LinkedList* getHand();
 
     void printHand();

@@ -28,10 +28,13 @@
     int Player::getScore() {
         return this->score;
     }
-    int Player::setScore(int points) {
+
+
+    void Player::setScore(int points) {
         this->score = this->score + points;
 
     }
+
     LinkedList* Player::getHand() { 
         return this->hand;
 
