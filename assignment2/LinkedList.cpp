@@ -63,6 +63,7 @@ int LinkedList::size() const {
 }
 
 //Get a pointer to the node at index provided
+//Contract= the provided index needs to be within the size range of the list
 Node* LinkedList::get(const int index) const {
    int count = 0;
    Node* current = head;
