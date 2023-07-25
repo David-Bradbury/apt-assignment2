@@ -11,6 +11,7 @@
     
     try{
       this->player1 = new Player(1, player1);
+      this->tileBag = new LinkedList();
 
     } catch(const std::exception& e) {
       std::cerr << e.what() << std::endl;
@@ -84,6 +85,7 @@
 
         if(numberOfOccurances < 2) {
           tileBag->addBack(tileToAdd);
+          ++tileCount;
 
         } else {
           delete tileToAdd;
@@ -96,14 +98,15 @@
       {
         std::cerr << e.what() << std::endl;
       }
-
-      std::cout << "****Tile Bag Contents****" << std::endl;
-
-      for(int i = 0; i < this->tileBag->size(); ++i) {
-        std::cout << tileBag->get(i)->tile->getShape() << ", " << tileBag->get(i)->tile->getColour() << std::endl;
-      }
       
 
+    }
+      
+      
+    std::cout << "****Tile Bag Contents****" << std::endl;
+
+    for(int i = 0; i < this->tileBag->size(); ++i) {
+      std::cout << i << ": " <<tileBag->get(i)->tile->getShape() << ", " << tileBag->get(i)->tile->getColour() << std::endl;
     }
 
   }
