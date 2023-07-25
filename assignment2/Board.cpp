@@ -2,9 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "LinkedList.h"
-#include "LinkedList.cpp"
 #include "Node.h"
-#include "Node.cpp"
 #include "Tile.h"
 #include "Coordinate.h"
 
@@ -21,6 +19,9 @@ Board::Board() {
     this->coordinates.push_back(temp);
     temp.clear();
   }
+
+  // this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
+  // this->coordinates[16][16].setHasPlayedTile(true);
 
 }
 
