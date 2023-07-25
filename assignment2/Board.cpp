@@ -47,6 +47,7 @@ void Board::printBoard() {
       std::cout << "   ";
     }
   }
+
   std::cout << std::endl;
   // Prints the line under the numbers at the top of the board
   for (int i = 1; i < 26; i++)
@@ -66,7 +67,7 @@ void Board::printBoard() {
     // Prints the board
     for (int j = 0; j < 26; j++)
     {
-      if (this->coordinates[i][j].getHasPlayedTile())
+      if (this->coordinates[i][j].getHasPlayedTile()) // Can we maybe instead of using a bool, we check for null? (get rid of bool variable)
       {
         std::cout << "" << this->coordinates[i][j].getPlayedTile()->getColour() << this->coordinates[i][j].getPlayedTile()->getShape();
       }
