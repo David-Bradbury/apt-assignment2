@@ -1,6 +1,9 @@
 #include "Menu.h"
+#include "GameController.h"
 #include <iostream>
 #include <limits>
+#include <exception>
+
 
 
 
@@ -121,6 +124,21 @@ void Menu::startNewGame() {
 
         std::cout << "Lets Play!" << std::endl;
     }
+
+    try
+    {
+        GameController* gc = new GameController(p1Name, p2Name);
+        gc->startGame();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
+    
+    
+
+    
     
 }
 

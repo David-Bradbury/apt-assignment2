@@ -1,5 +1,5 @@
-#ifndef BOARD
-#define BOARD
+#ifndef ASSIGN2_BOARD_H
+#define ASSIGN2_BOARD_H
 
 #include "Coordinate.h"
 #include <vector>
@@ -12,6 +12,11 @@ public:
 
   void printBoard();
 
+  void checkNorth(Coordinate currentCoord);
+  void checkSouth(Coordinate currentCoord);
+  void checkEast(Coordinate currentCoord);
+  void checkWest(Coordinate currentCoord);
+
 
 private:
 
@@ -19,4 +24,4 @@ private:
 
 };
 
-#endif // BOARD
+#endif // ASSIGN2_BOARD_H

@@ -1,5 +1,5 @@
-#ifndef COORDINATE
-#define COORDINATE
+#ifndef ASSIGN2_COORDINATE_H
+#define ASSIGN2_COORDINATE_H
 
 #include "Tile.h"
 
@@ -25,4 +25,4 @@ private:
 
 };
 
-#endif // COORDINATE
+#endif // ASSIGN2_COORDINATE_H

@@ -1,5 +1,5 @@
-#ifndef PLAYER
-#define PLAYER 
+#ifndef ASSIGN2_PLAYER_H
+#define ASSIGN2_PLAYER_H
 
 #include <string>
 #include "LinkedList.h"
@@ -32,4 +32,4 @@ private:
 
 };
 
-#endif //PLAYER
+#endif //ASSIGN2_PLAYER_H

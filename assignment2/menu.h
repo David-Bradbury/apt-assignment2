@@ -1,5 +1,5 @@
-#ifndef MENU
-#define MENU 
+#ifndef ASSIGN2_MENU_H
+#define ASSIGN2_MENU_H 
 
 #include <string>
 
@@ -39,4 +39,4 @@ private:
 
 };
 
-#endif //MENU
+#endif //ASSIGN2_MENU_H
