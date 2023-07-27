@@ -30,8 +30,11 @@ Board::Board() {
     temp.clear();
   }
 
-  // this->coordinates[25][18].setPlayedTile(new Tile(3, 'O'));
-  // this->coordinates[25][18].setHasPlayedTile(true);
+  this->coordinates[25][18].setPlayedTile(new Tile(3, 'O'));
+  this->coordinates[25][18].setHasPlayedTile(true);
+
+  this->coordinates[24][18].setPlayedTile(new Tile(2, 'O'));
+  this->coordinates[24][18].setHasPlayedTile(true);
   // int boardSize = this->coordinates.size();
   // for (int i = 0; i < boardSize; i++)
   // {
@@ -83,7 +86,8 @@ void Board::printBoard() {
     // Prints the board
     for (int j = 0; j < 26; j++)
     {
-      if (this->coordinates[i][j].getHasPlayedTile())
+      // if (this->coordinates[i][j].getHasPlayedTile())
+      if (this->coordinates[i][j].getPlayedTile() != nullptr)
       {
         std::cout << "" << this->coordinates[i][j].getPlayedTile()->getColour() << this->coordinates[i][j].getPlayedTile()->getShape();
       }
