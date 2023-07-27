@@ -21,8 +21,6 @@ Board::Board() {
   }
 
   // this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
-  // this->coordinates[16][16].setHasPlayedTile(true);
-
 }
 
 Board::~Board() {
@@ -67,7 +65,7 @@ void Board::printBoard() {
     // Prints the board
     for (int j = 0; j < 26; j++)
     {
-      if (this->coordinates[i][j].getHasPlayedTile()) // Can we maybe instead of using a bool, we check for null? (get rid of bool variable)
+      if (this->coordinates[i][j].getPlayedTile() != nullptr)
       {
         std::cout << "" << this->coordinates[i][j].getPlayedTile()->getColour() << this->coordinates[i][j].getPlayedTile()->getShape();
       }
