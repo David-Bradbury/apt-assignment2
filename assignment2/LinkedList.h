@@ -13,7 +13,7 @@ public:
    int size() const;
 
    //retrun node at index
-   Node* get(const int index) const;
+   Tile* get(const int index) const;
    //Add to the front of the list
    void addFront(Tile* tile);
    //Add to the back of the list
@@ -25,10 +25,12 @@ public:
    //remove the end of the list
    void removeEnd();
 
+   void deleteFront();
+
 private:
    Node* head;
    Node* tail;
-   
+
 };
 
 #endif // ASSIGN2_LINKEDLIST_H

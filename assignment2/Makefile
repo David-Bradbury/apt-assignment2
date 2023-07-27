@@ -5,7 +5,7 @@ all: qwirkle
 clean:
 	rm -rf qwirkle *.o *.dSYM
 
-qwirkle: Tile.o Node.o LinkedList.o qwirkle.o Menu.o Player.o Board.o Coordinate.o GameController.o
+qwirkle: Tile.o Node.o LinkedList.o qwirkle.o menu.o Player.o Board.o Coordinate.o GameController.o
 	g++ -Wall -Werror -std=c++14 -g -O -o $@ $^
 
 %.o: %.cpp
