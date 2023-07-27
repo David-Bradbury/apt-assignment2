@@ -182,7 +182,7 @@ void Menu::printCredits() {
     std::cout << "Student ID: s3782003" << std::endl;
     std::cout << "Email: s3782003@student.rmit.edu.au" << std::endl;
 
-    std::cout << "Name: David Bradbury" << std::endl;
+    std::cout << "Name: David Pulvirenti" << std::endl;
     std::cout << "Student ID: s3858853" << std::endl;
     std::cout << "Email: s3858853@student.rmit.edu.au" << std::endl;
 

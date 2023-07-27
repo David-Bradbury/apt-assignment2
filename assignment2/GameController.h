@@ -9,6 +9,7 @@
 #include <string>
 
 #define MAX_TILES   72
+#define MAX_TILE_OCCURENCES 2
 
 class GameController {
 public:
@@ -23,6 +24,8 @@ public:
 
   void createTileBag();
   int generateRandomInt(int min, int max);
+  // This method is called when starting a new game and sets up the hands for the players involved in the game. When setting up the hands 
+  // Players take turns drawing from the tilebag one at a time until they have full hands (like dealing cards).
   void setupHands();
 
   void takeInput();

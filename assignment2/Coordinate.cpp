@@ -1,9 +1,9 @@
 #include "Coordinate.h"
 #include "Tile.h"
 
-Coordinate::Coordinate(int y, int x) {
-  this->yCoordinate = y;
-  this->xCoordinate = x;
+Coordinate::Coordinate(int row, int col) {
+  this->rowCoordinate = row;
+  this->colCoordinate = col;
   this->playedTile = nullptr;
   hasPlayedTile = false;
 }
@@ -12,11 +12,11 @@ Coordinate::~Coordinate() {
   delete this->playedTile; // LinkedList take care of this?
 }
 
-int Coordinate::getYCoordinate() {
-  return this->yCoordinate;
+int Coordinate::getRowCoordinate() {
+  return this->rowCoordinate;
 }
-int Coordinate::getXCoordinate() {
-  return this->xCoordinate;
+int Coordinate::getColCoordinate() {
+  return this->colCoordinate;
 }
 
 void Coordinate::setPlayedTile(Tile* tile) {

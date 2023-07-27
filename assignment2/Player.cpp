@@ -3,12 +3,15 @@
 
 Player::Player(int iD, std::string name) {
 
-    this->iD = iD;
-    this->name = name;
-    this->hand = nullptr;
-    this->score = 0;
-
-
+    try {
+        this->iD = iD;
+        this->name = name;
+        this->hand = new LinkedList();
+        this->score = 0;
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
 }
 
 Player::~Player() {
@@ -40,35 +43,37 @@ LinkedList* Player::getHand() {
 
 }
 
-//Need to check that hand is full before printing!
+
+// Should I place a try/catch block in here?
 void Player::printHand() {
 
     if (this->hand->size() == FULL_HAND) {
+        int i = 0;
+        while (i < (FULL_HAND - 1)) {
 
-        for (int i = 0; i < FULL_HAND; i++) {
+            std::cout << this->hand->get(i)->getColour() << this->hand->get(i)->getShape() << ",";
 
-            std::cout << this->hand->get(i) << ", ";
+            i++;
         }
-        std::cout << std::endl;
+        std::cout << this->hand->get(i)->getColour() << this->hand->get(i)->getShape() << std::endl;
     }
     else {
         std::cerr << "Hand can not be printed as hand is not complete." << std::endl;
     }
 }
 
+
 void Player::printScore() {
 
     std::cout << this->name << "'s score: " << this->score << std::endl;
 }
 
-void Player::addToHand(Tile* tile) {
-    std::cout << "****In Add To Hand****" << std::endl;
-    // if (this->hand->size() < FULL_HAND) {
-    std::cout << "****@nd In Add To Hand****" << std::endl;
-    this->hand->addBack(tile);
-    std::cout << "****3Rd in After Add To Hand****" << std::endl;
-    //  }
 
+void Player::addToHand(Tile* tile) {
+
+    if (this->hand->size() < FULL_HAND) {
+        this->hand->addBack(tile);
+    }
 }
 
 

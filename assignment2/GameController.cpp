@@ -1,6 +1,7 @@
 #include "GameController.h"
 #include "Tile.h"
 #include "TileCodes.h"
+#include "menu.h"
 #include <iostream>
 #include <exception>
 #include <random>
@@ -11,30 +12,12 @@ GameController::GameController(std::string player1, std::string player2) {
 
   try {
     this->player1 = new Player(1, player1);
-
-  }
-  catch (const std::exception& e) {
-    std::cerr << e.what() << std::endl;
-
-  }
-
-
-  try {
     this->player2 = new Player(2, player2);
-
-  }
-  catch (const std::exception& e) {
-    std::cerr << e.what() << std::endl;
-
-  }
-
-  try {
     this->board = new Board();
     this->tileBag = new LinkedList();
   }
   catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
-
   }
 }
 
@@ -43,7 +26,7 @@ GameController::~GameController() {
 }
 
 void  GameController::startGame() {
-
+  // Menu menu(); First thing IN MORNING!!!!
   createTileBag();
   setupHands();
 
@@ -82,7 +65,7 @@ void  GameController::createTileBag() {
         }
       }
 
-      if (numberOfOccurances < 2) {
+      if (numberOfOccurances < MAX_TILE_OCCURENCES) {
         tileBag->addBack(tileToAdd);
         tileCount++;
       }
@@ -99,6 +82,7 @@ void  GameController::createTileBag() {
 
 
   }
+  // Remove after testing
   std::cout << "****Tile Bag Contents****" << std::endl;
   for (int i = 0; i < this->tileBag->size(); ++i) {
     std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
@@ -117,45 +101,57 @@ int GameController::generateRandomInt(int min, int max) {
 
 void  GameController::setupHands() {
 
-  // for (int i = 0; i < FULL_HAND; i++) {
-  Tile* tile = new Tile(CIRCLE, RED);
-  Tile* tile2 = new Tile(CIRCLE, ORANGE);
-  Tile* tile3 = new Tile(CIRCLE, BLUE);
-  std::cout << "****Before Add to hand****" << std::endl;
-  player1->addToHand(tile);
-  std::cout << "****After Add To Hand****" << std::endl;
-  player1->addToHand(tile);
-  player1->addToHand(tile2);
-  player1->addToHand(tile2);
-  player1->addToHand(tile3);
-  player1->addToHand(tile3);
-  // std::cout << tileBag->get(0)->getColour() << tileBag->get(0)->getShape() << std::endl;
-  // player2->addToHand(tileBag->get(2));
+  for (int i = 0; i < FULL_HAND; i++) {
+    player1->addToHand(tileBag->get(0));
+    tileBag->deleteFront();
+    player2->addToHand(tileBag->get(0));
+    tileBag->deleteFront();
+  }
 
-  tileBag->deleteFront();
-  // }
+  // All following code needs to be removed, here for testing.
   std::cout << "****Tile Bag Contents****" << std::endl;
   for (int i = 0; i < this->tileBag->size(); ++i) {
     std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
   }
-
-  // std::cout << "****Players hand Contents****" << std::endl;
-
+  std::cout << "****Players hand Contents****" << std::endl;
   std::cout << "Player 1 hand" << std::endl;
   player1->printHand();
-
-  // std::cout << "Player 2 hand" << std::endl;
-  // player2->printHand();
-
+  std::cout << "Player 2 hand" << std::endl;
+  player2->printHand();
 }
 
 void  GameController::takeInput() {
+  // cin > command
 
+  // string.split(command)  
+
+  // if (place)
+  //  checkHand(2nd string.split);
+  //  if (checkHand == true) {
+  //   at string is correct "place g6 at b4" "place g6 to b4"
+
+  // convert tile string to int in gamecontroller class in own function.
+  //   checkBoard(b4) // to see if move is valid, and that board position is free. pass 2 ints, row and col. Most likely involde multiple function 
+  // calls from this function to determine bool value. The rules need to be checked here
+  //   if (checkBoard == true)
+
+  //   placeTile
+
+//}
+  // convert string coords to int in coord class. DB
+// also need to add the replace, exit and save input handling too.
+
+// Need to figure out where to print messages from.
+// need to rearrange class structure to start with gamecontroller, then create a menu within the gamecontroller.
 }
 
+// maybe program by contract function as we assume checks have previously been made to ensure placing tile is a valid move.
 void  GameController::placeTile(Tile* tile, char row, int col) {
 
+  //this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
+  //this->coordinates[16][16].setHasPlayedTile(true);
 }
+
 void  GameController::replaceTile(Tile* tile) {
 
 }

@@ -10,9 +10,9 @@ Board::Board() {
 
   std::vector<Coordinate> temp;
 
-  for (int i = 0; i < 26; i++)
+  for (int i = 0; i < MAX_ROW; i++)
   {
-    for (int j = 0; j < 26; j++)
+    for (int j = 0; j < MAX_COL; j++)
     {
       temp.push_back(Coordinate(i, j));
     }
@@ -20,8 +20,8 @@ Board::Board() {
     temp.clear();
   }
 
-  //this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
-  //this->coordinates[16][16].setHasPlayedTile(true);
+  // this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
+  // this->coordinates[16][16].setHasPlayedTile(true);
 
 }
 
@@ -32,7 +32,7 @@ Board::~Board() {
 
 void Board::printBoard() {
   // Prints the numbers across the top of the board
-  for (int i = 0; i < 27; i++)
+  for (int i = 0; i <= MAX_COL; i++)
   {
     if (i > 0 && i < 11)
     {
@@ -50,22 +50,26 @@ void Board::printBoard() {
 
   std::cout << std::endl;
   // Prints the line under the numbers at the top of the board
-  for (int i = 1; i < 26; i++)
+  for (int i = 1; i < MAX_COL; i++)
   {
-    std::cout << "----";
+    if (i % 3 == 0) {
+      std::cout << "----";
+    }
+    else
+      std::cout << "---";
   }
   std::cout << std::endl;
 
   char y = 'A';
   // Prints the board
-  for (int i = 0; i < 26; i++)
+  for (int i = 0; i < MAX_ROW; i++)
   {
     // Prints the char on the left side of the board
     std::cout << y << "  |";
     y++;
 
     // Prints the board
-    for (int j = 0; j < 26; j++)
+    for (int j = 0; j < MAX_COL; j++)
     {
       if (this->coordinates[i][j].getHasPlayedTile())
       {

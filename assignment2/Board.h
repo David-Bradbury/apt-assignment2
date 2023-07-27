@@ -4,6 +4,9 @@
 #include "Coordinate.h"
 #include <vector>
 
+#define MAX_ROW 26
+#define MAX_COL 26
+
 class Board {
 public:
 
@@ -12,10 +15,12 @@ public:
 
   void printBoard();
 
-  void checkNorth(Coordinate currentCoord);
-  void checkSouth(Coordinate currentCoord);
-  void checkEast(Coordinate currentCoord);
-  void checkWest(Coordinate currentCoord);
+  Coordinate getNorth(Coordinate currentCoord); // maybe pass int row, int col instead.
+  Coordinate getSouth(Coordinate currentCoord);
+  Coordinate getEast(Coordinate currentCoord);
+  Coordinate getWest(Coordinate currentCoord);
+
+  void checkLocation(Coordinate currentCoord);
 
 
 private:
