@@ -184,6 +184,22 @@ void GameController::printTurn() {
     std::getline(std::cin, input);
 
     std::cout << input << std::endl;
+    std::istringstream iss(input);
+    std::string command;
+    iss >> command;
+
+    std::cout << command << std::endl;
+
+        iss >> command;
+
+    std::cout << command << std::endl;
+        iss >> command;
+
+    std::cout << command << std::endl;
+    //each seperate word seperated by white space is treated as a new command,
+    //we can use the if (std::cin.eof()) 
+    // to look for th end of the stream, everything else can be sorted with if statements hopefully
+
 
 }
 
@@ -195,25 +211,33 @@ void  GameController::placeTile(Tile* tile, char row, int col) {
 }
 
 bool  GameController::replaceTile(Tile* tile) {
-  
+
   bool turnSuccess = false;
 
-  if (this->currPlayer->getHand()->tileInList(tile)) {
+  if (this->tileBag->size() > 0) {
+    
+    if (this->currPlayer->getHand()->tileInList(tile)) {
 
-    this->currPlayer->getHand()->removeTile(tile);
-    this->currPlayer->addToHand(this->tileBag->get(0));
-    this->tileBag->deleteFront();
-    this->tileBag->addBack(tile);
-    turnSuccess = true;
+      this->currPlayer->getHand()->removeTile(tile);
+      this->currPlayer->addToHand(this->tileBag->get(0));
+      this->tileBag->deleteFront();
+      this->tileBag->addBack(tile);
+
+      turnSuccess = true;
+
+    } else {
+      std::cerr << "Tile is not in players hand" << std::endl;
+    }
 
   }
 
   else {
-    std::cerr << "Tile is not in players hand" << std::endl;
+    std::cerr << "No more tiles in the tilebag" << std::endl;
   }
 
   return turnSuccess;
 }
+
 
 
 
