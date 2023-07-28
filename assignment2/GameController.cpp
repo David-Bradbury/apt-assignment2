@@ -197,8 +197,8 @@ void GameController::printTurn() {
 
     std::cout << command << std::endl;
     //each seperate word seperated by white space is treated as a new command,
-    //we can use the if (std::cin.eof()) 
-    // to look for th end of the stream, everything else can be sorted with if statements hopefully
+    //I think we need to concatenate a char like % or something on the end of the string so we can test for the end of it,
+    //this is because we still want eof to quit the program. so if(command == %) would be do next thing and if( eof), quit program.
 
 
 }
