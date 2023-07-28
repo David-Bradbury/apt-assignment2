@@ -26,7 +26,7 @@ GameController::~GameController() {
 }
 
 void  GameController::startGame() {
-  // Menu menu(); First thing IN MORNING!!!!
+  // Not sure about changing menu structure.
   createTileBag();
   setupHands();
 
