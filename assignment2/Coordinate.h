@@ -6,11 +6,11 @@
 class Coordinate {
 public:
 
-  Coordinate(int y, int x);
+  Coordinate(int row, int col);
   ~Coordinate();
 
-  int getYCoordinate();
-  int getXCoordinate();
+  int getRowCoordinate();
+  int getColCoordinate();
   void setPlayedTile(Tile* tile);
   Tile* getPlayedTile();
   void setHasPlayedTile(bool played);
@@ -18,8 +18,8 @@ public:
 
 
 private:
-  int yCoordinate;
-  int xCoordinate;
+  int rowCoordinate;
+  int colCoordinate;
   Tile* playedTile;
   bool hasPlayedTile;
 

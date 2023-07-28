@@ -4,6 +4,8 @@
 #include <string>
 #include "LinkedList.h"
 
+#define FULL_HAND 6
+
 class Player
 {
 public:
@@ -17,14 +19,15 @@ public:
 
 
     int getScore();
-    void setScore(int points);
-    LinkedList* getHand();
-
-    void printHand();
+    void addToScore(int points);
     void printScore();
 
+    LinkedList* getHand();
+    void printHand();
+    void addToHand(Tile* tile);
+
 private:
-    
+
     int iD;
     std::string name;
     int score;
