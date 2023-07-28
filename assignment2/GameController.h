@@ -11,6 +11,12 @@
 #define MAX_TILES   72
 #define MAX_TILE_OCCURENCES 2
 
+enum selection {
+    PLAYER_1 = 1,
+    PLAYER_2 = 2,
+
+};
+
 class GameController {
 public:
 
@@ -29,6 +35,7 @@ public:
   void setupHands();
 
   void takeInput();
+  void printTurn(int iD);
   void placeTile(Tile* tile, char row, int col);
   void replaceTile(Tile* tile);
 

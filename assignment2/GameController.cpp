@@ -149,6 +149,20 @@ void  GameController::takeInput() {
 // need to rearrange class structure to start with gamecontroller, then create a menu within the gamecontroller.
 }
 
+void GameController::printTurn(int iD) {
+
+  if(iD == PLAYER_1) {   
+    std::cout << this->player1->getName();
+  } else {
+    std::cout << this->player2->getName();
+  }
+
+  std::cout << ", it's your turn" << std::endl;
+  std::cout << "Score for " << this->player1->getName() << ":" << this->player1->getScore();
+   
+
+}
+
 // maybe program by contract function as we assume checks have previously been made to ensure placing tile is a valid move.
 void  GameController::placeTile(Tile* tile, char row, int col) {
 
