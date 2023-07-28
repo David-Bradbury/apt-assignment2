@@ -20,7 +20,7 @@ Board::Board() {
     temp.clear();
   }
 
-  // this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
+   this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
 }
 
 Board::~Board() {
