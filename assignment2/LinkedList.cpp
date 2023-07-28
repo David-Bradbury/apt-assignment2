@@ -118,10 +118,10 @@ void LinkedList::addBack(Tile* tile) {
 }
 
 
-//Delete a specified tile from the list
+//Remove a specified tile from the list
 //N.B. This will only currently delete the first occurance of the provided tile
 //it will not delete duplicates.
-void LinkedList::deleteTile(Tile* tileToDelete) {
+void LinkedList::removeTile(Tile* tileToDelete) {
    Node* current = head;
    bool successful = false;
 
@@ -144,7 +144,6 @@ void LinkedList::deleteTile(Tile* tileToDelete) {
             tail = current->previous;
          }
 
-         delete current;
          successful = true;
       }
       current = current->next;

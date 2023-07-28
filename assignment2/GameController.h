@@ -11,7 +11,7 @@
 #define MAX_TILES   72
 #define MAX_TILE_OCCURENCES 2
 
-enum selection {
+enum turn {
     PLAYER_1 = 1,
     PLAYER_2 = 2,
 
@@ -35,9 +35,9 @@ public:
   void setupHands();
 
   void takeInput();
-  void printTurn(int iD);
+  void printTurn();
   void placeTile(Tile* tile, char row, int col);
-  void replaceTile(Tile* tile);
+  bool replaceTile(Tile* tile);
 
   void scoreTurn();
 

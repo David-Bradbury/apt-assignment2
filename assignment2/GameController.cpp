@@ -5,6 +5,7 @@
 #include <iostream>
 #include <exception>
 #include <random>
+#include <sstream>
 
 
 
@@ -31,6 +32,9 @@ void  GameController::prepareGame() {
   // Not sure about changing menu structure.
   createTileBag();
   setupHands();
+  this->turnID = PLAYER_1;
+
+  printTurn();
 
 
 }
@@ -149,29 +153,41 @@ void  GameController::takeInput() {
 // need to rearrange class structure to start with gamecontroller, then create a menu within the gamecontroller.
 }
 
-void GameController::printTurn(int iD) {
+void GameController::printTurn() {
 
-  if(iD == PLAYER_1) {   
+  if(this->turnID == PLAYER_1) {   
     std::cout << this->player1->getName();
   } else {
     std::cout << this->player2->getName();
   }
 
   std::cout << ", it's your turn" << std::endl;
-  std::cout << "Score for " << this->player1->getName() << ":" << this->player1->getScore() << std::endl;
-  std::cout << "Score for " << this->player2->getName() << ":" << this->player2->getScore() << std::endl;
+  std::cout << "Score for " << this->player1->getName() << ": " << this->player1->getScore() << std::endl;
+  std::cout << "Score for " << this->player2->getName() << ": " << this->player2->getScore() << std::endl;
   this->board->printBoard();
 
   std::cout << "Your hand is" << std::endl;
+  std::cout << std::endl;
 
-  if(iD == PLAYER_1) {   
+  if(this->turnID == PLAYER_1) {   
     player1->printHand();
   } else {
     player2->printHand();
   }
 
   std::cout << std::endl;
-   
+
+    char randomInput;
+    while ((randomInput = std::cin.get()) != '\n') {
+
+    }
+
+    std::string input;
+
+    std::cout << "> ";
+    std::getline(std::cin, input);
+
+    std::cout << input << std::endl;
 
 }
 
@@ -182,9 +198,28 @@ void  GameController::placeTile(Tile* tile, char row, int col) {
   //this->coordinates[16][16].setHasPlayedTile(true);
 }
 
-void  GameController::replaceTile(Tile* tile) {
+bool  GameController::replaceTile(Tile* tile) {
+  
+  bool turnSuccess = false;
 
+  if (this->currPlayer->getHand()->tileInList(tile)) {
+
+    this->currPlayer->getHand()->removeTile(tile);
+    this->currPlayer->addToHand(this->tileBag->get(0));
+    this->tileBag->deleteFront();
+    this->tileBag->addBack(tile);
+    turnSuccess = true;
+
+  }
+
+  else {
+    std::cerr << "Tile is not in players hand" << std::endl;
+  }
+
+  return turnSuccess;
 }
+
+
 
 void  GameController::scoreTurn() {
 

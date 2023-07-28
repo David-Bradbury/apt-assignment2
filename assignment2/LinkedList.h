@@ -19,7 +19,7 @@ public:
    //Add to the back of the list
    void addBack(Tile* tile);
    //delete tile from the list
-   void deleteTile(Tile* tileToDelete);
+   void removeTile(Tile* tileToDelete);
    //check if tile is in list
    bool tileInList(Tile* tile);
    //remove the end of the list
