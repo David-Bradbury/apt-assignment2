@@ -32,7 +32,8 @@ void  GameController::prepareGame() {
   // Not sure about changing menu structure.
   createTileBag();
   setupHands();
-  this->turnID = PLAYER_1;
+  this->currPlayer = player1;
+  
 
   printTurn();
 
@@ -155,25 +156,20 @@ void  GameController::takeInput() {
 
 void GameController::printTurn() {
 
-  if(this->turnID == PLAYER_1) {   
-    std::cout << this->player1->getName();
-  } else {
-    std::cout << this->player2->getName();
-  }
-
+  std::cout << this->currPlayer->getName();
   std::cout << ", it's your turn" << std::endl;
-  std::cout << "Score for " << this->player1->getName() << ": " << this->player1->getScore() << std::endl;
-  std::cout << "Score for " << this->player2->getName() << ": " << this->player2->getScore() << std::endl;
-  this->board->printBoard();
-
-  std::cout << "Your hand is" << std::endl;
   std::cout << std::endl;
 
-  if(this->turnID == PLAYER_1) {   
-    player1->printHand();
-  } else {
-    player2->printHand();
-  }
+  std::cout << "Score for " << this->player1->getName() << ": " << this->player1->getScore() << std::endl;
+  std::cout << "Score for " << this->player2->getName() << ": " << this->player2->getScore() << std::endl;
+  std::cout << std::endl;
+  this->board->printBoard();
+
+   std::cout << std::endl;
+
+  std::cout << "Your hand is" << std::endl;
+
+  this->currPlayer->printHand();
 
   std::cout << std::endl;
 
