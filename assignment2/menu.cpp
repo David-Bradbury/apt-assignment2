@@ -130,7 +130,7 @@ void Menu::startNewGame() {
     try
     {
         GameController* gc = new GameController(p1Name, p2Name);
-        gc->startGame();
+        gc->prepareGame();
     }
     catch (const std::exception& e)
     {

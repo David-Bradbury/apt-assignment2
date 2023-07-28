@@ -25,7 +25,7 @@ GameController::~GameController() {
 
 }
 
-void  GameController::startGame() {
+void  GameController::prepareGame() {
   // Not sure about changing menu structure.
   createTileBag();
   setupHands();

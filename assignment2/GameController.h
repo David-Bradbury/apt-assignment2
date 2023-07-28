@@ -17,7 +17,7 @@ public:
   GameController(std::string player1, std::string player2);
   ~GameController();
 
-  void startGame();
+  void prepareGame();
   void endGame();
   void quit();
   void saveGame(std::string fileName, std::string data);
