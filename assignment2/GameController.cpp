@@ -36,6 +36,7 @@ void  GameController::prepareGame() {
   
 
   printTurn();
+  takeInput();
 
 
 }
@@ -130,28 +131,35 @@ void  GameController::setupHands() {
 }
 
 void  GameController::takeInput() {
-  // cin > command
 
-  // string.split(command)  
+  char randomInput;
+  //empty while loop to consume buffer prior to input
+  while ((randomInput = std::cin.get()) != '\n') {}
 
-  // if (place)
-  //  checkHand(2nd string.split);
-  //  if (checkHand == true) {
-  //   at string is correct "place g6 at b4" "place g6 to b4"
+  std::string input;
 
-  // convert tile string to int in gamecontroller class in own function.
-  //   checkBoard(b4) // to see if move is valid, and that board position is free. pass 2 ints, row and col. Most likely involde multiple function 
-  // calls from this function to determine bool value. The rules need to be checked here
-  //   if (checkBoard == true)
+  std::cout << "> ";
+  std::getline(std::cin, input);
 
-  //   placeTile
+  std::cout << input << std::endl;
+  input = input + " &%";
+  std::istringstream iss(input);
+  std::string command;
+   
+    
 
-//}
-  // convert string coords to int in coord class. DB
-// also need to add the replace, exit and save input handling too.
+  while(command != "&%") {
 
-// Need to figure out where to print messages from.
-// need to rearrange class structure to start with gamecontroller, then create a menu within the gamecontroller.
+    iss >> command;
+
+    std::cout << command << std::endl;
+
+  }
+
+    //each seperate word seperated by white space is treated as a new command,
+    //I think we need to concatenate a char like % or something on the end of the string so we can test for the end of it,
+    //this is because we still want eof to quit the program. so if(command == %) would be do next thing and if( eof), quit program.
+  
 }
 
 void GameController::printTurn() {
@@ -173,32 +181,7 @@ void GameController::printTurn() {
 
   std::cout << std::endl;
 
-    char randomInput;
-    while ((randomInput = std::cin.get()) != '\n') {
-
-    }
-
-    std::string input;
-
-    std::cout << "> ";
-    std::getline(std::cin, input);
-
-    std::cout << input << std::endl;
-    std::istringstream iss(input);
-    std::string command;
-    iss >> command;
-
-    std::cout << command << std::endl;
-
-        iss >> command;
-
-    std::cout << command << std::endl;
-        iss >> command;
-
-    std::cout << command << std::endl;
-    //each seperate word seperated by white space is treated as a new command,
-    //I think we need to concatenate a char like % or something on the end of the string so we can test for the end of it,
-    //this is because we still want eof to quit the program. so if(command == %) would be do next thing and if( eof), quit program.
+   
 
 
 }
