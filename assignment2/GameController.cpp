@@ -158,7 +158,19 @@ void GameController::printTurn(int iD) {
   }
 
   std::cout << ", it's your turn" << std::endl;
-  std::cout << "Score for " << this->player1->getName() << ":" << this->player1->getScore();
+  std::cout << "Score for " << this->player1->getName() << ":" << this->player1->getScore() << std::endl;
+  std::cout << "Score for " << this->player2->getName() << ":" << this->player2->getScore() << std::endl;
+  this->board->printBoard();
+
+  std::cout << "Your hand is" << std::endl;
+
+  if(iD == PLAYER_1) {   
+    player1->printHand();
+  } else {
+    player2->printHand();
+  }
+
+  std::cout << std::endl;
    
 
 }
