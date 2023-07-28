@@ -13,15 +13,12 @@ public:
   int getColCoordinate();
   void setPlayedTile(Tile* tile);
   Tile* getPlayedTile();
-  void setHasPlayedTile(bool played);
-  bool getHasPlayedTile();
 
 
 private:
   int rowCoordinate;
   int colCoordinate;
   Tile* playedTile;
-  bool hasPlayedTile;
 
 };
 

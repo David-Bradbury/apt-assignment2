@@ -21,8 +21,6 @@ Board::Board() {
   }
 
   // this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
-  // this->coordinates[16][16].setHasPlayedTile(true);
-
 }
 
 Board::~Board() {
@@ -71,7 +69,8 @@ void Board::printBoard() {
     // Prints the board
     for (int j = 0; j < MAX_COL; j++)
     {
-      if (this->coordinates[i][j].getHasPlayedTile())
+
+      if (this->coordinates[i][j].getPlayedTile() != nullptr)
       {
         std::cout << "" << this->coordinates[i][j].getPlayedTile()->getColour() << this->coordinates[i][j].getPlayedTile()->getShape();
       }

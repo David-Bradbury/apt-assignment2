@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "menu.h"
 #include "GameController.h"
 #include <iostream>
 #include <limits>
@@ -136,6 +136,7 @@ void Menu::startNewGame() {
     {
         std::cerr << e.what() << std::endl;
     }
+
 }
 
 bool Menu::isValidName(std::string& input) {

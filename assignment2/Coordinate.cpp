@@ -5,7 +5,6 @@ Coordinate::Coordinate(int row, int col) {
   this->rowCoordinate = row;
   this->colCoordinate = col;
   this->playedTile = nullptr;
-  hasPlayedTile = false;
 }
 
 Coordinate::~Coordinate() {
@@ -25,12 +24,4 @@ void Coordinate::setPlayedTile(Tile* tile) {
 
 Tile* Coordinate::getPlayedTile() {
   return this->playedTile;
-}
-
-void Coordinate::setHasPlayedTile(bool played) {
-  this->hasPlayedTile = played;
-}
-
-bool Coordinate::getHasPlayedTile() {
-  return this->hasPlayedTile;
 }
