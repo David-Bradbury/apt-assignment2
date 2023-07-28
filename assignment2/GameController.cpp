@@ -5,6 +5,7 @@
 #include <iostream>
 #include <exception>
 #include <random>
+#include <iostream>
 
 
 
@@ -25,10 +26,16 @@ GameController::~GameController() {
 
 }
 
-void  GameController::startGame() {
+void  GameController::prepareGame() {
   // Not sure about changing menu structure.
+
+  // Filling tile bag and player hands.
   createTileBag();
   setupHands();
+  this->currPlayer = player1;
+
+
+  //playGame();
 
 
 }
@@ -120,18 +127,77 @@ void  GameController::setupHands() {
   player2->printHand();
 }
 
-void  GameController::takeInput() {
-  // cin > command
 
-  // string.split(command)  
+void GameController::playGame() {
+  takeInput();
+  // while (tileBag->size() > 0 && (player1->getHand()->size() > 0 || player2->getHand()->size() > 0)) {
+
+     //   if(turnID == 1) {
+     //     print(turnID);
+     //     takeInput();
+     //   }
+
+
+  // }
+}
+
+void  GameController::takeInput() {
+
+  char randomInput;
+
+  while ((randomInput = std::cin.get()) != '\n') {
+
+  }
+
+  std::string command;
+
+  std::cout << "> ";
+  std::getline(std::cin, command);
+
+  std::cout << command;
+
+  // std::string commands[4];
+  // int i = 0;
+  // commands[0] = "test";
+  // while (!commands[i].empty()) {
+
+  //   std::cout << "> ";
+  //   std::cin >> commands[i];
+  //   i++;
+  // }
+
+  // for (int i = 0; i < 4; i++) {
+  //   std::cout << commands[i] << std::endl;
+  // }
+
+
+  // std::tolower(command);
+
+  // if(command.i"quit")
+
+  // char* ptr;
+
+  // ptr = std::strtok(command, " ");
+
+  // char** comamandTokens;
+
+  // while (ptr != NULL) {
+  //   int i = 0;
+  //   comamandTokens[i] = ptr;
+  //   std::cout << comamandTokens[i] << std::endl;
+  //   std::cout << ptr << std::endl;
+  //   i++;
+  // }
+
 
   // if (place)
-  //  checkHand(2nd string.split);
+  // split the string more tile/at/location.
+  //  checkHand(tile);
   //  if (checkHand == true) {
-  //   at string is correct "place g6 at b4" "place g6 to b4"
+  //   at string is correct "place g6 at b4" NOT "place g6 to b4"
 
   // convert tile string to int in gamecontroller class in own function.
-  //   checkBoard(b4) // to see if move is valid, and that board position is free. pass 2 ints, row and col. Most likely involde multiple function 
+  //   checkBoard(b4) // to see if move is valid, and that board position is free. pass 2 ints, row and col. Most likely involde multiple function
   // calls from this function to determine bool value. The rules need to be checked here
   //   if (checkBoard == true)
 
@@ -152,9 +218,23 @@ void  GameController::placeTile(Tile* tile, char row, int col) {
   //this->coordinates[16][16].setHasPlayedTile(true);
 }
 
-void  GameController::replaceTile(Tile* tile) {
+bool  GameController::replaceTile(Tile* tile) {
 
+  bool turnSuccess = false;
+
+  if (this->currPlayer->getHand()->tileInList(tile)) {
+    this->currPlayer->getHand()->removeTile(tile);
+    this->currPlayer->addToHand(this->tileBag->get(0));
+    this->tileBag->deleteFront();
+    this->tileBag->addBack(tile);
+    turnSuccess = true;
+  }
+  else {
+    std::cerr << "Tile is not in players hand" << std::endl;
+  }
+  return turnSuccess;
 }
+
 
 void  GameController::scoreTurn() {
 

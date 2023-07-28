@@ -11,13 +11,18 @@
 #define MAX_TILES   72
 #define MAX_TILE_OCCURENCES 2
 
+enum turn {
+  PLAYER_1 = 1,
+  PLAYER_2 = 2
+};
+
 class GameController {
 public:
 
   GameController(std::string player1, std::string player2);
   ~GameController();
 
-  void startGame();
+  void prepareGame();
   void endGame();
   void quit();
   void saveGame(std::string fileName, std::string data);
@@ -30,9 +35,12 @@ public:
 
   void takeInput();
   void placeTile(Tile* tile, char row, int col);
-  void replaceTile(Tile* tile);
+  bool replaceTile(Tile* tile);
 
   void scoreTurn();
+
+
+  void playGame();
 
 
 
@@ -44,7 +52,7 @@ private:
   Player* player1;
   Player* player2;
   Board* board;
-  int turnID;
+  Player* currPlayer;
 
 
 
