@@ -194,6 +194,12 @@ void  GameController::placeTile(Tile* tile, char row, int col) {
 }
 
 bool  GameController::replaceTile(Tile* tile) {
+  /*      bool validTileCode = checkValidTileCode(command);
+      if(validTileCode){
+         Tile tile = convertToTile(command);
+      } else {
+         std::cerr << "Not a valid tile code." << std::endl;
+      }*/
 
   bool turnSuccess = false;
 
