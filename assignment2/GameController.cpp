@@ -22,7 +22,10 @@ GameController::GameController(std::string player1, std::string player2) {
 }
 
 GameController::~GameController() {
-
+ delete this->player1;
+ delete this->player2;
+ delete this->board;
+ delete this->tileBag
 }
 
 void  GameController::prepareGame() {
