@@ -99,7 +99,7 @@ void Board::printBoard() {
     std::cout << std::endl;
   }
 }
-
+// need to add more checks
 bool Board::boardPosEmpty(std::string location) {
     bool isEmpty = false;
       Coordinate* position = convertStringToCoord(location); 
