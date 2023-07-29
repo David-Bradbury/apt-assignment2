@@ -34,6 +34,7 @@ public:
   // Players take turns drawing from the tilebag one at a time until they have full hands (like dealing cards).
   void setupHands();
 
+  bool equalIgnoreCase(std::string string1, std::string string2);
   void takeInput();
   void printTurn();
   void placeTile(Tile* tile, char row, int col);
