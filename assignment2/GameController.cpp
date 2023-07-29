@@ -35,17 +35,6 @@ void  GameController::prepareGame() {
 
   printTurn();
   takeInput();
-  // playGame();
-  // std::string tile;
-  // std::cout << "Enter tile > ";
-  // std::cin >> tile;
-
-  // std::cout << "tile[0]: " << tile[0] << std::endl;
-  // std::cout << "tile[1]: " << tile[1] << std::endl;
-
-  // bool value = replaceTile(tile);
-
-  // std::cout << "Success: " << value << std::endl;
 
   std::cout << "****Tile Bag Contents****" << std::endl;
   for (int i = 0; i < this->tileBag->size(); ++i) {
@@ -56,11 +45,6 @@ void  GameController::prepareGame() {
   player1->printHand();
   std::cout << "Player 2 hand" << std::endl;
   player2->printHand();
-
-
-  // Tile* tile = this->player1->getHand()->get(0);
-
-
 
 }
 
@@ -177,6 +161,8 @@ void  GameController::takeInput() {
 
   std::string input;
   std::cout << "> ";
+  char randomInput;
+  while ((randomInput = std::cin.get()) != '\n') {}
   std::getline(std::cin, input);
 
   input = input + " &%";
@@ -196,84 +182,79 @@ void  GameController::takeInput() {
   iss.str(input);
 
 
-  while (command != "&%" || !std::cin.eof()) {
 
-    do {
-      iss >> command;
 
-      if (equalIgnoreCase(command, "replace")) {
-        if (commandCount == 2) {
-          std::cout << "run replace tile function" << std::endl;
-          iss >> command;
-          std::cout << "command: " << command << std::endl;
-          validInput = replaceTile(command);
+  do {
+    iss >> command;
 
-        }
-        else {
-          std::cerr << "Invalid number of commands" << std::endl;
-        }
+    if (equalIgnoreCase(command, "replace")) {
+      if (commandCount == 2) {
+        iss >> command;
+        validInput = replaceTile(command);
       }
-
-      if (equalIgnoreCase(command, "place")) {
-        if (commandCount == 4) {
-          std::cout << "run place tile function" << std::endl;
-          //iss >> command;
-          //validInput = placeTile(command);
-
-        }
-        else {
-          std::cerr << "Invalid number of commands with place" << std::endl;
-        }
+      else {
+        std::cerr << "Replace command only takes one tile" << std::endl; // probs need better error messages
       }
+    }
+    else if (equalIgnoreCase(command, "place")) {
+      if (commandCount == 4) {
+        std::cout << "run place tile function" << std::endl;
+        //iss >> command;
+        //validInput = placeTile(command);
 
-      if (equalIgnoreCase(command, "save")) {
-        if (commandCount == 2) {
-          std::cout << "run save function" << std::endl;
-          //iss >> command;
-          //validInput = save(command);
-
-        }
-        else {
-          std::cerr << "Invalid number of commands" << std::endl;
-        }
       }
-      if (!validInput) {
-        // char randomInput;
-        // //empty while loop to consume buffer prior to input
-        // while ((randomInput = std::cin.get()) != '\n') {}
+      else {
+        std::cerr << "Invalid number of commands with place" << std::endl;
+      }
+    }
+    else if (equalIgnoreCase(command, "save")) {
+      if (commandCount == 2) {
+        std::cout << "run save function" << std::endl;
+        //iss >> command;
+        //validInput = save(command);
 
-        std::cout << "> ";
-        std::getline(std::cin, input);
-        input = input + " &%";
-        iss.clear();
-        iss.str(input);
+      }
+      else {
+        std::cerr << "Invalid number of commands" << std::endl;
+      }
+    }
+    else {
+      std::cerr << "Invalid Command" << std::endl;
+    }
+    if (!validInput) {
+      // char randomInput;
+      // //empty while loop to consume buffer prior to input
+      // while ((randomInput = std::cin.get()) != '\n') {}
+
+      std::cout << "> ";
+      std::getline(std::cin, input);
+      input = input + " &%";
+      iss.clear();
+      iss.str(input);
 
 
 
 
-        commandCount = -1;
-        std::cout << "Input: " << input << std::endl;
+      commandCount = -1;
+      std::cout << "Input: " << input << std::endl;
 
-        while (!equalIgnoreCase(command, "&%")) {
-          std::cout << command << std::endl;
-          iss >> command;
-          ++commandCount;
-
-        }
-
-        iss.clear();
-        iss.str(input);
-
-        std::cout << "Command count: " << commandCount << std::endl;
-
+      while (!equalIgnoreCase(command, "&%")) {
+        std::cout << command << std::endl;
+        iss >> command;
+        ++commandCount;
 
       }
 
-    } while (!validInput);
+      iss.clear();
+      iss.str(input);
 
-  }
+      std::cout << "Command count: " << commandCount << std::endl;
 
 
+    }
+
+  } while (!validInput); // || !std::cin.eof() // need to check for eof somehow!
+  std::cout << "I'm out of do while looperino" << std::endl;
 }
 
 void GameController::printTurn() {
@@ -297,7 +278,7 @@ void GameController::printTurn() {
 
 }
 
-
+// method where the game loop is executed until end
 void GameController::playGame() {
   // takeInput();
 
@@ -375,7 +356,6 @@ bool  GameController::replaceTile(std::string tileCode) {
       std::cerr << e.what() << '\n';
     }
   }
-
   return turnSuccess;
 }
 
@@ -390,26 +370,24 @@ bool GameController::checkValidTileCode(std::string tileCode) {
 
   bool validTileCode = false;
 
-  std::toupper(tileCode[0]);
-  std::toupper(tileCode[1]);
-
+  char colour = std::toupper(tileCode[0]);
   int shape = tileCode[1] - '0';
 
   if (tileCode.length() == 2) {
 
     //check Colour
-    if (tileCode[0] == RED || tileCode[0] == ORANGE || tileCode[0] == YELLOW ||
-      tileCode[0] == GREEN || tileCode[0] == BLUE || tileCode[0] == PURPLE) {
+    if (colour == RED || colour == ORANGE || colour == YELLOW ||
+      colour == GREEN || colour == BLUE || colour == PURPLE) {
       // check Shape
       if (shape >= CIRCLE && shape <= CLOVER) {
         validTileCode = true;
       }
       else {
-        std::cerr << "Tilecode is not a valid shape" << std::endl;
+        std::cerr << shape << " is not a valid shape" << std::endl;
       }
     }
     else {
-      std::cerr << "Tilecode is not a valid colour" << std::endl;
+      std::cerr << colour << " is not a valid colour" << std::endl;
     }
   }
   else {
@@ -421,7 +399,7 @@ bool GameController::checkValidTileCode(std::string tileCode) {
 
 Tile* GameController::convertToTile(std::string tileCode) {
 
-  char colour = tileCode[0];
+  char colour = std::toupper(tileCode[0]);
   int shape = tileCode[1] - '0';
 
   Tile* tile = new Tile(shape, colour);

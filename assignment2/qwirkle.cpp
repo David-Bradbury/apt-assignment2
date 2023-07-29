@@ -13,12 +13,6 @@
 
 int main(void) {
 
-   Board board;
-
-   board.printBoard();
-
-
-
    std::cout << "Welcome to Qwirkle!" << std::endl;
    std::cout << "-------------------" << std::endl;
 
