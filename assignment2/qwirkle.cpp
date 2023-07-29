@@ -28,6 +28,7 @@ bool equalIgnoreCase(std::string string1, std::string string2) {
 }
 int main(void) {
 
+
    std::string input;
 
    std::cout << "> ";
@@ -36,18 +37,18 @@ int main(void) {
    input = input + " &%";
 
    std::istringstream iss(input);
+   std::istringstream issCount(input);
    std::string command;
+
    bool validInput = false;
-   std::string comCopy = command;
    int commandCount = -1;
 
    while(command != "&%") {
-       iss >> command;
+       issCount >> command;
       ++commandCount;
 
    }
 
-   std::cout << commandCount << std::endl;
     
 
   while(command != "&%" || !std::cin.eof() ) {
@@ -73,7 +74,7 @@ int main(void) {
                //validInput = placeTile(command);
 
             }else {
-               std::cerr << "Invalid number of commands" << std::endl;
+               std::cerr << "Invalid number of commands with place" << std::endl;
             }
          }
 
@@ -87,6 +88,31 @@ int main(void) {
                std::cerr << "Invalid number of commands" << std::endl;
             }
          }
+         if(!validInput) {
+            // char randomInput;
+            // //empty while loop to consume buffer prior to input
+            // while ((randomInput = std::cin.get()) != '\n') {}
+
+            std::cout << "> ";
+            std::getline(std::cin, input);
+            iss.str(input);
+            issCount.str(input);
+            //iss.clear();
+            input = input + " &%";
+            commandCount = -1;
+            std::cout <<"Input: " << input << std::endl;
+
+            while(command != "&%") {
+               issCount >> command;
+               ++commandCount;
+
+            }
+            
+            std::cout <<"Command count: " << commandCount << std::endl;
+
+
+         }
+         
 
 
       } while(!validInput);
