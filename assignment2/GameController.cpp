@@ -251,13 +251,10 @@ void  GameController::takeInput() {
       iss.clear();
       iss.str(input);
 
-      std::cout << "Command count: " << commandCount << std::endl;
-
-
     }
 
   } while (!validInput); // || !std::cin.eof() // need to check for eof somehow!
-  std::cout << "I'm out of do while looperino" << std::endl;
+ 
 }
 
 void GameController::printTurn() {
