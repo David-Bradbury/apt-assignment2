@@ -102,3 +102,7 @@ void Board::printBoard() {
   }
 }
 
+bool Board::boardPosEmpty(std::string location) {
+
+}
+

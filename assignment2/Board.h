@@ -20,7 +20,7 @@ public:
   Coordinate getEast(Coordinate currentCoord);
   Coordinate getWest(Coordinate currentCoord);
 
-  void checkLocation(Coordinate currentCoord);
+  bool boardPosEmpty(std::string location);
 
 
 private:

@@ -220,39 +220,6 @@ void  GameController::takeInput() {
   iss >> command;
 
   std::cout << command << std::endl;
-  // std::string commands[4];
-  // int i = 0;
-  // commands[0] = "test";
-  // while (!commands[i].empty()) {
-
-  //   std::cout << "> ";
-  //   std::cin >> commands[i];
-  //   i++;
-  // }
-
-  // for (int i = 0; i < 4; i++) {
-  //   std::cout << commands[i] << std::endl;
-  // }
-
-
-  // std::tolower(command);
-
-  // if(command.i"quit")
-
-  // char* ptr;
-
-  // ptr = std::strtok(command, " ");
-
-  // char** comamandTokens;
-
-  // while (ptr != NULL) {
-  //   int i = 0;
-  //   comamandTokens[i] = ptr;
-  //   std::cout << comamandTokens[i] << std::endl;
-  //   std::cout << ptr << std::endl;
-  //   i++;
-  // }
-
 
   // if (place)
   // split the string more tile/at/location.
@@ -279,6 +246,25 @@ void  GameController::takeInput() {
 bool  GameController::placeTile(std::string tileCode, std::string location) {
 
   bool tileCanBePlaced = false;
+  bool validTileCode = checkValidTileCode(tileCode);
+
+  if (validTileCode) {
+
+    if (board->boardPosEmpty(location)) {
+
+    }
+    try
+    {
+      Tile* tile = convertToTile(tileCode);
+
+      delete tile;
+    }
+    catch (const std::exception& e)
+    {
+      std::cerr << e.what() << '\n';
+    }
+  }
+
   //this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
   //this->coordinates[16][16].setHasPlayedTile(true);
 
