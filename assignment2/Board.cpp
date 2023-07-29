@@ -101,16 +101,25 @@ void Board::printBoard() {
 }
 
 bool Board::boardPosEmpty(std::string location) {
-      Coordinate position = convertStringToCoord(location); 
+    bool isEmpty = false;
+      Coordinate* position = convertStringToCoord(location); 
+      
+    if(position->getPlayedTile() == nullptr) {
+        isEmpty = true;
+    }
+    return isEmpty;
  }
 
-Coordinate board::convertStringToCoord(std::string location) {
+Coordinate* board::convertStringToCoord(std::string location) {
+    
+    Coordinate* coord = nullptr;
     if(location.length() == 2) {
         int row = location[0] - ASCII; 
         int col = location[1] - 1;
         
-        
+        cooord = new Coordinate(row, col);
     } else {
         std::cerr << "location length is invalid" << std::endl;
     }
+    return coord;
 }
