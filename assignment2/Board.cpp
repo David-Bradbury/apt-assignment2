@@ -107,8 +107,10 @@ bool Board::boardPosEmpty(std::string location) {
 Coordinate board::convertStringToCoord(std::string location) {
     if(location.length() == 2) {
         int row = location[0] - ASCII; 
-        int col = location[1];
+        int col = location[1] - 1;
         
         
+    } else {
+        std::cerr << "location length is invalid" << std::endl;
     }
 }
