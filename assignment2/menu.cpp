@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "menu.h"
 #include "GameController.h"
 #include <iostream>
 #include <limits>
@@ -30,12 +30,12 @@ void Menu::printMenu() {
     bool validInput = false;
     bool endOfFile = false;
 
-    while(!validInput && input != EXIT && !endOfFile ) {
+    while (!validInput && input != EXIT && !endOfFile) {
 
         std::cout << "> ";
 
 
-        if(std::cin >> input){
+        if (std::cin >> input) {
 
             if (input == START) {
                 startNewGame();
@@ -56,25 +56,27 @@ void Menu::printMenu() {
                 std::cout << "Invalid Input" << std::endl;
 
             }
-        } else {
+        }
+        else {
 
-            if(std::cin.eof()){
+            if (std::cin.eof()) {
                 endOfFile = true;
                 std::cout << "End of file recieved" << std::endl;
 
-            } else {
+            }
+            else {
                 std::cout << "Invalid Input" << std::endl;
                 //clears error state from bad input to prevent infinite loop
                 std::cin.clear();
-                
+
                 //empty while loop to consume and discard bad input from user until newline is reached.
                 //uses std::cin.get() to keep receiving input.
                 char randomInput;
-                while((randomInput = std::cin.get()) != '\n') {
+                while ((randomInput = std::cin.get()) != '\n') {
 
                 }
 
-            }   
+            }
         }
 
     }
@@ -92,15 +94,15 @@ void Menu::startNewGame() {
     std::cin >> p1Name;
 
     //Validate input if not uppercase letters
-    if(!isValidName(p1Name)) {
+    if (!isValidName(p1Name)) {
         do {
 
-        std::cout << "Error: please enter a valid name for Player 1(uppercase characters only)" << std::endl;
+            std::cout << "Error: please enter a valid name for Player 1(uppercase characters only)" << std::endl;
 
-        std::cout << "> ";
-        std::cin >> p1Name;
+            std::cout << "> ";
+            std::cin >> p1Name;
 
-        } while(!isValidName(p1Name));
+        } while (!isValidName(p1Name));
     }
 
     std::cout << "Enter A Name For Player 2 (uppercase characters only)" << std::endl;
@@ -108,19 +110,19 @@ void Menu::startNewGame() {
     std::cin >> p2Name;
 
     //Validate input if not uppercase letters
-    if(!isValidName(p2Name)) {
+    if (!isValidName(p2Name)) {
 
-    do {
+        do {
 
-        std::cout << "Enter A Name For Player 2 (uppercase characters only)" << std::endl;
+            std::cout << "Enter A Name For Player 2 (uppercase characters only)" << std::endl;
 
-        std::cout << "> ";
-        std::cin >> p2Name;
+            std::cout << "> ";
+            std::cin >> p2Name;
 
-        } while(!isValidName(p2Name));
+        } while (!isValidName(p2Name));
 
-        std::cout << "Player 1's Name = " << p1Name <<std::endl;
-        std::cout << "Player 2's Name = " << p2Name <<std::endl;
+        std::cout << "Player 1's Name = " << p1Name << std::endl;
+        std::cout << "Player 2's Name = " << p2Name << std::endl;
 
         std::cout << "Lets Play!" << std::endl;
     }
@@ -130,24 +132,24 @@ void Menu::startNewGame() {
         GameController* gc = new GameController(p1Name, p2Name);
         gc->startGame();
     }
-    catch(const std::exception& e)
+    catch (const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
     }
 
-    
-    
 
-    
-    
+
+
+
+
 }
 
 bool Menu::isValidName(std::string& input) {
     bool valid = true;
 
 
-    for(char c :input) {
-        if(!std::isalpha(c) || !std::isupper(c)) {
+    for (char c : input) {
+        if (!std::isalpha(c) || !std::isupper(c)) {
             valid = false;
 
         }
