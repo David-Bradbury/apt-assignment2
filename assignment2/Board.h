@@ -6,6 +6,7 @@
 
 #define MAX_ROW 26
 #define MAX_COL 26
+#define ASCII 65
 
 class Board {
 public:
@@ -20,7 +21,8 @@ public:
   Coordinate getEast(Coordinate currentCoord);
   Coordinate getWest(Coordinate currentCoord);
 
-  // bool boardPosEmpty(std::string location);
+   bool boardPosEmpty(std::string location);
+   Coordinate convertStringToCoord(std::string location);
 
 
 private:
