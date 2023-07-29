@@ -100,7 +100,15 @@ void Board::printBoard() {
   }
 }
 
-// bool Board::boardPosEmpty(std::string location) {
+bool Board::boardPosEmpty(std::string location) {
+      Coordinate position = convertStringToCoord(location); 
+ }
 
-// }
-
+Coordinate board::convertStringToCoord(std::string location) {
+    if(location.length() == 2) {
+        int row = location[0] - 65; // fix magic numbers
+        int col = location[1];
+        
+        
+    }
+}
