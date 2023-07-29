@@ -12,9 +12,9 @@
 #define MAX_TILE_OCCURENCES 2
 
 enum turn {
-    PLAYER_1 = 1,
-    PLAYER_2 = 2,
 
+  PLAYER_1 = 1,
+  PLAYER_2 = 2
 };
 
 class GameController {
@@ -36,12 +36,24 @@ public:
 
   bool equalIgnoreCase(std::string string1, std::string string2);
   void takeInput();
+
   void printTurn();
-  void placeTile(Tile* tile, char row, int col);
-  bool replaceTile(Tile* tile);
+  bool placeTile(std::string tileCode, std::string location);
+  bool replaceTile(std::string tileCode);
+
 
   void scoreTurn();
 
+
+  void playGame();
+
+  // Checks that the string passed, follows the rules of the qwirkle tiles, given in Tilecodes.h.
+  // Returns custom error messages if not.
+  bool checkValidTileCode(std::string tileCode);
+
+  // Convert a tileCode to a tile for various functions within the game. Programming by contract as it is assumed
+  // the tileCode has been checked with the checkValidTileCode function declared above.
+  Tile* convertToTile(std::string tileCode);
 
 
 

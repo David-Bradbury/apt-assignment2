@@ -20,7 +20,21 @@ Board::Board() {
     temp.clear();
   }
 
-   this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
+
+  this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
+
+  this->coordinates[15][16].setPlayedTile(new Tile(2, 'R'));
+
+  this->coordinates[14][16].setPlayedTile(new Tile(6, 'R'));
+
+  this->coordinates[13][16].setPlayedTile(new Tile(1, 'R'));
+
+  this->coordinates[16][17].setPlayedTile(new Tile(4, 'Y'));
+
+  this->coordinates[16][15].setPlayedTile(new Tile(4, 'B'));
+
+
+
 }
 
 Board::~Board() {
@@ -85,4 +99,8 @@ void Board::printBoard() {
     std::cout << std::endl;
   }
 }
+
+// bool Board::boardPosEmpty(std::string location) {
+
+// }
 
