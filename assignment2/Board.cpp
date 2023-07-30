@@ -103,7 +103,7 @@ void Board::printBoard() {
 //         int row = location[0] - ASCII; 
 //         int col = location[1] - 1;
 
-//       //  cooord = new Coordinate(row, col);
+//       //  cooord = new Coordinate(row, col); // Not ne coord but getcoord
 //     } else {
 //         std::cerr << "location length is invalid" << std::endl;
 //     }

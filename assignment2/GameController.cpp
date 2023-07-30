@@ -62,6 +62,22 @@ void  GameController::prepareGame() {
 
 void  GameController::endGame() {
 
+  std::cout << "Game Over" << std::endl;
+  std::cout << "Score for " << this->player1->getName() << ": " << this->player1->getScore() << std::endl;
+  std::cout << "Score for " << this->player2->getName() << ": " << this->player2->getScore() << std::endl;
+
+  if (this->player1->getScore() > this->player2->getScore()) {
+    std::cout << "Player " << this->player1->getName() << " won!" << std::endl;
+  }
+  else if (this->player1->getScore() < this->player2->getScore()) {
+    std::cout << "Player " << this->player2->getName() << " won!" << std::endl;
+  }
+  else if (this->player1->getScore() == this->player2->getScore()) {
+    std::cout << "It is a draw!" << std::endl;
+  }
+
+  //quitGame();
+
 }
 void  GameController::quit() {
 
