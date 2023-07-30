@@ -19,7 +19,7 @@ public:
   void startGame();
   void endGame();
   void quit();
-  void saveGame(std::string fileName);
+  void saveGame();
 
   void createTileBag();
   int generateRandomInt(int min, int max);
@@ -36,12 +36,12 @@ public:
 
 private:
 
-LinkedList* tileBag;
-LinkedList* playedTiles;
-Player* player1;
-Player* player2;
-Board* board;
-int turnID;
+  LinkedList* tileBag;
+  LinkedList* playedTiles;
+  Player* player1;
+  Player* player2;
+  Board* board;
+  int turnID;
 
 
 

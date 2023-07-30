@@ -48,7 +48,8 @@ void  GameController::startGame() {
   std::cout << "Before create tile bag creation" << std::endl;
 
   createTileBag();
-  saveGame("test.save");
+
+  saveGame();
 
 }
 
@@ -58,9 +59,19 @@ void  GameController::endGame() {
 void  GameController::quit() {
 
 }
-void  GameController::saveGame(std::string fileName) {
+void  GameController::saveGame() {
   IOStream stream;
-  stream.saveGame("TEST /n", fileName);
+
+  std::cout << "Enter A filename for save (filetype must be .save)" << std::endl;
+  std::cout << "> ";
+  std::string fileName;
+  std::cin >> fileName;
+
+  // Testing purposes
+  std::string saveData;
+  std::cin >> saveData;
+
+  stream.saveGame(saveData, fileName);
 
 }
 
