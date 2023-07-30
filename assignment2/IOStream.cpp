@@ -28,44 +28,22 @@ bool IOStream::saveGame(std::string data, std::string fileName) {
   std::stringstream stream;
 
   stream.str(data);
-  // char c;
-  // int i = 0;
-    // try
-    // {
-  file.open(save);
-  // while (i < data.size())
-  // {
-  //   // Save to file
-  //   // c = contents ??
-  //   file.put(c);
-  //   i++;
-  // }
-  std::cout << "Before input" << std::endl;
-  // file << "WHY";
-  std::cout << "after save" << std::endl;
-  // while (!stream.eof())
-  // {
-    //   // Save to file
-    //   // c = contents ??
-    //   // getline(stream, '/n');
-    //   // file.app(getline(stream, '/n'));
-    // file.app(stream.get(c));
-  file << data;
-  //   // i++;
-// }
-  file.close();
-  successStatus = true;
-  // }
-  // catch (const std::filesystem::filesystem_error& e)
-  // {
-  //   std::cerr << e.what() << '\n';
-  // }
-  // catch (const std::exception& e)
-  // {
-  //   std::cerr << e.what() << '\n';
-  // }
 
-  std::cout << "end of function" << std::endl;
+  try
+  {
+    file.open(save);
+    file << data;
+    file.close();
+    successStatus = true;
+  }
+  catch (const std::filesystem::filesystem_error& e)
+  {
+    std::cerr << e.what() << '\n';
+  }
+  catch (const std::exception& e)
+  {
+    std::cerr << e.what() << '\n';
+  }
   return successStatus;
 }
 
