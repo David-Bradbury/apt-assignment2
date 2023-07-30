@@ -21,56 +21,50 @@ bool IOStream::saveGame(std::string data, std::string fileName) {
 
   bool successStatus = false;
   std::ofstream file;
-  std::string fileType = getFileType(fileName);
+  std::string fileType = ".save";
   std::string save = "saved_games/";
   save.append(fileName);
+  save.append(fileType);
   std::stringstream stream;
 
   stream.str(data);
   // char c;
   // int i = 0;
-  if (fileType != "save")
-  {
-    std::cerr << "Incorrect Filetype entered" << std::endl;
-  }
-  else
-  {
     // try
     // {
-    file.open(save);
-    // while (i < data.size())
-    // {
+  file.open(save);
+  // while (i < data.size())
+  // {
+  //   // Save to file
+  //   // c = contents ??
+  //   file.put(c);
+  //   i++;
+  // }
+  std::cout << "Before input" << std::endl;
+  // file << "WHY";
+  std::cout << "after save" << std::endl;
+  // while (!stream.eof())
+  // {
     //   // Save to file
     //   // c = contents ??
-    //   file.put(c);
-    //   i++;
-    // }
-    std::cout << "Before input" << std::endl;
-    // file << "WHY";
-    std::cout << "after save" << std::endl;
-    // while (!stream.eof())
-    // {
-      //   // Save to file
-      //   // c = contents ??
-      //   // getline(stream, '/n');
-      //   // file.app(getline(stream, '/n'));
-      // file.app(stream.get(c));
-    file << data;
-    //   // i++;
+    //   // getline(stream, '/n');
+    //   // file.app(getline(stream, '/n'));
+    // file.app(stream.get(c));
+  file << data;
+  //   // i++;
+// }
+  file.close();
+  successStatus = true;
   // }
-    file.close();
-    successStatus = true;
-    // }
-    // catch (const std::filesystem::filesystem_error& e)
-    // {
-    //   std::cerr << e.what() << '\n';
-    // }
-    // catch (const std::exception& e)
-    // {
-    //   std::cerr << e.what() << '\n';
-    // }
+  // catch (const std::filesystem::filesystem_error& e)
+  // {
+  //   std::cerr << e.what() << '\n';
+  // }
+  // catch (const std::exception& e)
+  // {
+  //   std::cerr << e.what() << '\n';
+  // }
 
-  }
   std::cout << "end of function" << std::endl;
   return successStatus;
 }

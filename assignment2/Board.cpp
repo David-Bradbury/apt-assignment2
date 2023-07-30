@@ -9,6 +9,8 @@
 Board::Board() {
 
   std::vector<Coordinate> temp;
+  this->rows = MAX_ROW;
+  this->cols = MAX_COL;
 
   for (int i = 0; i < 26; i++)
   {
@@ -81,5 +83,26 @@ void Board::printBoard() {
 
     std::cout << std::endl;
   }
+}
+
+void Board::setRows(int row) {
+  this->rows = row;
+}
+
+void Board::setCols(int col) {
+  this->cols = col;
+}
+
+int Board::getRows() {
+  return this->rows;
+}
+
+int Board::getCols() {
+  return this->cols;
+}
+
+std::vector < std::vector<Coordinate>> Board::getCoordinates()
+{
+  return this->coordinates;
 }
 

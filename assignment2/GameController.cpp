@@ -5,6 +5,8 @@
 #include <exception>
 #include <random>
 #include "IOStream.h"
+#include <sstream>
+#include <string>
 
 
 GameController::GameController(std::string player1, std::string player2) {
@@ -62,18 +64,85 @@ void  GameController::quit() {
 void  GameController::saveGame() {
   IOStream stream;
 
+  // char randomInput;
+
+  // while ((randomInput = std::cin.get()) != '\n') {}
+
   std::cout << "Enter A filename for save (filetype must be .save)" << std::endl;
   std::cout << "> ";
   std::string fileName;
   std::cin >> fileName;
 
-  // Testing purposes
-  std::string saveData;
-  std::cin >> saveData;
+  std::string saveData = "";
+  // Player One Name
+  saveData += this->player1->getName();
+  saveData += '\n';
+  // Player One Score
+  saveData += std::to_string(this->player1->getScore());
+  saveData += '\n';
+  // Player One hand
+  // LinkedList* p1Hand = this->player1->getHand();
+  // std::cout << p1Hand->get(1);
+  // for (int i = 0; i < p1Hand->size(); i++)
+  for (int i = 0; i < 6; i++)
+  {
+    // saveData += p1Hand->get(i)->tile->getColour();
+    // saveData += this->player1->getHand()->get(i)->tile->getColour();
+    // saveData += std::to_string(p1Hand->get(i)->tile->getShape());
+    saveData += ',';
+  }
+  saveData += '\n';
+
+  // Player Two Name
+  saveData += this->player2->getName();
+  saveData += '\n';
+  // Player Two Score
+  saveData += std::to_string(this->player2->getScore());
+  saveData += '\n';
+  // Player Two hand
+  // LinkedList* p2Hand = this->player2->getHand();
+
+  // for (int i = 0; i < p2Hand->size(); i++)
+  // {
+  //   saveData += p2Hand->get(i)->tile->getColour();
+  //   saveData += std::to_string(p2Hand->get(i)->tile->getShape());
+  //   saveData += ',';
+  // }
+  saveData += '\n';
+
+  // Board Shape
+  saveData += std::to_string(this->board->getRows()) + "," + std::to_string(this->board->getCols());
+
+  saveData += '\n';
+  // Board State
+
+
+  saveData += '\n';
+  // Board Tile Bag
+  for (int i = 0; i < this->tileBag->size(); i++)
+  {
+    if (i == this->tileBag->size() - 1)
+    {
+      saveData += tileBag->get(i)->tile->getColour();
+      saveData += std::to_string(tileBag->get(i)->tile->getShape());
+    }
+    else
+    {
+      saveData += tileBag->get(i)->tile->getColour();
+      saveData += std::to_string(tileBag->get(i)->tile->getShape());
+      saveData += ',';
+    }
+  }
+  saveData += '\n';
+
+  // Current Player Name
+  // saveData += this.currPlayer.getName();
 
   stream.saveGame(saveData, fileName);
-
 }
+
+
+
 
 void  GameController::createTileBag() {
 
