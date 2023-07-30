@@ -1,139 +1,146 @@
-  #include "GameController.h"
-  #include "Tile.h"
-  #include "TileCodes.h"
-  #include <iostream>
-  #include <exception>
-  #include <random>
+#include "GameController.h"
+#include "Tile.h"
+#include "TileCodes.h"
+#include <iostream>
+#include <exception>
+#include <random>
+#include "IOStream.h"
 
 
+GameController::GameController(std::string player1, std::string player2) {
 
-  GameController::GameController(std::string player1, std::string player2) {
-    
-    try{
-      this->player1 = new Player(1, player1);
-      this->tileBag = new LinkedList();
+  try {
+    this->player1 = new Player(1, player1);
+    this->tileBag = new LinkedList();
 
-    } catch(const std::exception& e) {
-      std::cerr << e.what() << std::endl;
-
-    }
-
-
-    try{
-      this->player2 = new Player(2, player2);
-
-    } catch(const std::exception& e) {
-      std::cerr << e.what() << std::endl;
-
-    }
-
-    try{
-      this->board = new Board();
-
-    } catch(const std::exception& e) {
-      std::cerr << e.what() << std::endl;
-
-    }
+  }
+  catch (const std::exception& e) {
+    std::cerr << e.what() << std::endl;
 
   }
 
-   GameController::~GameController() {
+
+  try {
+    this->player2 = new Player(2, player2);
+
+  }
+  catch (const std::exception& e) {
+    std::cerr << e.what() << std::endl;
 
   }
 
-  void  GameController::startGame() {
-    std::cout << "Before create tile bag creation" << std::endl;
-
-    createTileBag();
+  try {
+    this->board = new Board();
 
   }
-  
-  void  GameController::endGame() {
-
-  }
-  void  GameController::quit() {
-
-  }
-  void  GameController::saveGame(std::string fileName) {
+  catch (const std::exception& e) {
+    std::cerr << e.what() << std::endl;
 
   }
 
-  void  GameController::createTileBag() {
+}
+
+GameController::~GameController() {
+
+}
+
+void  GameController::startGame() {
+  std::cout << "Before create tile bag creation" << std::endl;
+
+  createTileBag();
+  saveGame("test.save");
+
+}
+
+void  GameController::endGame() {
+
+}
+void  GameController::quit() {
+
+}
+void  GameController::saveGame(std::string fileName) {
+  IOStream stream;
+  stream.saveGame("TEST /n", fileName);
+
+}
+
+void  GameController::createTileBag() {
 
 
-    int min = 0;
-    int max = 5;
-    int tileCount = 0;
-    char colours[6] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
-    int shapes[6] = {1, 2, 3, 4, 5, 6};
-    int numberOfOccurances = 0;
-    std::cout << "before while loop" << std::endl;
+  int min = 0;
+  int max = 5;
+  int tileCount = 0;
+  char colours[6] = { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE };
+  int shapes[6] = { 1, 2, 3, 4, 5, 6 };
+  int numberOfOccurances = 0;
+  std::cout << "before while loop" << std::endl;
 
-    while(tileCount < MAX_TILES) {
-      std::cout << "In while loop" << std::endl;
-      numberOfOccurances = 0;
-      try
-      {
-        Tile* tileToAdd = new Tile(shapes[generateRandomInt(min, max)], colours[generateRandomInt(min, max)]);
+  while (tileCount < MAX_TILES) {
+    std::cout << "In while loop" << std::endl;
+    numberOfOccurances = 0;
+    try
+    {
+      Tile* tileToAdd = new Tile(shapes[generateRandomInt(min, max)], colours[generateRandomInt(min, max)]);
 
-        for(int i = 0; i < this->tileBag->size(); ++i) {
-          if(tileToAdd->getShape() == tileBag->get(i)->tile->getShape() && tileToAdd->getColour() == tileBag->get(i)->tile->getColour()) {
-            ++numberOfOccurances;
+      for (int i = 0; i < this->tileBag->size(); ++i) {
+        if (tileToAdd->getShape() == tileBag->get(i)->tile->getShape() && tileToAdd->getColour() == tileBag->get(i)->tile->getColour()) {
+          ++numberOfOccurances;
 
-          }
         }
+      }
 
-        if(numberOfOccurances < 2) {
-          tileBag->addBack(tileToAdd);
-          ++tileCount;
-
-        } else {
-          delete tileToAdd;
-        }
-
-
+      if (numberOfOccurances < 2) {
+        tileBag->addBack(tileToAdd);
+        ++tileCount;
 
       }
-      catch(const std::exception& e)
-      {
-        std::cerr << e.what() << std::endl;
+      else {
+        delete tileToAdd;
       }
-      
+
+
 
     }
-      
-      
-    std::cout << "****Tile Bag Contents****" << std::endl;
-
-    for(int i = 0; i < this->tileBag->size(); ++i) {
-      std::cout << i << ": " <<tileBag->get(i)->tile->getShape() << ", " << tileBag->get(i)->tile->getColour() << std::endl;
+    catch (const std::exception& e)
+    {
+      std::cerr << e.what() << std::endl;
     }
 
-  }
-
-  int GameController::generateRandomInt(int min, int max) {
-    std::random_device engine;
-    std::uniform_int_distribution<int> uniform_dist(min, max);
-    return uniform_dist(engine);
 
   }
 
 
-  void  GameController::setupHands() {
+  std::cout << "****Tile Bag Contents****" << std::endl;
 
-
+  for (int i = 0; i < this->tileBag->size(); ++i) {
+    std::cout << i << ": " << tileBag->get(i)->tile->getShape() << ", " << tileBag->get(i)->tile->getColour() << std::endl;
   }
 
-  void  GameController::takeInput() {
+}
 
-  }
-  void  GameController::placeTile(Tile* tile, char row, int col) {
+int GameController::generateRandomInt(int min, int max) {
+  std::random_device engine;
+  std::uniform_int_distribution<int> uniform_dist(min, max);
+  return uniform_dist(engine);
 
-  }
-  void  GameController::replaceTile(Tile* tile) {
+}
 
-  }
 
-  void  GameController::scoreTurn() {
+void  GameController::setupHands() {
 
-  }
+
+}
+
+void  GameController::takeInput() {
+
+}
+void  GameController::placeTile(Tile* tile, char row, int col) {
+
+}
+void  GameController::replaceTile(Tile* tile) {
+
+}
+
+void  GameController::scoreTurn() {
+
+}

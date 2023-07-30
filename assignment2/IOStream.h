@@ -3,6 +3,7 @@
 
 // #include "Node.h"
 #include <iostream>
+#include "LinkedList.h"
 
 class IOStream {
 public:
@@ -12,11 +13,12 @@ public:
 
 
   //Saves game and returns true if successful
-  template<class T>
-  bool saveGame(T data, std::string fileName);
+  bool saveGame(std::string data, std::string fileName);
   //Loads game (possibly make it return a string?)
   void loadGame(std::string fileName);
   std::string getFileType(std::string fileName);
+
+  LinkedList getTileBag(std::string tiles);
 
 private:
 
