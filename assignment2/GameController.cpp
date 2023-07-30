@@ -84,13 +84,13 @@ void  GameController::saveGame() {
   // LinkedList* p1Hand = this->player1->getHand();
   // std::cout << p1Hand->get(1);
   // for (int i = 0; i < p1Hand->size(); i++)
-  for (int i = 0; i < this->player1->getHand()->size(); i++)
-  {
+  // for (int i = 0; i < this->player1->getHand()->size(); i++)
+  // {
     // saveData += p1Hand->get(i)->tile->getColour();
     // saveData += this->player1->getHand()->get(i)->tile->getColour();
     // saveData += std::to_string(p1Hand->get(i)->tile->getShape());
-    saveData += ',';
-  }
+  //   saveData += ',';
+  // }
   saveData += '\n';
 
   // Player Two Name

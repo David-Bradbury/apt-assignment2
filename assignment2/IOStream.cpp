@@ -36,10 +36,6 @@ bool IOStream::saveGame(std::string data, std::string fileName) {
     file.close();
     successStatus = true;
   }
-  catch (const std::filesystem::filesystem_error& e)
-  {
-    std::cerr << e.what() << '\n';
-  }
   catch (const std::exception& e)
   {
     std::cerr << e.what() << '\n';
