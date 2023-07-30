@@ -14,6 +14,19 @@ Player::Player(int iD, std::string name) {
     }
 }
 
+Player::Player(std::string name, LinkedList* hand, int score) {
+
+    try {
+        this->name = name;
+        this->hand = hand;
+        this->score = score;
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
+
+
 Player::~Player() {
 
 }

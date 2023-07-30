@@ -11,6 +11,7 @@ class Player
 public:
 
     Player(int iD, std::string name);
+    Player(std::string name, LinkedList* hand, int score);
     ~Player();
 
 
