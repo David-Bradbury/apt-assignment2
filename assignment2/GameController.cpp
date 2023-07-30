@@ -113,8 +113,8 @@ void  GameController::saveGame(std::string fileName) {
         saveData += positions[i][j].getPlayedTile()->getColour();
         saveData += std::to_string(positions[i][j].getPlayedTile()->getShape());
         saveData += '@';
-        saveData += positions[i][j].getRowCoordinate();
-        saveData += positions[i][j].getColCoordinate();
+        saveData += char(positions[i][j].getRowCoordinate() + ASCII);
+        saveData += std::to_string(positions[i][j].getColCoordinate() + 1);
         saveData += ',';
       }
 
@@ -299,16 +299,14 @@ void  GameController::takeInput() {
     else if (equalIgnoreCase(command, "save")) {
       if (commandCount == 2) {
         std::cout << "run save function" << std::endl;
-        //iss >> command;
-        //validInput = save(command);
+        iss >> command;
+        // validInput = save(command);
 
-        std::cout << "Enter A filename for save" << std::endl;
-        std::cout << "> ";
-        std::string fileName;
-        std::cin >> fileName;
-        std::cout << "before save" << std::endl;
-        saveGame(fileName);
-        std::cout << "after save";
+        // std::cout << "Enter A filename for save" << std::endl;
+        // std::cout << "> ";
+        // std::string fileName;
+        // std::cin >> fileName;
+        saveGame(command);
 
       }
       else {

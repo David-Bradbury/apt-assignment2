@@ -5,6 +5,7 @@
 #include <exception>
 #include "IOStream.h"
 #include <sstream>
+#include "Player.h"
 
 
 
@@ -168,7 +169,7 @@ void Menu::loadGame() {
     //load game from file here, whilst also checking if filename is valid.
 
     IOStream load = IOStream();
-    std::string game = load.loadGame("test.save");
+    std::string game = load.loadGame("test2.save");
 
     std::stringstream stream;
     stream.str(game);
@@ -176,24 +177,126 @@ void Menu::loadGame() {
     std::string p1Name, p2Name;
     stream >> p1Name;
 
-    // Player p1 = Player(p1name);
-
-    int p1Score, p2Score;
+    int p1Score;
     stream >> p1Score;
 
-    //CREATE PLAYER ONE WITH NAME
+    std::string hand;
+    stream >> hand;
 
-    try
+    std::stringstream stream2;
+    stream2.str(hand);
+
+    LinkedList* p1Hand = new LinkedList;
+
+    std::string hand1;
+    while (std::getline(stream2, hand1, ','))
     {
-        GameController* gc = new GameController(p1Name, p2Name);
-        gc->prepareGame();
+        char colour = std::toupper(hand1[0]);
+        int shape = hand1[1] - '0';
+
+        Tile* tile = new Tile(shape, colour);
+        p1Hand->addBack(tile);
+        delete tile;
     }
-    catch (const std::exception& e)
+
+    Player p1 = Player(p1Name, p1Hand, p1Score);
+
+    stream >> p2Name;
+
+    int p2Score;
+    stream >> p2Score;
+
+    std::string hand2;
+    stream >> hand2;
+
+    std::stringstream stream3;
+    stream3.str(hand2);
+
+    LinkedList* p2Hand = new LinkedList;
+
+    std::string hand3;
+    while (std::getline(stream3, hand3, ','))
     {
-        std::cerr << e.what() << std::endl;
+        char colour = std::toupper(hand3[0]);
+        int shape = hand3[1] - '0';
+
+        Tile* tile = new Tile(shape, colour);
+        p2Hand->addBack(tile);
+        delete tile;
     }
 
+    Player p2 = Player(p2Name, p2Hand, p2Score);
 
+
+    std::string boardSize;
+    stream >> boardSize;
+
+    std::stringstream boardSizeStream;
+    boardSizeStream.str(boardSize);
+    int boardRow;
+    std::string row;
+    std::getline(boardSizeStream, row, ',');
+    boardRow = stoi(row);
+    int boardCol;
+    boardSizeStream >> boardCol;
+
+    std::cout << boardRow << std::endl;
+
+    std::string boardState;
+    stream >> boardState;
+    std::stringstream boardStateStream;
+    boardStateStream.str(boardState);
+
+    Board board = Board();
+
+
+    // BROKEN HERE -- NEED to work out parsing strind better
+    std::string state;
+    while (std::getline(boardStateStream, state, ','))
+    {
+        char colour = std::toupper(state[0]);
+        int shape = state[1] - '0';
+
+        Tile* tile = new Tile(shape, colour);
+
+        int row = state[3] - ASCII;
+        int col = state[4];
+        // Coordinate* coordinate = new Coordinate(row, col);
+
+        // coordinate->setPlayedTile(tile);
+
+        board.setTile(row, col, tile);
+        // delete coordinate;
+        delete tile;
+    }
+
+    // TESTING
+    std::vector < std::vector<Coordinate>> test = board.getCoordinates();
+    for (unsigned int i = 0;i < test.size(); i++)
+    {
+        for (unsigned int j = 0; j < test[i].size(); j++)
+        {
+            if (test[i][j].getPlayedTile() != nullptr)
+            {
+                std::cout << test[i][j].getPlayedTile() << std::endl;
+            }
+        }
+    }
+
+    // SET CURRENT PLAYER
+
+    // try
+    // {
+    //     GameController* gc = new GameController(p1Name, p2Name);
+    //     gc->prepareGame();
+    // }
+    // catch (const std::exception& e)
+    // {
+    //     std::cerr << e.what() << std::endl;
+    // }
+
+    delete p1Hand;
+    delete p2Hand;
 
 }
 
