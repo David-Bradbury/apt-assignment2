@@ -4,6 +4,8 @@
 // #include "Node.h"
 #include <iostream>
 #include "LinkedList.h"
+#include <vector>
+#include <string>
 
 class IOStream {
 public:
@@ -14,11 +16,9 @@ public:
 
   //Saves game and returns true if successful
   bool saveGame(std::string data, std::string fileName);
-  //Loads game (possibly make it return a string?)
-  void loadGame(std::string fileName);
+  //returns saved game as a string.
+  std::string loadGame(std::string fileName);
   std::string getFileType(std::string fileName);
-
-  LinkedList getTileBag(std::string tiles);
 
 private:
 

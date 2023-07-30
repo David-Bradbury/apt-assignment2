@@ -52,6 +52,17 @@ void  GameController::startGame() {
   createTileBag();
 
   saveGame();
+  IOStream load = IOStream();
+  // std::vector<std::string> game = load.loadGame("test.save");
+
+  std::string game = load.loadGame("test.save");
+
+  std::cout << game;
+
+  // for (unsigned int i = 0; i < game.size(); i++)
+  // {
+  //   std::cout << game[i] << std::endl;
+  // }
 
 }
 
@@ -68,7 +79,7 @@ void  GameController::saveGame() {
 
   // while ((randomInput = std::cin.get()) != '\n') {}
 
-  std::cout << "Enter A filename for save (filetype must be .save)" << std::endl;
+  std::cout << "Enter A filename for save" << std::endl;
   std::cout << "> ";
   std::string fileName;
   std::cin >> fileName;
