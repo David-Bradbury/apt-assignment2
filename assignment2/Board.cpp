@@ -9,6 +9,8 @@
 Board::Board() {
 
   std::vector<Coordinate> temp;
+  this->rows = MAX_ROW;
+  this->cols = MAX_COL;
 
   for (int i = 0; i < MAX_ROW; i++)
   {
@@ -19,22 +21,6 @@ Board::Board() {
     this->coordinates.push_back(temp);
     temp.clear();
   }
-
-
-  // this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
-
-  // this->coordinates[15][16].setPlayedTile(new Tile(2, 'R'));
-
-  // this->coordinates[14][16].setPlayedTile(new Tile(6, 'R'));
-
-  // this->coordinates[13][16].setPlayedTile(new Tile(1, 'R'));
-
-  // this->coordinates[16][17].setPlayedTile(new Tile(4, 'Y'));
-
-  // this->coordinates[16][15].setPlayedTile(new Tile(4, 'B'));
-
-
-
 }
 
 Board::~Board() {
@@ -103,7 +89,7 @@ void Board::printBoard() {
 // bool Board::boardPosEmpty(std::string location) {
 //     bool isEmpty = false;
 //       Coordinate* position = convertStringToCoord(location); 
-      
+
 //     if(position->getPlayedTile() == nullptr) {
 //         isEmpty = true;
 //     }
@@ -111,15 +97,37 @@ void Board::printBoard() {
 //  }
 
 // Coordinate* Board::convertStringToCoord(std::string location) {
-    
+
 //     Coordinate* coord = nullptr;
 //     if(location.length() == 2) {
 //         int row = location[0] - ASCII; 
 //         int col = location[1] - 1;
-        
+
 //       //  cooord = new Coordinate(row, col);
 //     } else {
 //         std::cerr << "location length is invalid" << std::endl;
 //     }
 //     return coord;
 // }
+
+void Board::setRows(int row) {
+  this->rows = row;
+}
+
+void Board::setCols(int col) {
+  this->cols = col;
+}
+
+int Board::getRows() {
+  return this->rows;
+}
+
+int Board::getCols() {
+  return this->cols;
+}
+
+std::vector < std::vector<Coordinate>> Board::getCoordinates()
+{
+  return this->coordinates;
+}
+

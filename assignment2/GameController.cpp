@@ -3,9 +3,9 @@
 #include "TileCodes.h"
 #include "menu.h"
 #include <iostream>
+#include "IOStream.h"
 #include <exception>
 #include <random>
-#include <iostream>
 #include <sstream>
 
 GameController::GameController(std::string player1, std::string player2) {
@@ -22,10 +22,10 @@ GameController::GameController(std::string player1, std::string player2) {
 }
 
 GameController::~GameController() {
- delete this->player1;
- delete this->player2;
- delete this->board;
- delete this->tileBag;
+  delete this->player1;
+  delete this->player2;
+  delete this->board;
+  delete this->tileBag;
 }
 
 void  GameController::prepareGame() {
@@ -36,6 +36,15 @@ void  GameController::prepareGame() {
   setupHands();
   this->currPlayer = player1;
 
+  saveGame();
+  IOStream load = IOStream();
+  // std::vector<std::string> game = load.loadGame("test.save");
+
+  std::string game = load.loadGame("test.save");
+
+  std::stringstream stream;
+  stream.str(game);
+
   printTurn();
   takeInput();
 
@@ -45,7 +54,7 @@ void  GameController::prepareGame() {
   }
   std::cout << "****Players hand Contents****" << std::endl;
   std::cout << "Player 1 hand" << std::endl;
-  player1->printHand();
+  this->player1->printHand();
   std::cout << "Player 2 hand" << std::endl;
   player2->printHand();
 
@@ -57,9 +66,97 @@ void  GameController::endGame() {
 void  GameController::quit() {
 
 }
-void  GameController::saveGame(std::string fileName, std::string data) {
+void  GameController::saveGame() {
+  IOStream stream;
 
+  // char randomInput;
+
+  // while ((randomInput = std::cin.get()) != '\n') {}
+
+  std::cout << "Enter A filename for save" << std::endl;
+  std::cout << "> ";
+  std::string fileName;
+  std::cin >> fileName;
+
+  std::string saveData = "";
+  // Player One Name
+  saveData += this->player1->getName();
+  saveData += '\n';
+  // Player One Score
+  saveData += std::to_string(this->player1->getScore());
+  saveData += '\n';
+  // Player One hand
+  // LinkedList* p1Hand = this->player1->getHand();
+  // std::cout << p1Hand->get(1);
+  // for (int i = 0; i < p1Hand->size(); i++)
+  // for (int i = 0; i < this->player1->getHand()->size(); i++)
+  // {
+    // saveData += p1Hand->get(i)->tile->getColour();
+    // saveData += this->player1->getHand()->get(i)->tile->getColour();
+    // saveData += std::to_string(p1Hand->get(i)->tile->getShape());
+  //   saveData += ',';
+  // }
+  saveData += '\n';
+
+  // Player Two Name
+  saveData += this->player2->getName();
+  saveData += '\n';
+  // Player Two Score
+  saveData += std::to_string(this->player2->getScore());
+  saveData += '\n';
+  // Player Two hand
+  // LinkedList* p2Hand = this->player2->getHand();
+
+  // for (int i = 0; i < p2Hand->size(); i++)
+  // {
+  //   saveData += p2Hand->get(i)->tile->getColour();
+  //   saveData += std::to_string(p2Hand->get(i)->tile->getShape());
+  //   saveData += ',';
+  // }
+  saveData += '\n';
+
+  // Board Shape
+  saveData += std::to_string(this->board->getRows()) + "," + std::to_string(this->board->getCols());
+
+  saveData += '\n';
+  // Board State
+  std::vector<std::vector<Coordinate>> positions = this->board->getCoordinates();
+
+  for (unsigned int i = 0; i < positions.size(); i++)
+  {
+    for (unsigned int j = 0; j < positions[i].size(); j++)
+    {
+      if (positions[i][j].getPlayedTile() != nullptr)
+      {
+        saveData += positions[i][j].getPlayedTile()->getColour();
+        saveData += std::to_string(positions[i][j].getPlayedTile()->getShape());
+        saveData += ',';
+      }
+
+    }
+  }
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
+  saveData += '\n';
+  // Board Tile Bag
+  for (int i = 0; i < this->tileBag->size(); i++)
+  {
+    saveData += tileBag->get(i)->getColour();
+    saveData += std::to_string(tileBag->get(i)->getShape());
+
+    saveData += ',';
+  }
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
+  saveData += '\n';
+
+  // Current Player Name
+  // saveData += this.currPlayer.getName();
+
+  stream.saveGame(saveData, fileName);
 }
+
+
 
 void  GameController::createTileBag() {
 
@@ -204,10 +301,10 @@ void  GameController::takeInput() {
     else if (equalIgnoreCase(command, "place")) {
       if (commandCount == 4) {
         std::cout << "run place tile function" << std::endl; //not quite sure how to deal with "at"
-                                                             //Will need to have a play once place tile function has been started
+        //Will need to have a play once place tile function has been started
 
-        //iss >> command;
-        //validInput = placeTile(command);
+//iss >> command;
+//validInput = placeTile(command);
 
       }
       else {
@@ -266,7 +363,7 @@ void  GameController::takeInput() {
     }
 
   } while (!validInput); // || !std::cin.eof() // need to check for eof somehow!
- 
+
 }
 
 void GameController::printTurn() {
