@@ -57,12 +57,8 @@ void  GameController::startGame() {
 
   std::string game = load.loadGame("test.save");
 
-  std::cout << game;
-
-  // for (unsigned int i = 0; i < game.size(); i++)
-  // {
-  //   std::cout << game[i] << std::endl;
-  // }
+  std::stringstream stream;
+  stream.str(game);
 
 }
 
