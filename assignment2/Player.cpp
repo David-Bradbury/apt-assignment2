@@ -14,6 +14,21 @@ Player::Player(int iD, std::string name) {
     }
 }
 
+Player::Player() {
+}
+
+Player::Player(std::string name) {
+
+    try {
+        this->name = name;
+        this->hand = new LinkedList();
+        this->score = 0;
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
+
 Player::Player(std::string name, LinkedList* hand, int score) {
     try {
         this->name = name;
@@ -87,5 +102,7 @@ void Player::addToHand(Tile* tile) {
     }
 }
 
-
+// void setName(std::string name) {
+//     this->name = name;
+// }
 

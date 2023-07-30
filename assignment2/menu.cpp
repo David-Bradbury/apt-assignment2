@@ -3,6 +3,8 @@
 #include <iostream>
 #include <limits>
 #include <exception>
+#include "IOStream.h"
+#include <sstream>
 
 
 
@@ -164,6 +166,34 @@ void Menu::loadGame() {
     std::cin >> filename;
 
     //load game from file here, whilst also checking if filename is valid.
+
+    IOStream load = IOStream();
+    std::string game = load.loadGame("test.save");
+
+    std::stringstream stream;
+    stream.str(game);
+
+    std::string p1Name, p2Name;
+    stream >> p1Name;
+
+    // Player p1 = Player(p1name);
+
+    int p1Score, p2Score;
+    stream >> p1Score;
+
+    //CREATE PLAYER ONE WITH NAME
+
+    try
+    {
+        GameController* gc = new GameController(p1Name, p2Name);
+        gc->prepareGame();
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
+
 
 }
 

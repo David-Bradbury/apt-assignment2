@@ -11,6 +11,8 @@ class Player
 public:
 
     Player(int iD, std::string name);
+    Player();
+    Player(std::string name);
     Player(std::string name, LinkedList* hand, int score);
     ~Player();
 
@@ -26,6 +28,8 @@ public:
     LinkedList* getHand();
     void printHand();
     void addToHand(Tile* tile);
+
+    void setName(std::string name);
 
 private:
 

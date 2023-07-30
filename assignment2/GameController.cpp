@@ -37,16 +37,11 @@ void  GameController::prepareGame() {
   this->currPlayer = player1;
 
 
-  IOStream load = IOStream();
-  // std::vector<std::string> game = load.loadGame("test.save");
 
-  std::string game = load.loadGame("test.save");
 
-  std::stringstream stream;
-  stream.str(game);
 
-  printTurn();
-  takeInput();
+  // printTurn();
+  // takeInput();
 
   // std::cout << "****Tile Bag Contents****" << std::endl;
   // for (int i = 0; i < this->tileBag->size(); ++i) {
@@ -117,6 +112,9 @@ void  GameController::saveGame(std::string fileName) {
       {
         saveData += positions[i][j].getPlayedTile()->getColour();
         saveData += std::to_string(positions[i][j].getPlayedTile()->getShape());
+        saveData += '@';
+        saveData += positions[i][j].getRowCoordinate();
+        saveData += positions[i][j].getColCoordinate();
         saveData += ',';
       }
 
