@@ -36,7 +36,7 @@ void  GameController::prepareGame() {
   setupHands();
   this->currPlayer = player1;
 
-  saveGame();
+
   IOStream load = IOStream();
   // std::vector<std::string> game = load.loadGame("test.save");
 
@@ -45,8 +45,8 @@ void  GameController::prepareGame() {
   std::stringstream stream;
   stream.str(game);
 
-  // printTurn();
-  // takeInput();
+  printTurn();
+  takeInput();
 
   // std::cout << "****Tile Bag Contents****" << std::endl;
   // for (int i = 0; i < this->tileBag->size(); ++i) {
@@ -66,18 +66,8 @@ void  GameController::endGame() {
 void  GameController::quit() {
 
 }
-void  GameController::saveGame() {
+void  GameController::saveGame(std::string fileName) {
   IOStream stream;
-
-  // char randomInput;
-
-  // while ((randomInput = std::cin.get()) != '\n') {}
-
-  std::cout << "Enter A filename for save" << std::endl;
-  std::cout << "> ";
-  std::string fileName;
-  std::cin >> fileName;
-
   std::string saveData = "";
   // Player One Name
   saveData += this->player1->getName();
@@ -313,6 +303,14 @@ void  GameController::takeInput() {
         std::cout << "run save function" << std::endl;
         //iss >> command;
         //validInput = save(command);
+
+        std::cout << "Enter A filename for save" << std::endl;
+        std::cout << "> ";
+        std::string fileName;
+        std::cin >> fileName;
+        std::cout << "before save" << std::endl;
+        saveGame(fileName);
+        std::cout << "after save";
 
       }
       else {

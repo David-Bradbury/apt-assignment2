@@ -26,7 +26,7 @@ public:
   void prepareGame();
   void endGame();
   void quit();
-  void saveGame();
+  void saveGame(std::string fileName);
 
   void createTileBag();
   int generateRandomInt(int min, int max);
