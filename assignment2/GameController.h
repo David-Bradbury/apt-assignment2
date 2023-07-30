@@ -31,9 +31,6 @@ public:
 
   void scoreTurn();
 
-
-
-
 private:
 
   LinkedList* tileBag;
