@@ -45,18 +45,18 @@ void  GameController::prepareGame() {
   std::stringstream stream;
   stream.str(game);
 
-  printTurn();
-  takeInput();
+  // printTurn();
+  // takeInput();
 
-  std::cout << "****Tile Bag Contents****" << std::endl;
-  for (int i = 0; i < this->tileBag->size(); ++i) {
-    std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
-  }
-  std::cout << "****Players hand Contents****" << std::endl;
-  std::cout << "Player 1 hand" << std::endl;
-  this->player1->printHand();
-  std::cout << "Player 2 hand" << std::endl;
-  player2->printHand();
+  // std::cout << "****Tile Bag Contents****" << std::endl;
+  // for (int i = 0; i < this->tileBag->size(); ++i) {
+  //   std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
+  // }
+  // std::cout << "****Players hand Contents****" << std::endl;
+  // std::cout << "Player 1 hand" << std::endl;
+  // this->player1->printHand();
+  // std::cout << "Player 2 hand" << std::endl;
+  // player2->printHand();
 
 }
 
@@ -86,18 +86,15 @@ void  GameController::saveGame() {
   saveData += std::to_string(this->player1->getScore());
   saveData += '\n';
   // Player One hand
-  // LinkedList* p1Hand = this->player1->getHand();
-  // std::cout << p1Hand->get(1);
-  // for (int i = 0; i < p1Hand->size(); i++)
-  // for (int i = 0; i < this->player1->getHand()->size(); i++)
-  // {
-    // saveData += p1Hand->get(i)->tile->getColour();
-    // saveData += this->player1->getHand()->get(i)->tile->getColour();
-    // saveData += std::to_string(p1Hand->get(i)->tile->getShape());
-  //   saveData += ',';
-  // }
+  for (int i = 0; i < this->player1->getHand()->size(); i++)
+  {
+    saveData += this->player1->getHand()->get(i)->getColour();
+    saveData += std::to_string(this->player1->getHand()->get(i)->getShape());
+    saveData += ',';
+  }
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
   saveData += '\n';
-
   // Player Two Name
   saveData += this->player2->getName();
   saveData += '\n';
@@ -105,14 +102,14 @@ void  GameController::saveGame() {
   saveData += std::to_string(this->player2->getScore());
   saveData += '\n';
   // Player Two hand
-  // LinkedList* p2Hand = this->player2->getHand();
-
-  // for (int i = 0; i < p2Hand->size(); i++)
-  // {
-  //   saveData += p2Hand->get(i)->tile->getColour();
-  //   saveData += std::to_string(p2Hand->get(i)->tile->getShape());
-  //   saveData += ',';
-  // }
+  for (int i = 0; i < this->player1->getHand()->size(); i++)
+  {
+    saveData += this->player1->getHand()->get(i)->getColour();
+    saveData += std::to_string(this->player1->getHand()->get(i)->getShape());
+    saveData += ',';
+  }
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
   saveData += '\n';
 
   // Board Shape
@@ -151,7 +148,7 @@ void  GameController::saveGame() {
   saveData += '\n';
 
   // Current Player Name
-  // saveData += this.currPlayer.getName();
+  saveData += this->currPlayer->getName();
 
   stream.saveGame(saveData, fileName);
 }
