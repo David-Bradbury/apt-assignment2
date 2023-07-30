@@ -25,7 +25,7 @@ GameController::~GameController() {
  delete this->player1;
  delete this->player2;
  delete this->board;
- delete this->tileBag
+ delete this->tileBag;
 }
 
 void  GameController::prepareGame() {
@@ -164,16 +164,18 @@ void  GameController::takeInput() {
 
   std::string input;
   std::cout << "> ";
+  //consume buffer to prepare for taking input
   char randomInput;
   while ((randomInput = std::cin.get()) != '\n') {}
   std::getline(std::cin, input);
-
+  //append delimeter
   input = input + " &%";
 
   std::istringstream iss(input);
   std::string command;
 
   bool validInput = false;
+  //instantiate at -1 to account for delimeter
   int commandCount = -1;
 
   while (command != "&%") {
@@ -201,7 +203,9 @@ void  GameController::takeInput() {
     }
     else if (equalIgnoreCase(command, "place")) {
       if (commandCount == 4) {
-        std::cout << "run place tile function" << std::endl;
+        std::cout << "run place tile function" << std::endl; //not quite sure how to deal with "at"
+                                                             //Will need to have a play once place tile function has been started
+
         //iss >> command;
         //validInput = placeTile(command);
 
@@ -216,6 +220,14 @@ void  GameController::takeInput() {
         //iss >> command;
         //validInput = save(command);
 
+      }
+      else {
+        std::cerr << "Invalid number of commands" << std::endl;
+      }
+    }
+    else if (equalIgnoreCase(command, "quit")) {
+      if (commandCount == 1) {
+        std::cout << "run quit function" << std::endl;
       }
       else {
         std::cerr << "Invalid number of commands" << std::endl;

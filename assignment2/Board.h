@@ -21,8 +21,8 @@ public:
   Coordinate getEast(Coordinate currentCoord);
   Coordinate getWest(Coordinate currentCoord);
 
-   bool boardPosEmpty(std::string location);
-   Coordinate convertStringToCoord(std::string location);
+  // bool boardPosEmpty(std::string location);
+  // Coordinate convertStringToCoord(std::string location);
 
 
 private:
