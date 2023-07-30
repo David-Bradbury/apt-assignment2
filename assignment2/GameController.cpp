@@ -84,7 +84,7 @@ void  GameController::saveGame() {
   // LinkedList* p1Hand = this->player1->getHand();
   // std::cout << p1Hand->get(1);
   // for (int i = 0; i < p1Hand->size(); i++)
-  for (int i = 0; i < 6; i++)
+  for (int i = 0; i < this->player1->getHand()->size(); i++)
   {
     // saveData += p1Hand->get(i)->tile->getColour();
     // saveData += this->player1->getHand()->get(i)->tile->getColour();
@@ -115,24 +115,33 @@ void  GameController::saveGame() {
 
   saveData += '\n';
   // Board State
+  std::vector<std::vector<Coordinate>> positions = this->board->getCoordinates();
 
+  for (unsigned int i = 0; i < positions.size(); i++)
+  {
+    for (unsigned int j = 0; j < positions[i].size(); j++)
+    {
+      if (positions[i][j].getPlayedTile() != nullptr)
+      {
+        saveData += positions[i][j].getPlayedTile()->getColour();
+        saveData += std::to_string(positions[i][j].getPlayedTile()->getShape());
+        saveData += ',';
+      }
 
+    }
+  }
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
   saveData += '\n';
   // Board Tile Bag
   for (int i = 0; i < this->tileBag->size(); i++)
   {
-    if (i == this->tileBag->size() - 1)
-    {
-      saveData += tileBag->get(i)->tile->getColour();
-      saveData += std::to_string(tileBag->get(i)->tile->getShape());
-    }
-    else
-    {
-      saveData += tileBag->get(i)->tile->getColour();
-      saveData += std::to_string(tileBag->get(i)->tile->getShape());
-      saveData += ',';
-    }
+    saveData += tileBag->get(i)->tile->getColour();
+    saveData += std::to_string(tileBag->get(i)->tile->getShape());
+    saveData += ',';
   }
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
   saveData += '\n';
 
   // Current Player Name
