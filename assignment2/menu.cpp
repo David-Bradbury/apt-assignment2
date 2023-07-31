@@ -174,6 +174,8 @@ void Menu::loadGame() {
     std::stringstream stream;
     stream.str(game);
 
+    // Create Player One
+
     std::string p1Name, p2Name;
     stream >> p1Name;
 
@@ -201,6 +203,8 @@ void Menu::loadGame() {
 
     Player p1 = Player(p1Name, p1Hand, p1Score);
 
+    // Create Player Two
+
     stream >> p2Name;
 
     int p2Score;
@@ -227,6 +231,7 @@ void Menu::loadGame() {
 
     Player p2 = Player(p2Name, p2Hand, p2Score);
 
+    // Get Board Size and create board
 
     std::string boardSize;
     stream >> boardSize;
@@ -264,7 +269,7 @@ void Menu::loadGame() {
         delete tile;
     }
 
-    // Create Tile Bag
+    // Create/load Tile Bag
 
     std::string tempTileBag;
     stream >> tempTileBag;

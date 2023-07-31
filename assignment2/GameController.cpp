@@ -94,10 +94,10 @@ void  GameController::saveGame(std::string fileName) {
   saveData += std::to_string(this->player2->getScore());
   saveData += '\n';
   // Player Two hand
-  for (int i = 0; i < this->player1->getHand()->size(); i++)
+  for (int i = 0; i < this->player2->getHand()->size(); i++)
   {
-    saveData += this->player1->getHand()->get(i)->getColour();
-    saveData += std::to_string(this->player1->getHand()->get(i)->getShape());
+    saveData += this->player2->getHand()->get(i)->getColour();
+    saveData += std::to_string(this->player2->getHand()->get(i)->getShape());
     saveData += ',';
   }
   // Remove trailing ','
