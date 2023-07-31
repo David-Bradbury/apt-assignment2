@@ -266,7 +266,8 @@ void Menu::loadGame() {
         int col = (stoi(state.substr(4)) - 1);
 
         board->setTile(row, col, tile);
-        delete tile;
+        // delete tile;
+        // Deleting breaks the loading
     }
 
     // Create/load Tile Bag
