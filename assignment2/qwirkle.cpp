@@ -19,6 +19,9 @@ int main(void) {
    Menu menu;
 
    menu.printMenu();
+   std::cout << std::endl;
+
+   std::cout << "Goodbye" << std::endl;
 
 
 
