@@ -13,12 +13,19 @@ GameController::GameController(std::string player1, std::string player2) {
   try {
     this->player1 = new Player(1, player1);
     this->player2 = new Player(2, player2);
-    this->board = new Board();
+    this->board = new Board(MAX_ROW, MAX_COL);
     this->tileBag = new LinkedList();
   }
   catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
   }
+}
+
+GameController::GameController(Player player1, Player player2, Board* board, LinkedList* tileBag) {
+  this->player1 = new Player(player1);
+  this->player2 = new Player(player2);
+  this->board = board;
+  this->tileBag = tileBag;
 }
 
 GameController::~GameController() {
@@ -40,8 +47,8 @@ void  GameController::prepareGame() {
 
 
 
-  // printTurn();
-  // takeInput();
+  printTurn();
+  takeInput();
 
   // std::cout << "****Tile Bag Contents****" << std::endl;
   // for (int i = 0; i < this->tileBag->size(); ++i) {
@@ -376,6 +383,10 @@ void GameController::printTurn() {
 
   std::cout << std::endl;
 
+}
+
+void GameController::setCurrPlayer(Player* player) {
+  this->currPlayer = player;
 }
 
 // method where the game loop is executed until end

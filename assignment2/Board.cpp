@@ -6,11 +6,11 @@
 #include "Tile.h"
 #include "Coordinate.h"
 
-Board::Board() {
+Board::Board(int rows, int cols) {
 
   std::vector<Coordinate> temp;
-  this->rows = MAX_ROW;
-  this->cols = MAX_COL;
+  this->rows = rows;
+  this->cols = cols;
 
   for (int i = 0; i < MAX_ROW; i++)
   {

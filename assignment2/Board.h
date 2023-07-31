@@ -12,7 +12,7 @@
 class Board {
 public:
 
-  Board();
+  Board(int rows, int cols);
   ~Board();
 
   void printBoard();

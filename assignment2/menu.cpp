@@ -169,7 +169,7 @@ void Menu::loadGame() {
     //load game from file here, whilst also checking if filename is valid.
 
     IOStream load = IOStream();
-    std::string game = load.loadGame("test2.save");
+    std::string game = load.loadGame(filename);
 
     std::stringstream stream;
     stream.str(game);
@@ -240,18 +240,15 @@ void Menu::loadGame() {
     int boardCol;
     boardSizeStream >> boardCol;
 
-    std::cout << boardRow << std::endl;
-
     std::string boardState;
     stream >> boardState;
     std::stringstream boardStateStream;
     boardStateStream.str(boardState);
 
-    Board board = Board();
+    Board* board = new Board(boardRow, boardCol);
 
 
     // Load Board State
-    int i = 0;
     std::string state;
     while (std::getline(boardStateStream, state, ','))
     {
@@ -263,41 +260,50 @@ void Menu::loadGame() {
         int row = state[3] - ASCII;
         int col = (stoi(state.substr(4)) - 1);
 
-        board.setTile(row, col, tile);
-
-        i++;
+        board->setTile(row, col, tile);
         delete tile;
     }
-    board.printBoard();
-    // TESTING
-    std::vector < std::vector<Coordinate>> test = board.getCoordinates();
-    for (unsigned int i = 0;i < test.size(); i++)
+
+    // Create Tile Bag
+
+    std::string tempTileBag;
+    stream >> tempTileBag;
+    std::stringstream tileBagStream;
+    tileBagStream.str(tempTileBag);
+
+    LinkedList* tileBag = new LinkedList();
+    std::string tempTile;
+
+    while (std::getline(tileBagStream, tempTile, ','))
     {
-        for (unsigned int j = 0; j < test[i].size(); j++)
-        {
-            if (test[i][j].getPlayedTile() != nullptr)
-            {
-                std::cout << test[i][j].getPlayedTile()->getColour()
-                    << test[i][j].getPlayedTile()->getShape() << std::endl;
-            }
-        }
+        char colour = std::toupper(tempTile[0]);
+        int shape = tempTile[1] - '0';
+
+        Tile* tile = new Tile(shape, colour);
+
+        tileBag->addBack(tile);
+        delete tile;
     }
 
-    // SET CURRENT PLAYER
+    std::string currentPlayer;
+    stream >> currentPlayer;
 
-    // try
-    // {
-    //     GameController* gc = new GameController(p1Name, p2Name);
-    //     gc->prepareGame();
-    // }
-    // catch (const std::exception& e)
-    // {
-    //     std::cerr << e.what() << std::endl;
-    // }
+    GameController gc = GameController(p1, p2, board, tileBag);
+
+    if (p1.getName() == currentPlayer)
+    {
+        gc.setCurrPlayer(&p1);
+    }
+    else
+    {
+        gc.setCurrPlayer(&p2);
+    }
 
     delete p1Hand;
     delete p2Hand;
 
+    gc.printTurn();
+    gc.takeInput();
 }
 
 void Menu::printCredits() {
