@@ -250,7 +250,8 @@ void Menu::loadGame() {
     Board board = Board();
 
 
-    // BROKEN HERE -- NEED to work out parsing strind better
+    // Load Board State
+    int i = 0;
     std::string state;
     while (std::getline(boardStateStream, state, ','))
     {
@@ -260,16 +261,14 @@ void Menu::loadGame() {
         Tile* tile = new Tile(shape, colour);
 
         int row = state[3] - ASCII;
-        int col = state[4];
-        // Coordinate* coordinate = new Coordinate(row, col);
-
-        // coordinate->setPlayedTile(tile);
+        int col = (stoi(state.substr(4)) - 1);
 
         board.setTile(row, col, tile);
-        // delete coordinate;
+
+        i++;
         delete tile;
     }
-
+    board.printBoard();
     // TESTING
     std::vector < std::vector<Coordinate>> test = board.getCoordinates();
     for (unsigned int i = 0;i < test.size(); i++)
@@ -278,7 +277,8 @@ void Menu::loadGame() {
         {
             if (test[i][j].getPlayedTile() != nullptr)
             {
-                std::cout << test[i][j].getPlayedTile() << std::endl;
+                std::cout << test[i][j].getPlayedTile()->getColour()
+                    << test[i][j].getPlayedTile()->getShape() << std::endl;
             }
         }
     }
