@@ -267,7 +267,8 @@ void Menu::loadGame() {
 
         board->setTile(row, col, tile);
         // delete tile;
-        // Deleting breaks the loading
+        // Deleting breaks the board state as it is a board of pointers.
+        // Need to handle the deleting elsewhere.
     }
 
     // Create/load Tile Bag
@@ -304,9 +305,6 @@ void Menu::loadGame() {
     {
         gc.setCurrPlayer(&p2);
     }
-
-    delete p1Hand;
-    delete p2Hand;
 
     gc.printTurn();
     gc.takeInput();
