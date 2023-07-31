@@ -36,14 +36,14 @@ void  GameController::prepareGame() {
   setupHands();
   this->currPlayer = player1;
 
-  saveGame();
-  IOStream load = IOStream();
-  // std::vector<std::string> game = load.loadGame("test.save");
+  // saveGame();
+  // IOStream load = IOStream();
+  // // std::vector<std::string> game = load.loadGame("test.save");
 
-  std::string game = load.loadGame("test.save");
+  // std::string game = load.loadGame("test.save");
 
-  std::stringstream stream;
-  stream.str(game);
+  // std::stringstream stream;
+  // stream.str(game);
 
   printTurn();
   takeInput();
@@ -378,7 +378,7 @@ void  GameController::takeInput() {
 
     }
 
-  } while (!validInput); // || !std::cin.eof() // need to check for eof somehow!
+  } while (!validInput && !std::cin.eof()); // || !std::cin.eof() // need to check for eof somehow!
 
 }
 
