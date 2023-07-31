@@ -84,7 +84,7 @@ void Menu::printMenu() {
 
 void Menu::startNewGame() {
 
-    std::cout << "Starting A New Game" << std::endl;
+    std::cout <<"Starting A New Game"  <<std::endl;
     std::cout << std::endl;
 
     std::string p1Name, p2Name;
