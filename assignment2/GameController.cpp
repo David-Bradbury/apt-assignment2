@@ -15,6 +15,7 @@ GameController::GameController(std::string player1, std::string player2) {
     this->player2 = new Player(player2);
     this->board = new Board(MAX_ROW, MAX_COL);
     this->tileBag = new LinkedList();
+    this->playedTiles = new LinkedList();
   }
   catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
@@ -26,6 +27,7 @@ GameController::GameController(Player player1, Player player2, Board* board, Lin
   this->player2 = new Player(player2);
   this->board = board;
   this->tileBag = tileBag;
+  this->playedTiles = new LinkedList(); // load played tiles
 }
 
 GameController::~GameController() {
@@ -124,24 +126,31 @@ void  GameController::saveGame(std::string fileName) {
   // Board State
   std::vector<std::vector<Coordinate>> positions = this->board->getCoordinates();
 
-  for (unsigned int i = 0; i < positions.size(); i++)
+  if (this->playedTiles->size() == 0)
   {
-    for (unsigned int j = 0; j < positions[i].size(); j++)
-    {
-      if (positions[i][j].getPlayedTile() != nullptr)
-      {
-        saveData += positions[i][j].getPlayedTile()->getColour();
-        saveData += std::to_string(positions[i][j].getPlayedTile()->getShape());
-        saveData += '@';
-        saveData += char(positions[i][j].getRowCoordinate() + ASCII);
-        saveData += std::to_string(positions[i][j].getColCoordinate() + 1);
-        saveData += ',';
-      }
-
-    }
+    saveData += " ";
   }
-  // Remove trailing ','
-  saveData.resize(saveData.length() - 1);
+  else
+  {
+    for (unsigned int i = 0; i < positions.size(); i++)
+    {
+      for (unsigned int j = 0; j < positions[i].size(); j++)
+      {
+        if (positions[i][j].getPlayedTile() != nullptr)
+        {
+          saveData += positions[i][j].getPlayedTile()->getColour();
+          saveData += std::to_string(positions[i][j].getPlayedTile()->getShape());
+          saveData += '@';
+          saveData += char(positions[i][j].getRowCoordinate() + ASCII);
+          saveData += std::to_string(positions[i][j].getColCoordinate() + 1);
+          saveData += ',';
+        }
+
+      }
+    }
+    // Remove trailing ','
+    saveData.resize(saveData.length() - 1);
+  }
   saveData += '\n';
   // Board Tile Bag
   for (int i = 0; i < this->tileBag->size(); i++)
@@ -309,8 +318,8 @@ void  GameController::takeInput() {
         std::string coor;
         iss >> t;
         iss >> command;
-        iss >>coor;
-        
+        iss >> coor;
+
         if (!equalsIgnoreCase(command, "at")) {
           std::cout << "Invalid command" << std::endl;
 
@@ -318,12 +327,14 @@ void  GameController::takeInput() {
         else if (!checkValidTileCode(t)) {
           std::cout << "Invalid command" << std::endl;
 
-        } else if (!checkValidCoordinate(coor)) {
+        }
+        else if (!checkValidCoordinate(coor)) {
           std::cout << "Invalid command" << std::endl;
 
-        } else {
-           std::cout << "run place tile function" << std::endl;
-        
+        }
+        else {
+          std::cout << "run place tile function" << std::endl;
+
         }
 
       }
@@ -537,39 +548,42 @@ bool GameController::checkValidTileCode(std::string tileCode) {
   return validTileCode;
 }
 
-bool GameController::checkValidCoordinate(std::string coor) { 
+bool GameController::checkValidCoordinate(std::string coor) {
   bool validCoordinate = false;
 
   if (coor.length() == 2) {
-    
+
     char row = std::toupper(coor[0]);
     int col = coor[1] - '0';
 
-    if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
+    if (std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
       validCoordinate = true;
 
-    } 
-    }else if(coor.length() == 3) {
+    }
+  }
+  else if (coor.length() == 3) {
 
-      char row = std::toupper(coor[0]);
-      std::string column = coor.substr(1,2);
+    char row = std::toupper(coor[0]);
+    std::string column = coor.substr(1, 2);
 
-      if(!std::isalpha(column[0]) || !std::isalpha(column[1])) {
+    if (!std::isalpha(column[0]) || !std::isalpha(column[1])) {
 
-           std::cout << "not a valid coordinate 2nd if statement" << std::endl;
-       
-      } else {
-        int col = std::stoi(column);
-        if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
-          validCoordinate = true;
-        }
+      std::cout << "not a valid coordinate 2nd if statement" << std::endl;
+
+    }
+    else {
+      int col = std::stoi(column);
+      if (std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
+        validCoordinate = true;
       }
+    }
 
-  } else {
+  }
+  else {
     std::cout << "Not a valid coordinate" << std::endl;
   }
 
-  
+
 
   return validCoordinate;
 
