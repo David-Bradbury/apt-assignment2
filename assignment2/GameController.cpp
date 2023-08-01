@@ -346,6 +346,8 @@ void  GameController::takeInput() {
           if (validInput) {
             // if (placeTile(t, coor)) {
             this->currPlayer->addToScore(scoreTurn(t, coor));
+
+            // Change Player HERE????
           }
 
         }
