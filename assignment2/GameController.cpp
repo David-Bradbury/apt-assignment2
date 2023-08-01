@@ -344,7 +344,6 @@ void  GameController::takeInput() {
           validInput = placeTile(t, coor);
 
           if (validInput) {
-            // if (placeTile(t, coor)) {
             this->currPlayer->addToScore(scoreTurn(t, coor));
 
             // Change Player HERE????
@@ -469,12 +468,14 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
   int col = 0;
 
   if (location.length() == 2) {
-    col = location[1] - 1;
+    col = (location[1] - '0') - 1;
   }
   else {
     std::string column = location.substr(1, 2);
     col = std::stoi(column) - 1;
   }
+
+  std::cout << "THIS HERE -----" << col << std::endl;
 
   // check board position where tile to be placed is empty.
   if (this->board->isBoardPositionEmpty(row, col)) {
@@ -487,7 +488,8 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
         LinkedList* northSouthLL = board->getTileList(row, col, "col");
         LinkedList* eastWestLL = board->getTileList(row, col, "row");
 
-        if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
+        // if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
+        if (northSouthLL->size() > 0 || eastWestLL->size() > 0) {
 
           colValidMove = checkValidMove(northSouthLL, tile);
           rowValidMove = checkValidMove(eastWestLL, tile);
@@ -513,6 +515,7 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
       else {
         // first turn.
         this->board->setTile(row, col, tile);
+        this->currPlayer->addToScore(1);
         tileCanBePlaced = true;
       }
       // will need to delete tile.
@@ -632,7 +635,7 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
   int col = 0;
 
   if (location.length() == 2) {
-    col = location[1] - 1;
+    col = (location[1] - '0') - 1;
   }
   else {
     std::string column = location.substr(1, 2);
