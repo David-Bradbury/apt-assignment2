@@ -151,24 +151,24 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
   int row2 = row;
   int col2 = col;
   // first add 1 
-  if (axis == "col") {
+  if (axis == "col" && (row < MAX_ROW && row > 0)) {
     row++;
   }
-  else {
+  else if (col < MAX_ROW && col > 0)
+  {
     col++;
   }
 
   LinkedList* ll = new LinkedList();
 
-  while (doesNextTileExist) {
+  while (doesNextTileExist && (row > 0 && row < MAX_ROW) && (col > 0 && col < MAX_COL)) {
 
     if (this->coordinates[row][col].getPlayedTile() != nullptr) {
       ll->addBack(this->coordinates[row][col].getPlayedTile());
-
-      if (axis == "col") {
+      if (axis == "col" && (row < MAX_ROW && row > 0)) {
         row++;
       }
-      else {
+      else if (col < MAX_ROW && col > 0) {
         col++;
       }
     }
@@ -176,24 +176,26 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
       doesNextTileExist = false;
     }
   }
+
+
   doesNextTileExist = true;
 
-  if (axis == "col") {
+  if (axis == "col" && (row2 < MAX_ROW && row2 > 0)) {
     row2--;
   }
-  else {
+  else if (col2 < MAX_ROW && col2 > 0) {
     col2--;
   }
 
-  while (doesNextTileExist) {
+  while (doesNextTileExist && (col > 0 && col < MAX_COL) && (row > 0 && row < MAX_ROW)) {
 
     if (this->coordinates[row2][col2].getPlayedTile() != nullptr) {
       ll->addBack(this->coordinates[row2][col2].getPlayedTile());
 
-      if (axis == "col") {
+      if (axis == "col" && (row2 < MAX_ROW && row2 > 0)) {
         row2 = row2 - 1;
       }
-      else {
+      else if (col2 < MAX_ROW && col2 > 0) {
         col2 = col2 - 1;
       }
     }

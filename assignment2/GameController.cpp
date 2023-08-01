@@ -342,10 +342,8 @@ void  GameController::takeInput() {
         }
         else {
           validInput = placeTile(t, coor);
-
           if (validInput) {
             this->currPlayer->addToScore(scoreTurn(t, coor));
-
             // Change Player HERE????
           }
 
@@ -475,7 +473,7 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
     col = std::stoi(column) - 1;
   }
 
-  std::cout << "THIS HERE -----" << col << std::endl;
+
 
   // check board position where tile to be placed is empty.
   if (this->board->isBoardPositionEmpty(row, col)) {
@@ -483,13 +481,13 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
     {
       Tile* tile = convertToTile(tileCode);
 
-      if (this->tileBag->size() < START_GAME_TILEBAG_LENGTH) {
 
+      if (this->tileBag->size() < START_GAME_TILEBAG_LENGTH) {
         LinkedList* northSouthLL = board->getTileList(row, col, "col");
         LinkedList* eastWestLL = board->getTileList(row, col, "row");
 
-        // if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
-        if (northSouthLL->size() > 0 || eastWestLL->size() > 0) {
+        if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
+          // if (northSouthLL->size() > 0 || eastWestLL->size() > 0) {
 
           colValidMove = checkValidMove(northSouthLL, tile);
           rowValidMove = checkValidMove(eastWestLL, tile);
@@ -628,7 +626,6 @@ bool  GameController::replaceTile(std::string tileCode) {
 
 int  GameController::scoreTurn(std::string tileCode, std::string location) {
   int score = 0;
-
   location[0] = std::toupper(location[0]);
 
   int row = location[0] - ASCII;
@@ -641,26 +638,20 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
     std::string column = location.substr(1, 2);
     col = std::stoi(column) - 1;
   }
-
   try
   {
     Tile* tile = convertToTile(tileCode);
 
     LinkedList* northSouthLL = board->getTileList(row, col, "col");
     LinkedList* eastWestLL = board->getTileList(row, col, "row");
-
-    if (northSouthLL->size() > 0) {
+    if (northSouthLL->size() > 0 && northSouthLL->get(0) != nullptr) {
       northSouthLL->addBack(tile);
       score += calculateScore(northSouthLL);
     }
-
     if (eastWestLL->size() > 0) {
       eastWestLL->addBack(tile);
       score += calculateScore(eastWestLL);
     }
-
-
-
 
     delete northSouthLL;
     delete eastWestLL;
