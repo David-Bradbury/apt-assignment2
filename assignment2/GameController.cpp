@@ -644,6 +644,9 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
     LinkedList* northSouthLL = board->getTileList(row, col, "col");
     LinkedList* eastWestLL = board->getTileList(row, col, "row");
 
+    northSouthLL->addBack(tile);
+    eastWestLL->addBack(tile);
+
     if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
 
       score += calculateScore(northSouthLL);
