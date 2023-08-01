@@ -5,6 +5,7 @@
 #include <vector>
 
 #define MAX_ROW 26
+#define MIN_COL 1
 #define MAX_COL 26
 #define ASCII 65
 

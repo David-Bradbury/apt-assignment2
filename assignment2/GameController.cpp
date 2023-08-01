@@ -254,7 +254,7 @@ void  GameController::setupHands() {
 }
 
 
-bool GameController::equalIgnoreCase(std::string string1, std::string string2) {
+bool GameController::equalsIgnoreCase(std::string string1, std::string string2) {
   bool theSameIgnoringCase = true;
 
   if (string1.length() != string2.length()) {
@@ -305,7 +305,7 @@ void  GameController::takeInput() {
   do {
     iss >> command;
 
-    if (equalIgnoreCase(command, "replace")) {
+    if (equalsIgnoreCase(command, "replace")) {
       if (commandCount == 2) {
         iss >> command;
         validInput = replaceTile(command);
@@ -314,31 +314,44 @@ void  GameController::takeInput() {
         std::cerr << "Replace command only takes one tile" << std::endl; // probs need better error messages
       }
     }
-    else if (equalIgnoreCase(command, "place")) {
+    else if (equalsIgnoreCase(command, "place")) {
       if (commandCount == 4) {
-        std::cout << "run place tile function" << std::endl; //not quite sure how to deal with "at"
-        //Will need to have a play once place tile function has been started
+        std::string t;
+        std::string coor;
+        iss >> t;
+        iss >> command;
+        iss >>coor;
+        
+        if (!equalsIgnoreCase(command, "at")) {
+          std::cout << "Invalid command" << std::endl;
 
-//iss >> command;
-//validInput = placeTile(command);
+        }
+        else if (!checkValidTileCode(t)) {
+          std::cout << "Invalid command" << std::endl;
+
+        } else if (!checkValidCoordinate(coor)) {
+          std::cout << "Invalid command" << std::endl;
+
+        } else {
+           std::cout << "run place tile function" << std::endl;
+        
+        }
 
       }
       else {
-        std::cerr << "Invalid number of commands with place" << std::endl;
+        std::cerr << "Invalid number of commands with 'place'" << std::endl;
       }
     }
-    else if (equalIgnoreCase(command, "save")) {
+    else if (equalsIgnoreCase(command, "save")) {
       if (commandCount == 2) {
         std::cout << "run save function" << std::endl;
-        //iss >> command;
-        //validInput = save(command);
 
       }
       else {
         std::cerr << "Invalid number of commands" << std::endl;
       }
     }
-    else if (equalIgnoreCase(command, "quit")) {
+    else if (equalsIgnoreCase(command, "quit")) {
       if (commandCount == 1) {
         std::cout << "run quit function" << std::endl;
       }
@@ -364,10 +377,10 @@ void  GameController::takeInput() {
 
 
       commandCount = -1;
-      std::cout << "Input: " << input << std::endl;
+      //std::cout << "Input: " << input << std::endl;
 
-      while (!equalIgnoreCase(command, "&%")) {
-        std::cout << command << std::endl;
+      while (!equalsIgnoreCase(command, "&%")) {
+        //std::cout << command << std::endl;
         iss >> command;
         ++commandCount;
 
@@ -378,7 +391,7 @@ void  GameController::takeInput() {
 
     }
 
-  } while (!validInput && !std::cin.eof()); // || !std::cin.eof() // need to check for eof somehow!
+  } while (!validInput && !std::cin.eof()); // repeat unless valid input or end of file received
 
 }
 
@@ -521,6 +534,26 @@ bool GameController::checkValidTileCode(std::string tileCode) {
   return validTileCode;
 }
 
+bool GameController::checkValidCoordinate(std::string coor) { 
+  bool validCoordinate = false;
+
+  if (coor.length() == 2) {
+    
+  char row = std::toupper(coor[0]);
+  int col = coor[1] - '0';
+
+  if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
+    validCoordinate = true;
+
+  } else {
+    std::cout << "Not a valid coordinate" << std::endl;
+  }
+
+  }
+
+  return validCoordinate;
+
+}
 
 Tile* GameController::convertToTile(std::string tileCode) {
 

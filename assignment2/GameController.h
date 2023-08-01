@@ -34,7 +34,7 @@ public:
   // Players take turns drawing from the tilebag one at a time until they have full hands (like dealing cards).
   void setupHands();
 
-  bool equalIgnoreCase(std::string string1, std::string string2);
+  bool equalsIgnoreCase(std::string string1, std::string string2);
   void takeInput();
 
   void printTurn();
@@ -50,6 +50,10 @@ public:
   // Checks that the string passed, follows the rules of the qwirkle tiles, given in Tilecodes.h.
   // Returns custom error messages if not.
   bool checkValidTileCode(std::string tileCode);
+
+  // Checks that the string passed, is a valid coordinate location on the board.
+  // Returns custom error messages if not.
+  bool checkValidCoordinate(std::string coor);
 
   // Convert a tileCode to a tile for various functions within the game. Programming by contract as it is assumed
   // the tileCode has been checked with the checkValidTileCode function declared above.
