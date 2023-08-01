@@ -27,6 +27,8 @@ public:
   int getCols();
   std::vector < std::vector<Coordinate>> getCoordinates();
 
+  bool isBoardPositionEmpty(char row, int col);
+
   void checkNorth(Coordinate currentCoord);// maybe pass int row, int col instead.
   void checkSouth(Coordinate currentCoord);
   void checkEast(Coordinate currentCoord);

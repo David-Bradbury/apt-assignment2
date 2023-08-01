@@ -333,7 +333,7 @@ void  GameController::takeInput() {
           std::cout << "Invalid command" << std::endl;
 
         } else {
-           std::cout << "run place tile function" << std::endl;
+            validInput = placeTile(t, coor);
         
         }
 
@@ -436,24 +436,35 @@ void GameController::playGame() {
 bool  GameController::placeTile(std::string tileCode, std::string location) {
 
   bool tileCanBePlaced = false;
-  bool validTileCode = checkValidTileCode(tileCode);
+  char row = location[0];
+  int col = 0;
+  if(location.length() == 2){
+    col = location[1];
 
-  if (validTileCode) {
+  } else {
+     std::string column = location.substr(1,2);
+     col = std::stoi(column);
 
-    // if (board->boardPosEmpty(location)) {
-
-    // }
-    try
-    {
-      Tile* tile = convertToTile(tileCode);
-
-      delete tile;
     }
-    catch (const std::exception& e)
-    {
-      std::cerr << e.what() << '\n';
-    }
+
+
+  if(this->board->isBoardPositionEmpty(row, col)) {
+    std::cout << "All good" << std::endl;
   }
+
+   
+
+    // try
+    // {
+    //   Tile* tile = convertToTile(tileCode);
+
+    //   delete tile;
+    // }
+    // catch (const std::exception& e)
+    // {
+    //   std::cerr << e.what() << '\n';
+    // }
+  
 
   //this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
   //this->coordinates[16][16].setHasPlayedTile(true);
@@ -551,7 +562,7 @@ bool GameController::checkValidCoordinate(std::string coor) {
       char row = std::toupper(coor[0]);
       std::string column = coor.substr(1,2);
 
-      if(!std::isalpha(column[0]) || !std::isalpha(column[1])) {
+      if(std::isalpha(column[0]) || std::isalpha(column[1])) {
 
            std::cout << "not a valid coordinate 2nd if statement" << std::endl;
        

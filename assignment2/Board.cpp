@@ -21,6 +21,8 @@ Board::Board() {
     this->coordinates.push_back(temp);
     temp.clear();
   }
+
+  this->coordinates[13][13].setPlayedTile(new Tile(4,'R'));
 }
 
 Board::~Board() {
@@ -129,5 +131,22 @@ int Board::getCols() {
 std::vector < std::vector<Coordinate>> Board::getCoordinates()
 {
   return this->coordinates;
+}
+
+bool Board::isBoardPositionEmpty(char row, int col) { 
+  //decrease col by one for index
+  --col;
+  bool isEmpty = false;
+  row = std::toupper(row);
+  int intRow = row - ASCII;
+
+  if(coordinates[intRow][col].getPlayedTile() == nullptr) {
+    isEmpty = true;
+  }
+
+  
+
+  return isEmpty;
+
 }
 
