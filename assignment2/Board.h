@@ -18,18 +18,17 @@ public:
 
   void printBoard();
 
-  // bool boardPosEmpty(std::string location);
-  // Coordinate convertStringToCoord(std::string location);
-
   void setRows(int row);
   void setCols(int col);
   int getRows();
   int getCols();
   std::vector < std::vector<Coordinate>> getCoordinates();
 
-  bool isBoardPositionEmpty(char row, int col);
+  // This function is programming by contract. It is assumed that the caller of this function has
+  // guaranteed that row and col fields passed amount to a valid coordinate.
+  bool isBoardPositionEmpty(int row, int col);
 
-  void checkNorth(Coordinate currentCoord);// maybe pass int row, int col instead.
+  void checkNorth(int row, int col);// maybe pass int row, int col instead.
   void checkSouth(Coordinate currentCoord);
   void checkEast(Coordinate currentCoord);
   void checkWest(Coordinate currentCoord);

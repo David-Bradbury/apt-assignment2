@@ -22,7 +22,7 @@ Board::Board() {
     temp.clear();
   }
 
-  this->coordinates[13][13].setPlayedTile(new Tile(4,'R'));
+  this->coordinates[13][13].setPlayedTile(new Tile(4, 'R'));
 }
 
 Board::~Board() {
@@ -87,30 +87,6 @@ void Board::printBoard() {
     std::cout << std::endl;
   }
 }
-//need to add more checks
-// bool Board::boardPosEmpty(std::string location) {
-//     bool isEmpty = false;
-//       Coordinate* position = convertStringToCoord(location); 
-
-//     if(position->getPlayedTile() == nullptr) {
-//         isEmpty = true;
-//     }
-//     return isEmpty;
-//  }
-
-// Coordinate* Board::convertStringToCoord(std::string location) {
-
-//     Coordinate* coord = nullptr;
-//     if(location.length() == 2) {
-//         int row = location[0] - ASCII; 
-//         int col = location[1] - 1;
-
-//       //  cooord = new Coordinate(row, col); // Not ne coord but getcoord
-//     } else {
-//         std::cerr << "location length is invalid" << std::endl;
-//     }
-//     return coord;
-// }
 
 void Board::setRows(int row) {
   this->rows = row;
@@ -133,20 +109,37 @@ std::vector < std::vector<Coordinate>> Board::getCoordinates()
   return this->coordinates;
 }
 
-bool Board::isBoardPositionEmpty(char row, int col) { 
-  //decrease col by one for index
-  --col;
-  bool isEmpty = false;
-  row = std::toupper(row);
-  int intRow = row - ASCII;
 
-  if(coordinates[intRow][col].getPlayedTile() == nullptr) {
+bool Board::isBoardPositionEmpty(int row, int col) {
+
+  bool isEmpty = false;
+
+  if (coordinates[row][col].getPlayedTile() == nullptr) {
     isEmpty = true;
   }
 
-  
-
   return isEmpty;
-
 }
+
+// LinkedList* Board::checkNorth(char row, int col, ) {
+
+/*
+  bool doesNorthTileExist = true;
+  int northRow = row - 1;
+
+  LinkedList* northLL = nullptr;
+
+  while (doesNorthTileExist) {
+
+    if (coordinates[northRow][col].getPlayedTile() != nullptr) {
+      northLL.AddBack(coordinates[northRow][col].getPlayedTile());
+      northRow--;
+    }
+    else {
+      doesNorthTileExist = false;
+    }
+  }
+  return northLL;
+*/
+// }
 

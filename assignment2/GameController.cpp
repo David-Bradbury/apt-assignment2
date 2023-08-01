@@ -320,8 +320,8 @@ void  GameController::takeInput() {
         std::string coor;
         iss >> t;
         iss >> command;
-        iss >>coor;
-        
+        iss >> coor;
+
         if (!equalsIgnoreCase(command, "at")) {
           std::cout << "Invalid command" << std::endl;
 
@@ -329,12 +329,14 @@ void  GameController::takeInput() {
         else if (!checkValidTileCode(t)) {
           std::cout << "Invalid command" << std::endl;
 
-        } else if (!checkValidCoordinate(coor)) {
+        }
+        else if (!checkValidCoordinate(coor)) {
           std::cout << "Invalid command" << std::endl;
 
-        } else {
-            validInput = placeTile(t, coor);
-        
+        }
+        else {
+          validInput = placeTile(t, coor);
+
         }
 
       }
@@ -418,17 +420,13 @@ void GameController::printTurn() {
 
 // method where the game loop is executed until end
 void GameController::playGame() {
-  // takeInput();
 
-   // while (tileBag->size() > 0 && (player1->getHand()->size() > 0 || player2->getHand()->size() > 0)) {
+  // while (tileBag->size() > 0 && (player1->getHand()->size() > 0 || player2->getHand()->size() > 0)) {
 
-   //      if(turnID == 1) {
-   //        print(turnID);
-   //        takeInput();
-   //      }
-
-
-   // }
+  //        printTurn();
+  //        takeInput();
+  //      }
+  // }
 }
 
 
@@ -436,35 +434,75 @@ void GameController::playGame() {
 bool  GameController::placeTile(std::string tileCode, std::string location) {
 
   bool tileCanBePlaced = false;
-  char row = location[0];
+  location[0] = std::toupper(location[0]);
+
+  int row = location[0] - ASCII;
   int col = 0;
-  if(location.length() == 2){
-    col = location[1];
 
-  } else {
-     std::string column = location.substr(1,2);
-     col = std::stoi(column);
+  if (location.length() == 2) {
+    col = location[1] - 1;
+  }
+  else {
+    std::string column = location.substr(1, 2);
+    col = std::stoi(column) - 1;
+  }
 
+  // check board position where tile to be placed is empty.
+  if (this->board->isBoardPositionEmpty(row, col)) {
+    std::cout << "All good" << std::endl;
+
+    try
+    {
+      Tile* tile = convertToTile(tileCode);
+
+      if (this->tileBag->size() < MAX_TILES) {
+
+        LinkedList* northLL = board->checkNorth(row, col);
+        LinkedList* eastLL = board->checkEast(row, col);
+        LinkedList* westLL = board->checkWest(row, col);
+        LinkedList* southLL = board->checkSouth(row, col);
+
+        if (northLL->get(0) != nullptr || eastLL->get(0) != nullptr || westLL->get(0) != nullptr || southLL->get(0) != nullptr) {
+
+        }
+      }
+      else {
+        this->board.
+      }
+
+
+
+      delete tile;
+    }
+    catch (const std::exception& e)
+    {
+      std::cerr << e.what() << '\n';
     }
 
 
-  if(this->board->isBoardPositionEmpty(row, col)) {
-    std::cout << "All good" << std::endl;
+
+    // north while loop
+    LinkedList* northLL = board->checkNorth(row, col);
+
+    if (northLL->get(0) != nullptr) {
+
+      // check rules
+
+
+    }
+    // East while loop
+    while (currTileLength < maxPlacedTileLength) {
+      // board->checkEast(row - 1, col);
+    }
+
+  }
+  else {
+    std::cerr << "Tile can not be placed at this location as another tile has already been placed." << std::endl;
   }
 
-   
 
-    // try
-    // {
-    //   Tile* tile = convertToTile(tileCode);
 
-    //   delete tile;
-    // }
-    // catch (const std::exception& e)
-    // {
-    //   std::cerr << e.what() << '\n';
-    // }
-  
+
 
   //this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
   //this->coordinates[16][16].setHasPlayedTile(true);
@@ -545,39 +583,42 @@ bool GameController::checkValidTileCode(std::string tileCode) {
   return validTileCode;
 }
 
-bool GameController::checkValidCoordinate(std::string coor) { 
+bool GameController::checkValidCoordinate(std::string coor) {
   bool validCoordinate = false;
 
   if (coor.length() == 2) {
-    
+
     char row = std::toupper(coor[0]);
     int col = coor[1] - '0';
 
-    if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
+    if (std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
       validCoordinate = true;
 
-    } 
-    }else if(coor.length() == 3) {
+    }
+  }
+  else if (coor.length() == 3) {
 
-      char row = std::toupper(coor[0]);
-      std::string column = coor.substr(1,2);
+    char row = std::toupper(coor[0]);
+    std::string column = coor.substr(1, 2);
 
-      if(std::isalpha(column[0]) || std::isalpha(column[1])) {
+    if (std::isalpha(column[0]) || std::isalpha(column[1])) {
 
-           std::cout << "not a valid coordinate 2nd if statement" << std::endl;
-       
-      } else {
-        int col = std::stoi(column);
-        if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
-          validCoordinate = true;
-        }
+      std::cout << "not a valid coordinate 2nd if statement" << std::endl;
+
+    }
+    else {
+      int col = std::stoi(column);
+      if (std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
+        validCoordinate = true;
       }
+    }
 
-  } else {
+  }
+  else {
     std::cout << "Not a valid coordinate" << std::endl;
   }
 
-  
+
 
   return validCoordinate;
 
