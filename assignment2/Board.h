@@ -13,7 +13,7 @@
 class Board {
 public:
 
-  Board();
+  Board(int rows, int cols);
   ~Board();
 
   void printBoard();
@@ -25,6 +25,7 @@ public:
   void setCols(int col);
   int getRows();
   int getCols();
+  void setTile(int row, int col, Tile* tile);
   std::vector < std::vector<Coordinate>> getCoordinates();
 
   void checkNorth(Coordinate currentCoord);// maybe pass int row, int col instead.

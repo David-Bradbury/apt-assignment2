@@ -6,11 +6,11 @@
 #include "Tile.h"
 #include "Coordinate.h"
 
-Board::Board() {
+Board::Board(int rows, int cols) {
 
   std::vector<Coordinate> temp;
-  this->rows = MAX_ROW;
-  this->cols = MAX_COL;
+  this->rows = rows;
+  this->cols = cols;
 
   for (int i = 0; i < MAX_ROW; i++)
   {
@@ -21,6 +21,10 @@ Board::Board() {
     this->coordinates.push_back(temp);
     temp.clear();
   }
+
+  // this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
+  // this->coordinates[15][16].setPlayedTile(new Tile(3, 'R'));
+  // this->coordinates[14][16].setPlayedTile(new Tile(2, 'R'));
 }
 
 Board::~Board() {
@@ -124,6 +128,11 @@ int Board::getRows() {
 
 int Board::getCols() {
   return this->cols;
+}
+
+void Board::setTile(int row, int col, Tile* tile)
+{
+  this->coordinates[row][col].setPlayedTile(tile);
 }
 
 std::vector < std::vector<Coordinate>> Board::getCoordinates()

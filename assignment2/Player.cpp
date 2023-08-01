@@ -1,10 +1,13 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(int iD, std::string name) {
+
+Player::Player() {
+}
+
+Player::Player(std::string name) {
 
     try {
-        this->iD = iD;
         this->name = name;
         this->hand = new LinkedList();
         this->score = 0;
@@ -25,7 +28,6 @@ Player::Player(std::string name, LinkedList* hand, int score) {
         std::cerr << e.what() << std::endl;
     }
 }
-
 
 Player::~Player() {
 
@@ -89,5 +91,7 @@ void Player::addToHand(Tile* tile) {
     }
 }
 
-
+// void setName(std::string name) {
+//     this->name = name;
+// }
 

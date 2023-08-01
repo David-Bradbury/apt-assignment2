@@ -13,12 +13,19 @@ GameController::GameController(std::string player1, std::string player2) {
   try {
     this->player1 = new Player(1, player1);
     this->player2 = new Player(2, player2);
-    this->board = new Board();
+    this->board = new Board(MAX_ROW, MAX_COL);
     this->tileBag = new LinkedList();
   }
   catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
   }
+}
+
+GameController::GameController(Player player1, Player player2, Board* board, LinkedList* tileBag) {
+  this->player1 = new Player(player1);
+  this->player2 = new Player(player2);
+  this->board = board;
+  this->tileBag = tileBag;
 }
 
 GameController::~GameController() {
@@ -36,27 +43,19 @@ void  GameController::prepareGame() {
   setupHands();
   this->currPlayer = player1;
 
-  // saveGame();
-  // IOStream load = IOStream();
-  // // std::vector<std::string> game = load.loadGame("test.save");
-
-  // std::string game = load.loadGame("test.save");
-
-  // std::stringstream stream;
-  // stream.str(game);
 
   printTurn();
   takeInput();
 
-  std::cout << "****Tile Bag Contents****" << std::endl;
-  for (int i = 0; i < this->tileBag->size(); ++i) {
-    std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
-  }
-  std::cout << "****Players hand Contents****" << std::endl;
-  std::cout << "Player 1 hand" << std::endl;
-  this->player1->printHand();
-  std::cout << "Player 2 hand" << std::endl;
-  player2->printHand();
+  // std::cout << "****Tile Bag Contents****" << std::endl;
+  // for (int i = 0; i < this->tileBag->size(); ++i) {
+  //   std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
+  // }
+  // std::cout << "****Players hand Contents****" << std::endl;
+  // std::cout << "Player 1 hand" << std::endl;
+  // this->player1->printHand();
+  // std::cout << "Player 2 hand" << std::endl;
+  // player2->printHand();
 
 }
 
@@ -82,18 +81,8 @@ void  GameController::endGame() {
 void  GameController::quit() {
 
 }
-void  GameController::saveGame() {
+void  GameController::saveGame(std::string fileName) {
   IOStream stream;
-
-  // char randomInput;
-
-  // while ((randomInput = std::cin.get()) != '\n') {}
-
-  std::cout << "Enter A filename for save" << std::endl;
-  std::cout << "> ";
-  std::string fileName;
-  std::cin >> fileName;
-
   std::string saveData = "";
   // Player One Name
   saveData += this->player1->getName();
@@ -102,18 +91,15 @@ void  GameController::saveGame() {
   saveData += std::to_string(this->player1->getScore());
   saveData += '\n';
   // Player One hand
-  // LinkedList* p1Hand = this->player1->getHand();
-  // std::cout << p1Hand->get(1);
-  // for (int i = 0; i < p1Hand->size(); i++)
-  // for (int i = 0; i < this->player1->getHand()->size(); i++)
-  // {
-    // saveData += p1Hand->get(i)->tile->getColour();
-    // saveData += this->player1->getHand()->get(i)->tile->getColour();
-    // saveData += std::to_string(p1Hand->get(i)->tile->getShape());
-  //   saveData += ',';
-  // }
+  for (int i = 0; i < this->player1->getHand()->size(); i++)
+  {
+    saveData += this->player1->getHand()->get(i)->getColour();
+    saveData += std::to_string(this->player1->getHand()->get(i)->getShape());
+    saveData += ',';
+  }
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
   saveData += '\n';
-
   // Player Two Name
   saveData += this->player2->getName();
   saveData += '\n';
@@ -121,14 +107,14 @@ void  GameController::saveGame() {
   saveData += std::to_string(this->player2->getScore());
   saveData += '\n';
   // Player Two hand
-  // LinkedList* p2Hand = this->player2->getHand();
-
-  // for (int i = 0; i < p2Hand->size(); i++)
-  // {
-  //   saveData += p2Hand->get(i)->tile->getColour();
-  //   saveData += std::to_string(p2Hand->get(i)->tile->getShape());
-  //   saveData += ',';
-  // }
+  for (int i = 0; i < this->player2->getHand()->size(); i++)
+  {
+    saveData += this->player2->getHand()->get(i)->getColour();
+    saveData += std::to_string(this->player2->getHand()->get(i)->getShape());
+    saveData += ',';
+  }
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
   saveData += '\n';
 
   // Board Shape
@@ -146,6 +132,9 @@ void  GameController::saveGame() {
       {
         saveData += positions[i][j].getPlayedTile()->getColour();
         saveData += std::to_string(positions[i][j].getPlayedTile()->getShape());
+        saveData += '@';
+        saveData += char(positions[i][j].getRowCoordinate() + ASCII);
+        saveData += std::to_string(positions[i][j].getColCoordinate() + 1);
         saveData += ',';
       }
 
@@ -167,7 +156,7 @@ void  GameController::saveGame() {
   saveData += '\n';
 
   // Current Player Name
-  // saveData += this.currPlayer.getName();
+  saveData += this->currPlayer->getName();
 
   stream.saveGame(saveData, fileName);
 }
@@ -346,6 +335,16 @@ void  GameController::takeInput() {
       if (commandCount == 2) {
         std::cout << "run save function" << std::endl;
 
+        iss >> command;
+        // validInput = save(command);
+
+        // std::cout << "Enter A filename for save" << std::endl;
+        // std::cout << "> ";
+        // std::string fileName;
+        // std::cin >> fileName;
+        saveGame(command);
+
+
       }
       else {
         std::cerr << "Invalid number of commands" << std::endl;
@@ -414,6 +413,10 @@ void GameController::printTurn() {
 
   std::cout << std::endl;
 
+}
+
+void GameController::setCurrPlayer(Player* player) {
+  this->currPlayer = player;
 }
 
 // method where the game loop is executed until end

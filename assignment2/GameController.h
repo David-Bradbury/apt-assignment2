@@ -21,12 +21,13 @@ class GameController {
 public:
 
   GameController(std::string player1, std::string player2);
+  GameController(Player player1, Player player2, Board* board, LinkedList* tileBag);
   ~GameController();
 
   void prepareGame();
   void endGame();
   void quit();
-  void saveGame();
+  void saveGame(std::string fileName);
 
   void createTileBag();
   int generateRandomInt(int min, int max);
@@ -43,7 +44,7 @@ public:
 
 
   void scoreTurn();
-
+  void setCurrPlayer(Player* player);
 
   void playGame();
 
