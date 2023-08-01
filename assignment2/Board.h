@@ -35,7 +35,8 @@ public:
   // LinkedList* getEastTiles(int row, int col);
   // LinkedList* getWestTiles(int row, int col);
 
-  LinkedList* getTileList(int row, int col, int direction, std::string axis);
+  //LinkedList* getTileList(int row, int col, int direction, std::string axis);
+   LinkedList* getTileList(int row, int col, std::string axis);
 
   void setTile(int row, int col, Tile* tile);
 

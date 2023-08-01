@@ -45,18 +45,25 @@ void  GameController::prepareGame() {
   // std::stringstream stream;
   // stream.str(game);
 
-  printTurn();
-  takeInput();
+  LinkedList* ll = board->getTileList(9, 13, "col");
 
-  std::cout << "****Tile Bag Contents****" << std::endl;
-  for (int i = 0; i < this->tileBag->size(); ++i) {
-    std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
+  for (int i = 0; i < ll->size(); ++i) {
+    std::cout << "i: " << i << " - " << ll->get(i)->getColour() << ", " << ll->get(i)->getShape() << std::endl;
   }
-  std::cout << "****Players hand Contents****" << std::endl;
-  std::cout << "Player 1 hand" << std::endl;
-  this->player1->printHand();
-  std::cout << "Player 2 hand" << std::endl;
-  player2->printHand();
+
+  playGame();
+  // printTurn();
+  // takeInput();
+
+  // std::cout << "****Tile Bag Contents****" << std::endl;
+  // for (int i = 0; i < this->tileBag->size(); ++i) {
+  //   std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
+  // }
+  // std::cout << "****Players hand Contents****" << std::endl;
+  // std::cout << "Player 1 hand" << std::endl;
+  // this->player1->printHand();
+  // std::cout << "Player 2 hand" << std::endl;
+  // player2->printHand();
 
 }
 
@@ -421,13 +428,13 @@ void GameController::printTurn() {
 // method where the game loop is executed until end
 void GameController::playGame() {
 
-  // while (tileBag->size() > 0 && (player1->getHand()->size() > 0 || player2->getHand()->size() > 0)) {
+  while (tileBag->size() > 0 && (player1->getHand()->size() > 0 || player2->getHand()->size() > 0)) {
 
-  //        printTurn();
-  //        takeInput();
-  //      }
-  // }
+    printTurn();
+    takeInput();
+  }
 }
+
 
 
 // maybe program by contract function as we assume checks have previously been made to ensure placing tile is a valid move.
@@ -456,41 +463,79 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
       Tile* tile = convertToTile(tileCode);
 
       if (this->tileBag->size() < START_GAME_TILEBAG_LENGTH) {
+        std::cout << "All good 2" << std::endl;
 
-        LinkedList* northLL = board->getTileList(row, col, -1, "row");
-        LinkedList* southLL = board->getTileList(row, col, 1, "row");
-        LinkedList* eastLL = board->getTileList(row, col, 1, "col");
-        LinkedList* westLL = board->getTileList(row, col, -1, "col");
+        LinkedList* northSouthLL = board->getTileList(row, col, "col");
+        LinkedList* eastWestLL = board->getTileList(row, col, "row");
 
+        if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
 
-        if (northLL->get(0) != nullptr || eastLL->get(0) != nullptr || westLL->get(0) != nullptr || southLL->get(0) != nullptr) {
+          //northSouthLL->addFront(tile);
+          //eastWestLL->addFront(tile);
+          bool colourMatch = true;
+          bool shapeMatch = true;
+          bool overallColourMatch = true;
+          bool overallShapeMatch = true;
+          bool overallMatch = true;
 
-          // bool checkRule(LinkedList * ll, tile);
+          if (northSouthLL->size() < PLACED_TILE_MAX_LENGTH) {
+            std::cout << "All good 3" << std::endl;
+            if (!northSouthLL->tileInList(tile)) {
+              std::cout << "All good 4" << std::endl;
+              for (int i = 0; i < northSouthLL->size(); i++) {
+                std::cout << "All good 5" << std::endl;
+                colourMatch = checkMatchColour(tile, northSouthLL->get(i));
+                // shapeMatch = checkMatchShape(tile, northSouthLL->get(i));
 
-          // std::string[6] rules
-          //   y6     b1
-          //   y5     g1
-          //   y3     r1
-          //   y1     y1
-          //   y3     y3
+                // if (!colourMatch || !shapeMatch) {
+                //   overallMatch = false;
+                // }
+                if (!colourMatch) {
+                  overallColourMatch = false;
+                }
+              }
+              for (int i = 0; i < northSouthLL->size(); i++) {
+                shapeMatch = checkMatchShape(tile, northSouthLL->get(i));
 
+                if (!shapeMatch) {
+                  overallShapeMatch = false;
+                }
+              }
+              if ((!overallColourMatch && !overallShapeMatch) || (overallColourMatch && overallShapeMatch)) {
+                overallMatch = false;
+              }
+              if (overallMatch) {
+                // Need to retrieve tile from hand move to board, add to playedTiles, remove from hand, rather than using this temp tile.
+                this->board->setTile(row, col, tile);
+                tileCanBePlaced = true;
+              }
+              else {
+                std::cerr << "Illegal Move" << std::endl;
+              }
 
+            }
+            else {
+              std::cerr << "Tile can not be placed as it is a duplicate tile" << std::endl;
+            }
+          }
+          else {
+            std::cerr << "Tile can not be placed, as it exceeds maximum placed tile length of 6." << std::endl;
+          }
         }
         else {
           std::cerr << "Tile cannot Be placed here, must be connected to another tile" << std::endl;
         }
-        delete northLL;
-        delete southLL;
-        delete eastLL;
-        delete westLL;
+        delete northSouthLL;
+        delete eastWestLL;
+
       }
       else {
+        // first turn.
         this->board->setTile(row, col, tile);
+        tileCanBePlaced = true;
       }
-
-
-
-      delete tile;
+      // will need to delete tile.
+      //  delete tile;
     }
     catch (const std::exception& e)
     {
@@ -629,7 +674,7 @@ Tile* GameController::convertToTile(std::string tileCode) {
   return tile;
 }
 
-bool checkMatchColour(Tile* tileToPlace, Tile* existingTile) {
+bool GameController::checkMatchColour(Tile * tileToPlace, Tile * existingTile) {
   bool match = false;
 
   if (tileToPlace->getColour() == existingTile->getColour()) {
@@ -639,7 +684,7 @@ bool checkMatchColour(Tile* tileToPlace, Tile* existingTile) {
 }
 
 
-bool checkMatchShape(Tile* tileToPlace, Tile* existingTile) {
+bool GameController::checkMatchShape(Tile * tileToPlace, Tile * existingTile) {
   bool match = false;
 
   if (tileToPlace->getShape() == existingTile->getShape()) {

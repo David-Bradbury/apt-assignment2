@@ -32,6 +32,10 @@ Board::Board() {
   this->coordinates[7][13].setPlayedTile(new Tile(4, 'Y'));
   this->coordinates[6][13].setPlayedTile(new Tile(4, 'B'));
   this->coordinates[5][13].setPlayedTile(new Tile(4, 'G'));
+
+  this->coordinates[9][14].setPlayedTile(new Tile(4, 'R'));
+  this->coordinates[9][15].setPlayedTile(new Tile(4, 'Y'));
+  this->coordinates[9][12].setPlayedTile(new Tile(4, 'B'));
 }
 
 Board::~Board() {
@@ -152,15 +156,55 @@ bool Board::isBoardPositionEmpty(int row, int col) {
 
 
 // Add comment about linkedlist ownership tranferring to calling function.
-LinkedList* Board::getTileList(int row, int col, int direction, std::string axis) {
+// LinkedList* Board::getTileList(int row, int col, int direction, std::string axis) {
+
+//   std::cout << "ingettilelist " << std::endl;
+//   bool doesNextTileExist = true;
+
+//   if (axis == "row") { // 9
+//     row = row + direction;
+//   }
+//   else {
+//     col = col + direction;
+//   }
+
+//   LinkedList* ll = new LinkedList();
+
+//   while (doesNextTileExist) {
+
+//     if (this->coordinates[row][col].getPlayedTile() != nullptr) {
+//       ll->addBack(this->coordinates[row][col].getPlayedTile());
+
+//       if (axis == "row") {
+//         row = row + direction;
+//       }
+//       else {
+//         col = col + direction;
+//       }
+//     }
+//     else {
+//       doesNextTileExist = false;
+//     }
+//   }
+//   return ll;
+// }
+
+void Board::setTile(int row, int col, Tile* tile) {
+  this->coordinates[row][col].setPlayedTile(tile);
+}
+
+
+LinkedList* Board::getTileList(int row, int col, std::string axis) {
 
   bool doesNextTileExist = true;
-
-  if (axis == "row") {
-    row = row + direction;
+  int row2 = row;
+  int col2 = col;
+  // first add 1 
+  if (axis == "col") {
+    row++;
   }
   else {
-    col = col + direction;
+    col++;
   }
 
   LinkedList* ll = new LinkedList();
@@ -170,13 +214,39 @@ LinkedList* Board::getTileList(int row, int col, int direction, std::string axis
     if (this->coordinates[row][col].getPlayedTile() != nullptr) {
       ll->addBack(this->coordinates[row][col].getPlayedTile());
 
-      if (axis == "row") {
-        row = row + direction;
+      if (axis == "col") {
+        row++;
       }
       else {
-        col = col + direction;
+        col++;
       }
     }
+    else {
+      doesNextTileExist = false;
+    }
+  }
+  doesNextTileExist = true;
+
+  if (axis == "col") {
+    row2--;
+  }
+  else {
+    col2--;
+  }
+
+  while (doesNextTileExist) {
+
+    if (this->coordinates[row2][col2].getPlayedTile() != nullptr) {
+      ll->addBack(this->coordinates[row2][col2].getPlayedTile());
+
+      if (axis == "col") {
+        row2 = row2 - 1;
+      }
+      else {
+        col2 = col2 - 1;
+      }
+    }
+
     else {
       doesNextTileExist = false;
     }
@@ -184,6 +254,3 @@ LinkedList* Board::getTileList(int row, int col, int direction, std::string axis
   return ll;
 }
 
-void Board::setTile(int row, int col, Tile* tile) {
-  this->coordinates[row][col].setPlayedTile(tile);
-}
