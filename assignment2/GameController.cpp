@@ -539,17 +539,34 @@ bool GameController::checkValidCoordinate(std::string coor) {
 
   if (coor.length() == 2) {
     
-  char row = std::toupper(coor[0]);
-  int col = coor[1] - '0';
+    char row = std::toupper(coor[0]);
+    int col = coor[1] - '0';
 
-  if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
-    validCoordinate = true;
+    if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
+      validCoordinate = true;
+
+    } 
+    }else if(coor.length() == 3) {
+
+      char row = std::toupper(coor[0]);
+      std::string column = coor.substr(1,2);
+
+      if(std::isalpha(column[0]) || std::isalpha(column[1])) {
+
+           std::cout << "not a valid coordinate 2nd if statement" << std::endl;
+       
+      } else {
+        int col = std::stoi(column);
+        if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
+          validCoordinate = true;
+       
+      }
 
   } else {
     std::cout << "Not a valid coordinate" << std::endl;
   }
 
-  }
+  
 
   return validCoordinate;
 
