@@ -9,6 +9,7 @@
 #include <string>
 
 #define MAX_TILES   72
+#define START_GAME_TILEBAG_LENGTH 60
 #define MAX_TILE_OCCURENCES 2
 
 enum turn {
@@ -60,6 +61,11 @@ public:
   Tile* convertToTile(std::string tileCode);
 
 
+  bool checkMatchColour(Tile* tileToPlace, Tile* existingTile);
+  bool checkMatchShape(Tile* tileToPlace, Tile* existingTile);
+
+
+
 
 private:
 
@@ -69,9 +75,6 @@ private:
   Player* player2;
   Board* board;
   Player* currPlayer;
-
-
-
 
 };
 

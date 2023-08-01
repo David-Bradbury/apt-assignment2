@@ -455,19 +455,37 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
     {
       Tile* tile = convertToTile(tileCode);
 
-      if (this->tileBag->size() < MAX_TILES) {
+      if (this->tileBag->size() < START_GAME_TILEBAG_LENGTH) {
 
-        LinkedList* northLL = board->checkNorth(row, col);
-        LinkedList* eastLL = board->checkEast(row, col);
-        LinkedList* westLL = board->checkWest(row, col);
-        LinkedList* southLL = board->checkSouth(row, col);
+        LinkedList* northLL = board->getTileList(row, col, -1, "row");
+        LinkedList* southLL = board->getTileList(row, col, 1, "row");
+        LinkedList* eastLL = board->getTileList(row, col, 1, "col");
+        LinkedList* westLL = board->getTileList(row, col, -1, "col");
+
 
         if (northLL->get(0) != nullptr || eastLL->get(0) != nullptr || westLL->get(0) != nullptr || southLL->get(0) != nullptr) {
 
+          // bool checkRule(LinkedList * ll, tile);
+
+          // std::string[6] rules
+          //   y6     b1
+          //   y5     g1
+          //   y3     r1
+          //   y1     y1
+          //   y3     y3
+
+
         }
+        else {
+          std::cerr << "Tile cannot Be placed here, must be connected to another tile" << std::endl;
+        }
+        delete northLL;
+        delete southLL;
+        delete eastLL;
+        delete westLL;
       }
       else {
-        this->board.
+        this->board->setTile(row, col, tile);
       }
 
 
@@ -478,34 +496,11 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
     {
       std::cerr << e.what() << '\n';
     }
-
-
-
-    // north while loop
-    LinkedList* northLL = board->checkNorth(row, col);
-
-    if (northLL->get(0) != nullptr) {
-
-      // check rules
-
-
-    }
-    // East while loop
-    while (currTileLength < maxPlacedTileLength) {
-      // board->checkEast(row - 1, col);
-    }
-
   }
   else {
     std::cerr << "Tile can not be placed at this location as another tile has already been placed." << std::endl;
   }
 
-
-
-
-
-  //this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
-  //this->coordinates[16][16].setHasPlayedTile(true);
 
   return tileCanBePlaced;
 }
@@ -632,4 +627,24 @@ Tile* GameController::convertToTile(std::string tileCode) {
   Tile* tile = new Tile(shape, colour);
 
   return tile;
+}
+
+bool checkMatchColour(Tile* tileToPlace, Tile* existingTile) {
+  bool match = false;
+
+  if (tileToPlace->getColour() == existingTile->getColour()) {
+    match = true;
+  }
+  return match;
+}
+
+
+bool checkMatchShape(Tile* tileToPlace, Tile* existingTile) {
+  bool match = false;
+
+  if (tileToPlace->getShape() == existingTile->getShape()) {
+    match = true;
+  }
+
+  return match;
 }

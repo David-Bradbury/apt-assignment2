@@ -5,6 +5,7 @@
 #include "Node.h"
 #include "Tile.h"
 #include "Coordinate.h"
+#include <string>
 
 Board::Board() {
 
@@ -22,7 +23,15 @@ Board::Board() {
     temp.clear();
   }
 
-  this->coordinates[13][13].setPlayedTile(new Tile(4, 'R'));
+  this->coordinates[13][13].setPlayedTile(new Tile(1, 'R'));
+  this->coordinates[12][13].setPlayedTile(new Tile(2, 'R'));
+  this->coordinates[11][13].setPlayedTile(new Tile(3, 'R'));
+  this->coordinates[10][13].setPlayedTile(new Tile(6, 'R'));
+
+  this->coordinates[8][13].setPlayedTile(new Tile(4, 'R'));
+  this->coordinates[7][13].setPlayedTile(new Tile(4, 'Y'));
+  this->coordinates[6][13].setPlayedTile(new Tile(4, 'B'));
+  this->coordinates[5][13].setPlayedTile(new Tile(4, 'G'));
 }
 
 Board::~Board() {
@@ -121,25 +130,60 @@ bool Board::isBoardPositionEmpty(int row, int col) {
   return isEmpty;
 }
 
-// LinkedList* Board::checkNorth(char row, int col, ) {
+// LinkedList* Board::getNorthTiles(int row, int col) {
 
-/*
-  bool doesNorthTileExist = true;
-  int northRow = row - 1;
+//   bool doesNorthTileExist = true;
 
-  LinkedList* northLL = nullptr;
+//   int northRow = row - 1;
+//   LinkedList* northLL = nullptr;
 
-  while (doesNorthTileExist) {
+//   while (doesNorthTileExist) {
 
-    if (coordinates[northRow][col].getPlayedTile() != nullptr) {
-      northLL.AddBack(coordinates[northRow][col].getPlayedTile());
-      northRow--;
-    }
-    else {
-      doesNorthTileExist = false;
-    }
-  }
-  return northLL;
-*/
+//     if (this->coordinates[northRow][col].getPlayedTile() != nullptr) {
+//       northLL->addBack(this->coordinates[northRow][col].getPlayedTile());
+//       northRow--;
+//     }
+//     else {
+//       doesNorthTileExist = false;
+//     }
+//   }
+//   return northLL;
 // }
 
+
+// Add comment about linkedlist ownership tranferring to calling function.
+LinkedList* Board::getTileList(int row, int col, int direction, std::string axis) {
+
+  bool doesNextTileExist = true;
+
+  if (axis == "row") {
+    row = row + direction;
+  }
+  else {
+    col = col + direction;
+  }
+
+  LinkedList* ll = new LinkedList();
+
+  while (doesNextTileExist) {
+
+    if (this->coordinates[row][col].getPlayedTile() != nullptr) {
+      ll->addBack(this->coordinates[row][col].getPlayedTile());
+
+      if (axis == "row") {
+        row = row + direction;
+      }
+      else {
+        col = col + direction;
+      }
+    }
+    else {
+      doesNextTileExist = false;
+    }
+  }
+  return ll;
+}
+
+void Board::setTile(int row, int col, Tile* tile) {
+  this->coordinates[row][col].setPlayedTile(tile);
+}
