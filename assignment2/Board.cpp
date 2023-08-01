@@ -28,11 +28,12 @@ Board::Board(int rows, int cols) {
   this->coordinates[12][13].setPlayedTile(new Tile(2, 'R'));
   this->coordinates[11][13].setPlayedTile(new Tile(3, 'R'));
   this->coordinates[10][13].setPlayedTile(new Tile(6, 'R'));
+  this->coordinates[14][13].setPlayedTile(new Tile(5, 'R'));
 
-  this->coordinates[8][13].setPlayedTile(new Tile(4, 'R'));
-  this->coordinates[7][13].setPlayedTile(new Tile(4, 'Y'));
-  this->coordinates[6][13].setPlayedTile(new Tile(4, 'B'));
-  this->coordinates[5][13].setPlayedTile(new Tile(4, 'G'));
+  this->coordinates[8][13].setPlayedTile(new Tile(2, 'R'));
+  this->coordinates[7][13].setPlayedTile(new Tile(2, 'Y'));
+  this->coordinates[6][13].setPlayedTile(new Tile(2, 'B'));
+  this->coordinates[5][13].setPlayedTile(new Tile(2, 'G'));
 
   this->coordinates[9][14].setPlayedTile(new Tile(4, 'R'));
   this->coordinates[9][15].setPlayedTile(new Tile(4, 'Y'));
