@@ -12,6 +12,7 @@
 #define START_GAME_TILEBAG_LENGTH 60
 #define MAX_TILE_OCCURENCES 2
 #define PLACED_TILE_MAX_LENGTH 6
+#define QWIRKLE 6
 
 enum turn {
 
@@ -45,7 +46,8 @@ public:
   bool replaceTile(std::string tileCode);
 
 
-  void scoreTurn();
+  int scoreTurn(std::string tileCode, std::string location);
+  int calculateScore(LinkedList* ll);
   void setCurrPlayer(Player* player);
 
   void playGame();
@@ -62,7 +64,7 @@ public:
   // the tileCode has been checked with the checkValidTileCode function declared above.
   Tile* convertToTile(std::string tileCode);
 
-
+  bool checkValidMove(LinkedList* ll, Tile* tile);
   bool checkMatchColour(Tile* tileToPlace, Tile* existingTile);
   bool checkMatchShape(Tile* tileToPlace, Tile* existingTile);
 
