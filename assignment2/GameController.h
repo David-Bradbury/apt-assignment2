@@ -49,6 +49,7 @@ public:
   int scoreTurn(std::string tileCode, std::string location);
   int calculateScore(LinkedList* ll);
   void setCurrPlayer(Player* player);
+  void changeCurrPlayer();
 
   void playGame();
 

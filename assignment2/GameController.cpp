@@ -45,27 +45,7 @@ void  GameController::prepareGame() {
   setupHands();
   this->currPlayer = player1;
 
-
-  LinkedList* ll = board->getTileList(9, 13, "col");
-
-  for (int i = 0; i < ll->size(); ++i) {
-    std::cout << "i: " << i << " - " << ll->get(i)->getColour() << ", " << ll->get(i)->getShape() << std::endl;
-  }
-
   playGame();
-  // printTurn();
-  // takeInput();
-
-
-    // std::cout << "****Tile Bag Contents****" << std::endl;
-    // for (int i = 0; i < this->tileBag->size(); ++i) {
-    //   std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
-    // }
-    // std::cout << "****Players hand Contents****" << std::endl;
-    // std::cout << "Player 1 hand" << std::endl;
-    // this->player1->printHand();
-    // std::cout << "Player 2 hand" << std::endl;
-    // player2->printHand();
 
 }
 
@@ -442,6 +422,16 @@ void GameController::setCurrPlayer(Player* player) {
   this->currPlayer = player;
 }
 
+void GameController::changeCurrPlayer() {
+  if (this->currPlayer == this->player1) {
+    this->currPlayer = this->player2;
+  }
+  else {
+    this->currPlayer = this->player1;
+  }
+
+}
+
 // method where the game loop is executed until end
 void GameController::playGame() {
 
@@ -449,9 +439,9 @@ void GameController::playGame() {
 
     printTurn();
     takeInput();
+    changeCurrPlayer();
   }
 }
-
 
 
 // maybe program by contract function as we assume checks have previously been made to ensure placing tile is a valid move.
@@ -474,59 +464,74 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
   }
 
 
-
   // check board position where tile to be placed is empty.
   if (this->board->isBoardPositionEmpty(row, col)) {
     try
     {
       Tile* tile = convertToTile(tileCode);
+      if (this->currPlayer->getHand()->tileInList(tile)) {
+        if (this->tileBag->size() < START_GAME_TILEBAG_LENGTH) {
+          LinkedList* northSouthLL = board->getTileList(row, col, "col");
+          LinkedList* eastWestLL = board->getTileList(row, col, "row");
+
+          if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
+            // if (northSouthLL->size() > 0 || eastWestLL->size() > 0) {
+
+            colValidMove = checkValidMove(northSouthLL, tile);
+            rowValidMove = checkValidMove(eastWestLL, tile);
+          }
+          else {
+            std::cerr << "Tile cannot Be placed here, must be connected to another tile" << std::endl;
+          }
+
+          if (!colValidMove || !rowValidMove)
+          {
+            std::cerr << "Illegal Move" << std::endl;
+          }
+          else {
+            // Need to retrieve tile from hand move to board, add to playedTiles, remove from hand, rather than using this temp tile.
+            this->board->setTile(row, col, tile);
 
 
-      if (this->tileBag->size() < START_GAME_TILEBAG_LENGTH) {
-        LinkedList* northSouthLL = board->getTileList(row, col, "col");
-        LinkedList* eastWestLL = board->getTileList(row, col, "row");
+            this->playedTiles->addBack(tile);
+            this->currPlayer->getHand()->removeTile(tile);
+            if (this->tileBag->size() > 0)
+            {
+              this->currPlayer->addToHand(this->tileBag->get(0));
+              this->tileBag->deleteFront();
+            }
 
-        if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
-          // if (northSouthLL->size() > 0 || eastWestLL->size() > 0) {
+            tileCanBePlaced = true;
+          }
 
-          colValidMove = checkValidMove(northSouthLL, tile);
-          rowValidMove = checkValidMove(eastWestLL, tile);
+          delete northSouthLL;
+          delete eastWestLL;
+
         }
         else {
-          std::cerr << "Tile cannot Be placed here, must be connected to another tile" << std::endl;
-        }
-
-        if (!colValidMove || !rowValidMove)
-        {
-          std::cerr << "Illegal Move" << std::endl;
-        }
-        else {
-          // Need to retrieve tile from hand move to board, add to playedTiles, remove from hand, rather than using this temp tile.
+          // first turn.
           this->board->setTile(row, col, tile);
+          this->currPlayer->addToScore(1);
           tileCanBePlaced = true;
         }
 
-        delete northSouthLL;
-        delete eastWestLL;
-
+        delete tile;
       }
       else {
-        // first turn.
-        this->board->setTile(row, col, tile);
-        this->currPlayer->addToScore(1);
-        tileCanBePlaced = true;
+        std::cerr << "Tile not in your hand." << std::endl;
       }
-      // will need to delete tile.
-      //  delete tile;
     }
     catch (const std::exception& e)
     {
       std::cerr << e.what() << '\n';
     }
   }
+
   else {
     std::cerr << "Tile can not be placed at this location as another tile has already been placed." << std::endl;
   }
+
+
 
 
   return tileCanBePlaced;
