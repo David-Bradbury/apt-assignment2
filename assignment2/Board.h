@@ -2,7 +2,9 @@
 #define ASSIGN2_BOARD_H
 
 #include "Coordinate.h"
+#include "LinkedList.h"
 #include <vector>
+#include <string>
 
 #define MAX_ROW 26
 #define MIN_COL 1
@@ -18,9 +20,6 @@ public:
 
   void printBoard();
 
-  // bool boardPosEmpty(std::string location);
-  // Coordinate convertStringToCoord(std::string location);
-
   void setRows(int row);
   void setCols(int col);
   int getRows();
@@ -28,11 +27,17 @@ public:
   void setTile(int row, int col, Tile* tile);
   std::vector < std::vector<Coordinate>> getCoordinates();
 
-  void checkNorth(Coordinate currentCoord);// maybe pass int row, int col instead.
-  void checkSouth(Coordinate currentCoord);
-  void checkEast(Coordinate currentCoord);
-  void checkWest(Coordinate currentCoord);
+  // This function is programming by contract. It is assumed that the caller of this function has
+  // guaranteed that row and col fields passed amount to a valid coordinate.
+  bool isBoardPositionEmpty(int row, int col);
 
+  // LinkedList* getNorthTiles(int row, int col);
+  // LinkedList* getSouthTiles(int row, int col);
+  // LinkedList* getEastTiles(int row, int col);
+  // LinkedList* getWestTiles(int row, int col);
+
+  //LinkedList* getTileList(int row, int col, int direction, std::string axis);
+  LinkedList* getTileList(int row, int col, std::string axis);
 
 
 private:

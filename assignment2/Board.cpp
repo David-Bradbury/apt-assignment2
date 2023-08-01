@@ -5,6 +5,7 @@
 #include "Node.h"
 #include "Tile.h"
 #include "Coordinate.h"
+#include <string>
 
 Board::Board(int rows, int cols) {
 
@@ -22,9 +23,21 @@ Board::Board(int rows, int cols) {
     temp.clear();
   }
 
-  // this->coordinates[16][16].setPlayedTile(new Tile(4, 'R'));
-  // this->coordinates[15][16].setPlayedTile(new Tile(3, 'R'));
-  // this->coordinates[14][16].setPlayedTile(new Tile(2, 'R'));
+
+  this->coordinates[13][13].setPlayedTile(new Tile(1, 'R'));
+  this->coordinates[12][13].setPlayedTile(new Tile(2, 'R'));
+  this->coordinates[11][13].setPlayedTile(new Tile(3, 'R'));
+  this->coordinates[10][13].setPlayedTile(new Tile(6, 'R'));
+
+  this->coordinates[8][13].setPlayedTile(new Tile(4, 'R'));
+  this->coordinates[7][13].setPlayedTile(new Tile(4, 'Y'));
+  this->coordinates[6][13].setPlayedTile(new Tile(4, 'B'));
+  this->coordinates[5][13].setPlayedTile(new Tile(4, 'G'));
+
+  this->coordinates[9][14].setPlayedTile(new Tile(4, 'R'));
+  this->coordinates[9][15].setPlayedTile(new Tile(4, 'Y'));
+  this->coordinates[9][12].setPlayedTile(new Tile(4, 'B'));
+
 }
 
 Board::~Board() {
@@ -89,30 +102,6 @@ void Board::printBoard() {
     std::cout << std::endl;
   }
 }
-//need to add more checks
-// bool Board::boardPosEmpty(std::string location) {
-//     bool isEmpty = false;
-//       Coordinate* position = convertStringToCoord(location); 
-
-//     if(position->getPlayedTile() == nullptr) {
-//         isEmpty = true;
-//     }
-//     return isEmpty;
-//  }
-
-// Coordinate* Board::convertStringToCoord(std::string location) {
-
-//     Coordinate* coord = nullptr;
-//     if(location.length() == 2) {
-//         int row = location[0] - ASCII; 
-//         int col = location[1] - 1;
-
-//       //  cooord = new Coordinate(row, col); // Not ne coord but getcoord
-//     } else {
-//         std::cerr << "location length is invalid" << std::endl;
-//     }
-//     return coord;
-// }
 
 void Board::setRows(int row) {
   this->rows = row;
@@ -130,13 +119,88 @@ int Board::getCols() {
   return this->cols;
 }
 
-void Board::setTile(int row, int col, Tile* tile)
-{
-  this->coordinates[row][col].setPlayedTile(tile);
-}
+
 
 std::vector < std::vector<Coordinate>> Board::getCoordinates()
 {
   return this->coordinates;
+}
+
+
+bool Board::isBoardPositionEmpty(int row, int col) {
+
+  bool isEmpty = false;
+
+  if (coordinates[row][col].getPlayedTile() == nullptr) {
+    isEmpty = true;
+  }
+
+  return isEmpty;
+}
+
+
+void Board::setTile(int row, int col, Tile* tile) {
+  this->coordinates[row][col].setPlayedTile(tile);
+}
+
+
+LinkedList* Board::getTileList(int row, int col, std::string axis) {
+
+  bool doesNextTileExist = true;
+  int row2 = row;
+  int col2 = col;
+  // first add 1 
+  if (axis == "col") {
+    row++;
+  }
+  else {
+    col++;
+  }
+
+  LinkedList* ll = new LinkedList();
+
+  while (doesNextTileExist) {
+
+    if (this->coordinates[row][col].getPlayedTile() != nullptr) {
+      ll->addBack(this->coordinates[row][col].getPlayedTile());
+
+      if (axis == "col") {
+        row++;
+      }
+      else {
+        col++;
+      }
+    }
+    else {
+      doesNextTileExist = false;
+    }
+  }
+  doesNextTileExist = true;
+
+  if (axis == "col") {
+    row2--;
+  }
+  else {
+    col2--;
+  }
+
+  while (doesNextTileExist) {
+
+    if (this->coordinates[row2][col2].getPlayedTile() != nullptr) {
+      ll->addBack(this->coordinates[row2][col2].getPlayedTile());
+
+      if (axis == "col") {
+        row2 = row2 - 1;
+      }
+      else {
+        col2 = col2 - 1;
+      }
+    }
+
+    else {
+      doesNextTileExist = false;
+    }
+  }
+  return ll;
 }
 

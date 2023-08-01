@@ -13,7 +13,6 @@ public:
 
     Player();
     Player(std::string name);
-
     Player(std::string name, LinkedList* hand, int score);
     ~Player();
 
