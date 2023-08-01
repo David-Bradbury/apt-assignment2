@@ -11,8 +11,8 @@
 GameController::GameController(std::string player1, std::string player2) {
 
   try {
-    this->player1 = new Player(1, player1);
-    this->player2 = new Player(2, player2);
+    this->player1 = new Player(player1);
+    this->player2 = new Player(player2);
     this->board = new Board(MAX_ROW, MAX_COL);
     this->tileBag = new LinkedList();
   }
