@@ -551,7 +551,7 @@ bool GameController::checkValidCoordinate(std::string coor) {
       char row = std::toupper(coor[0]);
       std::string column = coor.substr(1,2);
 
-      if(std::isalpha(column[0]) || std::isalpha(column[1])) {
+      if(!std::isalpha(column[0]) || !std::isalpha(column[1])) {
 
            std::cout << "not a valid coordinate 2nd if statement" << std::endl;
        
@@ -559,7 +559,7 @@ bool GameController::checkValidCoordinate(std::string coor) {
         int col = std::stoi(column);
         if(std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
           validCoordinate = true;
-       
+        }
       }
 
   } else {
