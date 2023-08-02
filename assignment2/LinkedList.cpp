@@ -152,9 +152,6 @@ void LinkedList::removeTile(Tile* tileToDelete) {
    if (!successful) {
       std::cout << "Tile was not found in the list" << std::endl;
    }
-
-
-
 }
 
 //return true if provided tile is in the list

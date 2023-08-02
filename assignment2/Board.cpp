@@ -24,22 +24,22 @@ Board::Board(int rows, int cols) {
   }
 
 
-  this->coordinates[13][13].setPlayedTile(new Tile(1, 'R'));
-  this->coordinates[12][13].setPlayedTile(new Tile(2, 'R'));
-  this->coordinates[11][13].setPlayedTile(new Tile(3, 'R'));
-  this->coordinates[10][13].setPlayedTile(new Tile(6, 'R'));
-  this->coordinates[14][13].setPlayedTile(new Tile(5, 'R'));
+  // this->coordinates[13][13].setPlayedTile(new Tile(1, 'R'));
+  // this->coordinates[12][13].setPlayedTile(new Tile(2, 'R'));
+  // this->coordinates[11][13].setPlayedTile(new Tile(3, 'R'));
+  // this->coordinates[10][13].setPlayedTile(new Tile(6, 'R'));
+  // this->coordinates[14][13].setPlayedTile(new Tile(5, 'R'));
 
-  this->coordinates[8][13].setPlayedTile(new Tile(2, 'R'));
-  this->coordinates[7][13].setPlayedTile(new Tile(2, 'Y'));
-  this->coordinates[6][13].setPlayedTile(new Tile(2, 'B'));
-  this->coordinates[5][13].setPlayedTile(new Tile(2, 'G'));
+  // this->coordinates[8][13].setPlayedTile(new Tile(2, 'R'));
+  // this->coordinates[7][13].setPlayedTile(new Tile(2, 'Y'));
+  // this->coordinates[6][13].setPlayedTile(new Tile(2, 'B'));
+  // this->coordinates[5][13].setPlayedTile(new Tile(2, 'G'));
 
-  this->coordinates[9][14].setPlayedTile(new Tile(4, 'R'));
-  this->coordinates[9][15].setPlayedTile(new Tile(4, 'Y'));
-  this->coordinates[9][12].setPlayedTile(new Tile(4, 'B'));
+  // this->coordinates[9][14].setPlayedTile(new Tile(4, 'R'));
+  // this->coordinates[9][15].setPlayedTile(new Tile(4, 'Y'));
+  // this->coordinates[9][12].setPlayedTile(new Tile(4, 'B'));
 
-  this->coordinates[6][14].setPlayedTile(new Tile(2, 'B'));
+  // this->coordinates[6][14].setPlayedTile(new Tile(2, 'B'));
 
 }
 
@@ -150,29 +150,34 @@ void Board::setTile(int row, int col, Tile* tile) {
 LinkedList* Board::getTileList(int row, int col, std::string axis) {
 
   LinkedList* ll = new LinkedList();
-
   bool doesNextTileExist = true;
-  int row2 = row;
-  int col2 = col;
+
+  int oppositeRow = row;
+  int oppositeCol = col;
+
+  // Checks South/East depending on axis
   // first add 1 
-  if (axis == "col" && (row < MAX_ROW && row > 0)) {
+  if (axis == "ns" && (row < MAX_ROW && row >= 0)) {
     row++;
   }
-  else if (col < MAX_ROW && col > 0)
-  {
+  else if (col < MAX_ROW && col >= 0) {
     col++;
   }
 
 
-  while (doesNextTileExist && (row > 0 && row < MAX_ROW) && (col > 0 && col < MAX_COL)) {
+  while (doesNextTileExist && (row >= 0 && row < MAX_ROW) && (col >= 0 && col < MAX_COL)) {
 
     if (this->coordinates[row][col].getPlayedTile() != nullptr) {
       ll->addBack(this->coordinates[row][col].getPlayedTile());
-      if (axis == "col" && (row < MAX_ROW && row > 0)) {
+
+      if (axis == "ns" && (row < MAX_ROW && row >= 0)) {
         row++;
       }
-      else if (col < MAX_ROW && col > 0) {
+      else if (col < MAX_ROW && col >= 0) {
         col++;
+      }
+      if (col == MAX_COL || col == 0 || row == MAX_ROW || row == 0) {
+        doesNextTileExist = false;
       }
     }
     else {
@@ -180,28 +185,31 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
     }
   }
 
+  // Checks North/West depending on axis
   doesNextTileExist = true;
 
-  if (axis == "col" && (row2 < MAX_ROW && row2 > 0)) {
-    row2--;
+  if (axis == "ns" && (oppositeRow < MAX_ROW && oppositeRow > 0)) {
+    oppositeRow--;
   }
-  else if (col2 < MAX_ROW && col2 > 0) {
-    col2--;
+  else if (oppositeCol < MAX_ROW && oppositeCol > 0) {
+    oppositeCol--;
   }
 
-  while (doesNextTileExist && (col > 0 && col < MAX_COL) && (row > 0 && row < MAX_ROW)) {
+  while (doesNextTileExist && (oppositeCol >= 0 && oppositeCol < MAX_COL) && (oppositeRow >= 0 && oppositeRow < MAX_ROW)) {
 
-    if (this->coordinates[row2][col2].getPlayedTile() != nullptr) {
-      ll->addBack(this->coordinates[row2][col2].getPlayedTile());
+    if (this->coordinates[oppositeRow][oppositeCol].getPlayedTile() != nullptr) {
+      ll->addBack(this->coordinates[oppositeRow][oppositeCol].getPlayedTile());
 
-      if (axis == "col" && (row2 < MAX_ROW && row2 > 0)) {
-        row2 = row2 - 1;
+      if (axis == "ns" && (oppositeRow < MAX_ROW && oppositeRow > 0)) {
+        oppositeRow--;
       }
-      else if (col2 < MAX_ROW && col2 > 0) {
-        col2 = col2 - 1;
+      else if (oppositeCol < MAX_ROW && oppositeCol > 0) {
+        oppositeCol--;
+      }
+      if (oppositeCol == MAX_COL || oppositeCol == 0 || oppositeRow == MAX_ROW || oppositeRow == 0) {
+        doesNextTileExist = false;
       }
     }
-
     else {
       doesNextTileExist = false;
     }
