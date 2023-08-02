@@ -27,6 +27,8 @@ public:
 
    void deleteFront();
 
+   bool isEmpty();
+
 private:
    Node* head;
    Node* tail;

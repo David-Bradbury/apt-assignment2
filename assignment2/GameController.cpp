@@ -16,6 +16,7 @@ GameController::GameController(std::string player1, std::string player2) {
     this->board = new Board(MAX_ROW, MAX_COL);
     this->tileBag = new LinkedList();
     this->playedTiles = new LinkedList();
+
   }
   catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
@@ -44,7 +45,8 @@ void  GameController::prepareGame() {
   createTileBag();
   setupHands();
   this->currPlayer = player1;
-
+  char randomInput;
+  while ((randomInput = std::cin.get()) != '\n') {}
   playGame();
 
 }
@@ -201,12 +203,6 @@ void  GameController::createTileBag() {
 
 
   }
-  // Remove after testing
-  std::cout << "****Tile Bag Contents****" << std::endl;
-  for (int i = 0; i < this->tileBag->size(); ++i) {
-    std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
-  }
-
 }
 
 int GameController::generateRandomInt(int min, int max) {
@@ -228,15 +224,15 @@ void  GameController::setupHands() {
   }
 
   // All following code needs to be removed, here for testing.
-  std::cout << "****Tile Bag Contents****" << std::endl;
-  for (int i = 0; i < this->tileBag->size(); ++i) {
-    std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
-  }
-  std::cout << "****Players hand Contents****" << std::endl;
-  std::cout << "Player 1 hand" << std::endl;
-  player1->printHand();
-  std::cout << "Player 2 hand" << std::endl;
-  player2->printHand();
+  // std::cout << "****Tile Bag Contents****" << std::endl;
+  // for (int i = 0; i < this->tileBag->size(); ++i) {
+  //   std::cout << "i: " << i << " - " << tileBag->get(i)->getColour() << ", " << tileBag->get(i)->getShape() << std::endl;
+  // }
+  // std::cout << "****Players hand Contents****" << std::endl;
+  // std::cout << "Player 1 hand" << std::endl;
+  // player1->printHand();
+  // std::cout << "Player 2 hand" << std::endl;
+  // player2->printHand();
 }
 
 
@@ -251,21 +247,17 @@ bool GameController::equalsIgnoreCase(std::string string1, std::string string2) 
     for (unsigned i = 0; i < string1.length(); ++i) {
       if (std::tolower(string1[i]) != std::tolower(string2[i]))
         theSameIgnoringCase = false;
-
-
     }
   }
 
   return theSameIgnoringCase;
 }
 
-void  GameController::takeInput() {
 
+
+void  GameController::takeInput() {
   std::string input;
   std::cout << "> ";
-  //consume buffer to prepare for taking input
-  char randomInput;
-  while ((randomInput = std::cin.get()) != '\n') {}
   std::getline(std::cin, input);
   //append delimeter
   input = input + " &%";
@@ -284,8 +276,6 @@ void  GameController::takeInput() {
   }
   iss.clear();
   iss.str(input);
-
-
 
 
   do {
@@ -322,10 +312,11 @@ void  GameController::takeInput() {
         }
         else {
           validInput = placeTile(t, coor);
+
           if (validInput) {
             this->currPlayer->addToScore(scoreTurn(t, coor));
-            // Change Player HERE????
           }
+
 
         }
 
@@ -436,7 +427,6 @@ void GameController::changeCurrPlayer() {
 void GameController::playGame() {
 
   while (tileBag->size() > 0 && (player1->getHand()->size() > 0 || player2->getHand()->size() > 0)) {
-
     printTurn();
     takeInput();
     changeCurrPlayer();
@@ -444,7 +434,7 @@ void GameController::playGame() {
 }
 
 
-// maybe program by contract function as we assume checks have previously been made to ensure placing tile is a valid move.
+// // maybe program by contract function as we assume checks have previously been made to ensure placing tile is a valid move.
 bool  GameController::placeTile(std::string tileCode, std::string location) {
 
   bool tileCanBePlaced = false;
@@ -468,35 +458,56 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
   if (this->board->isBoardPositionEmpty(row, col)) {
     try
     {
-      Tile* tile = convertToTile(tileCode);
+      Tile* tile = retrievePlayersTile(tileCode);
+      // makje sure tile is in hand.
       if (this->currPlayer->getHand()->tileInList(tile)) {
+        // checks that isn't first turn
         if (this->tileBag->size() < START_GAME_TILEBAG_LENGTH) {
+
+          // get lists of both, maybe this deletes list of tiles. COME BACK TO!
           LinkedList* northSouthLL = board->getTileList(row, col, "col");
           LinkedList* eastWestLL = board->getTileList(row, col, "row");
 
-          if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
-            // if (northSouthLL->size() > 0 || eastWestLL->size() > 0) {
+          std::cout << "NorthSouth LL " << std::endl;
+          for (int i = 0; i < northSouthLL->size(); i++) {
+            std::cout << "i: " << i << " - " << northSouthLL->get(i)->getColour() << ", " << northSouthLL->get(i)->getShape() << std::endl;
+          }
+          std::cout << "EastWest LL " << std::endl;
+          for (int i = 0; i < eastWestLL->size(); i++) {
+            std::cout << "i: " << i << " - " << eastWestLL->get(i)->getColour() << ", " << eastWestLL->get(i)->getShape() << std::endl;
+          }
 
-            colValidMove = checkValidMove(northSouthLL, tile);
-            rowValidMove = checkValidMove(eastWestLL, tile);
+
+          if (!northSouthLL->isEmpty() || !eastWestLL->isEmpty()) {
+            if (!northSouthLL->isEmpty()) {
+              colValidMove = checkValidMove(northSouthLL, tile);
+            }
+            else {
+              colValidMove = true;
+            }
+            if (!eastWestLL->isEmpty()) {
+              rowValidMove = checkValidMove(eastWestLL, tile);
+            }
+            else {
+              rowValidMove = true;
+            }
+            std::cout << "col valid move: " << colValidMove << std::endl;
+            std::cout << "row valid move: " << rowValidMove << std::endl;
           }
           else {
             std::cerr << "Tile cannot Be placed here, must be connected to another tile" << std::endl;
           }
 
-          if (!colValidMove || !rowValidMove)
-          {
-            std::cerr << "Illegal Move" << std::endl;
-          }
-          else {
+
+          if (colValidMove && rowValidMove) {
             // Need to retrieve tile from hand move to board, add to playedTiles, remove from hand, rather than using this temp tile.
             this->board->setTile(row, col, tile);
 
-
             this->playedTiles->addBack(tile);
             this->currPlayer->getHand()->removeTile(tile);
-            if (this->tileBag->size() > 0)
-            {
+
+            if (this->tileBag->size() > 0) {
+
               this->currPlayer->addToHand(this->tileBag->get(0));
               this->tileBag->deleteFront();
             }
@@ -504,18 +515,28 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
             tileCanBePlaced = true;
           }
 
+
           delete northSouthLL;
           delete eastWestLL;
 
         }
         else {
-          // first turn.
+          //first turn
           this->board->setTile(row, col, tile);
+          this->playedTiles->addBack(tile);
+          this->currPlayer->getHand()->removeTile(tile);
+
+          if (this->tileBag->size() > 0) {
+
+            this->currPlayer->addToHand(this->tileBag->get(0));
+            this->tileBag->deleteFront();
+          }
+
           this->currPlayer->addToScore(1);
           tileCanBePlaced = true;
         }
 
-        delete tile;
+        //  delete tile;
       }
       else {
         std::cerr << "Tile not in your hand." << std::endl;
@@ -537,7 +558,96 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
   return tileCanBePlaced;
 }
 
-bool GameController::checkValidMove(LinkedList* ll, Tile* tile) {
+// bool  GameController::placeTile(std::string tileCode, std::string location) {
+//   bool tilePlaced = false;
+
+//   //convert location[0] to char and ensure uppercase, then converting to int.
+//   char tempRow = std::toupper(location[0]);
+//   int row = tempRow - ASCII;
+
+//   int col = 0;
+
+//   if (location.length() == 2) {
+//     col = (location[1] - '0') - 1;
+//   }
+//   else {
+//     std::string column = location.substr(1, 2);
+//     col = std::stoi(column) - 1;
+//   }
+//   try
+//   {
+//     Tile* tile = convertToTile(tileCode);
+
+//     // makje sure tile is in hand.
+//     if (this->currPlayer->getHand()->tileInList(tile)) {
+//       std::cout << "tile in hand" << std::endl; //TEMP
+
+//       // check board position where tile to be placed is empty.
+//       if (this->board->isBoardPositionEmpty(row, col)) {
+//         std::cout << "board empty" << std::endl;//TEMP
+
+//         // check if not games first turn as, first turn tile can be placed anywhere
+//         if (this->tileBag->size() < START_GAME_TILEBAG_LENGTH) {
+//           std::cout << "not first turn" << std::endl;
+
+//           //get lists of both, maybe this deletes list of tiles.COME BACK TO!
+//           // if(LinkedList* northSouthLL = board->getTileList(row, col, "col")) {
+//           //   if(LinkedList* eastWestLL = board->getTileList(row, col, "row")) {
+
+//           //   }
+//           // }
+//           LinkedList* northSouthLL = board->getTileList(row, col, "col");
+//           LinkedList* eastWestLL = board->getTileList(row, col, "row");
+
+//           std::cout << "NorthSouth LL " << std::endl;
+//           for (int i = 0; i < northSouthLL->size(); i++) {
+//             std::cout << "i: " << i << " - " << northSouthLL->get(i)->getColour() << ", " << northSouthLL->get(i)->getShape() << std::endl;
+//           }
+//           std::cout << "EastWEst LL " << std::endl;
+//           for (int i = 0; i < eastWestLL->size(); i++) {
+//             std::cout << "i: " << i << " - " << eastWestLL->get(i)->getColour() << ", " << eastWestLL->get(i)->getShape() << std::endl;
+//           }
+//           std::cout << "huzzah " << std::endl;
+//           if (northSouthLL->get(0) != nullptr || eastWestLL->get(0) != nullptr) {
+//             std::cout << "we in  " << std::endl;
+//           }
+
+//         } // first turn
+//         else {
+//           this->board->setTile(row, col, tile);
+//           this->playedTiles->addBack(tile);
+//           this->currPlayer->getHand()->removeTile(tile);
+
+//           if (this->tileBag->size() > 0) {
+
+//             this->currPlayer->addToHand(this->tileBag->get(0));
+//             this->tileBag->deleteFront();
+//           }
+
+//           this->currPlayer->addToScore(1);
+//           tilePlaced = true;
+//         }
+//       }
+//       else {
+//         std::cerr << "Tile can not be placed at this location as another tile has already been placed." << std::endl;
+//       }
+//     }
+//     else {
+//       std::cerr << "Tile not in your hand." << std::endl;
+//     }
+//     delete tile;
+//   }
+//   catch (const std::exception& e)
+//   {
+//     std::cerr << e.what() << '\n';
+//   }
+
+
+
+//   return tilePlaced;
+// }
+
+bool GameController::checkValidMove(LinkedList* ll, Tile * tile) {
 
   bool tileCanBePlaced = false;
 
@@ -547,8 +657,12 @@ bool GameController::checkValidMove(LinkedList* ll, Tile* tile) {
   bool overallShapeMatch = true;
   bool overallMatch = true;
 
+  // Check if tiles placed does not exceed max length of 6 tiles.
   if (ll->size() < PLACED_TILE_MAX_LENGTH) {
+
+    // Checking to see if there is a duplicate tile in the list.
     if (!ll->tileInList(tile)) {
+
       for (int i = 0; i < ll->size(); i++) {
         colourMatch = checkMatchColour(tile, ll->get(i));
         if (!colourMatch) {
@@ -562,7 +676,7 @@ bool GameController::checkValidMove(LinkedList* ll, Tile* tile) {
           overallShapeMatch = false;
         }
       }
-      if ((!overallColourMatch && !overallShapeMatch) || (overallColourMatch && overallShapeMatch)) {
+      if ((!overallColourMatch && !overallShapeMatch)) {
         overallMatch = false;
       }
       if (overallMatch) {
@@ -574,18 +688,18 @@ bool GameController::checkValidMove(LinkedList* ll, Tile* tile) {
         // this->board->setTile(row, col, tile);
         // tileCanBePlaced = true;
       }
-      else {
-        std::cerr << "Illegal Move" << std::endl;
-      }
+      // else {
+      //   std::cerr << "Illegal Move" << std::endl;
+      // }
 
     }
-    else {
-      std::cerr << "Tile can not be placed as it is a duplicate tile" << std::endl;
-    }
+    // else {
+    //   std::cerr << "Tile can not be placed as it is a duplicate tile" << std::endl;
+    // }
   }
-  else {
-    std::cerr << "Tile can not be placed, as it exceeds maximum placed tile length of 6." << std::endl;
-  }
+  // else {
+  //   std::cerr << "Tile can not be placed, as it exceeds maximum placed tile length of 6." << std::endl;
+  // }
 
 
   return tileCanBePlaced;
@@ -599,7 +713,7 @@ bool  GameController::replaceTile(std::string tileCode) {
   if (validTileCode) {
     try
     {
-      Tile* tile = convertToTile(tileCode);
+      Tile* tile = retrievePlayersTile(tileCode);
 
       if (this->tileBag->size() > 0) {
 
@@ -645,7 +759,7 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
   }
   try
   {
-    Tile* tile = convertToTile(tileCode);
+    Tile* tile = retrievePlayersTile(tileCode);
 
     LinkedList* northSouthLL = board->getTileList(row, col, "col");
     LinkedList* eastWestLL = board->getTileList(row, col, "row");
@@ -670,7 +784,7 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
   return score;
 }
 
-int GameController::calculateScore(LinkedList* ll) {
+int GameController::calculateScore(LinkedList * ll) {
   int score = 0;
   for (int i = 0; i < ll->size(); i++)
   {
@@ -725,7 +839,6 @@ bool GameController::checkValidCoordinate(std::string coor) {
 
     if (std::isalpha(row) && col <= MAX_COL && col >= MIN_COL) {
       validCoordinate = true;
-
     }
   }
   else if (coor.length() == 3) {
@@ -734,7 +847,6 @@ bool GameController::checkValidCoordinate(std::string coor) {
     std::string column = coor.substr(1, 2);
 
     if (std::isalpha(column[0]) || std::isalpha(column[1])) {
-      std::cout << "not a valid coordinate 2nd if statement" << std::endl;
     }
     else {
       int col = std::stoi(column);
@@ -742,29 +854,28 @@ bool GameController::checkValidCoordinate(std::string coor) {
         validCoordinate = true;
       }
     }
-
   }
-  else {
-    std::cout << "Not a valid coordinate" << std::endl;
-  }
-
-
 
   return validCoordinate;
-
 }
 
-Tile* GameController::convertToTile(std::string tileCode) {
+Tile* GameController::retrievePlayersTile(std::string tileCode) {
+
+  Tile* tile = nullptr;
 
   char colour = std::toupper(tileCode[0]);
   int shape = tileCode[1] - '0';
 
-  Tile* tile = new Tile(shape, colour);
+  for (int i = this->currPlayer->getHand()->size() - 1; i >= 0; i--) {
+    if (colour == this->currPlayer->getHand()->get(i)->getColour() && shape == this->currPlayer->getHand()->get(i)->getShape()) {
+      tile = this->currPlayer->getHand()->get(i);
+    }
+  }
 
   return tile;
 }
 
-bool GameController::checkMatchColour(Tile* tileToPlace, Tile* existingTile) {
+bool GameController::checkMatchColour(Tile * tileToPlace, Tile * existingTile) {
   bool match = false;
 
   if (tileToPlace->getColour() == existingTile->getColour()) {
@@ -774,7 +885,7 @@ bool GameController::checkMatchColour(Tile* tileToPlace, Tile* existingTile) {
 }
 
 
-bool GameController::checkMatchShape(Tile* tileToPlace, Tile* existingTile) {
+bool GameController::checkMatchShape(Tile * tileToPlace, Tile * existingTile) {
   bool match = false;
 
   if (tileToPlace->getShape() == existingTile->getShape()) {

@@ -63,7 +63,7 @@ public:
 
   // Convert a tileCode to a tile for various functions within the game. Programming by contract as it is assumed
   // the tileCode has been checked with the checkValidTileCode function declared above.
-  Tile* convertToTile(std::string tileCode);
+  Tile* retrievePlayersTile(std::string tileCode);
 
   bool checkValidMove(LinkedList* ll, Tile* tile);
   bool checkMatchColour(Tile* tileToPlace, Tile* existingTile);

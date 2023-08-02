@@ -219,3 +219,14 @@ void LinkedList::deleteFront() {
       delete temp;
    }
 }
+
+bool LinkedList::isEmpty() {
+
+   bool isEmpty = false;
+
+   if (this->head == nullptr) {
+      isEmpty = true;
+   }
+
+   return isEmpty;
+}
