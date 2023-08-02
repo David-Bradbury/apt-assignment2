@@ -20,6 +20,7 @@ Menu::~Menu() {
 
 }
 
+// This method prints the menu for the user in a logical order.
 void Menu::printMenu() {
 
     std::cout << "Menu" << std::endl;
@@ -348,6 +349,7 @@ void Menu::loadGame() {
     gc.takeInput();
 }
 
+// This method displays student credentials (game credits).
 void Menu::printCredits() {
 
     std::cout << "------------------------------------------" << std::endl;
@@ -371,6 +373,7 @@ void Menu::printCredits() {
     std::cout << "------------------------------------------" << std::endl;
 }
 
+// This method terminates the program directly from the menu.
 void Menu::quitGame() {
 
     std::cout << "Goodbye - Thanks For Playing Quirkle" << std::endl;
