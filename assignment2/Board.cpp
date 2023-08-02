@@ -167,7 +167,9 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
   while (doesNextTileExist && (row > 0 && row < MAX_ROW) && (col > 0 && col < MAX_COL)) {
 
     if (this->coordinates[row][col].getPlayedTile() != nullptr) {
+
       ll->addBack(this->coordinates[row][col].getPlayedTile());
+      
       if (axis == "col" && (row < MAX_ROW && row > 0)) {
         row++;
       }
