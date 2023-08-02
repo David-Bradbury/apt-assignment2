@@ -8,6 +8,7 @@
 #include <random>
 #include <sstream>
 
+// Establishes new game with key variables like player names, the board and tiles.
 GameController::GameController(std::string player1, std::string player2) {
 
   try {
@@ -69,6 +70,7 @@ void  GameController::prepareGame() {
 
 }
 
+// Enables print out of game result to inform user who won or if it was a draw.
 void  GameController::endGame() {
 
   std::cout << "Game Over" << std::endl;
@@ -179,7 +181,7 @@ void  GameController::saveGame(std::string fileName) {
 }
 
 
-
+// Randomly generates tile bag within constraints.
 void  GameController::createTileBag() {
 
   int min = 0;
@@ -237,7 +239,7 @@ int GameController::generateRandomInt(int min, int max) {
 
 }
 
-
+// Enables players to be given a hand of tiles from the randomly generated tile bag.
 void  GameController::setupHands() {
 
   for (int i = 0; i < FULL_HAND; i++) {
