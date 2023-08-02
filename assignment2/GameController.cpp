@@ -50,6 +50,10 @@ void  GameController::prepareGame() {
   for (int i = 0; i < ll->size(); ++i) {
     std::cout << "i: " << i << " - " << ll->get(i)->getColour() << ", " << ll->get(i)->getShape() << std::endl;
   }
+  //consume buffer to prepare for taking input
+  char randomInput;
+  while ((randomInput = std::cin.get()) != '\n') {}
+
 
   playGame();
   // printTurn();
@@ -284,10 +288,8 @@ void  GameController::takeInput() {
 
   std::string input;
   std::cout << "> ";
-  //consume buffer to prepare for taking input
-  char randomInput;
-  while ((randomInput = std::cin.get()) != '\n') {}
   std::getline(std::cin, input);
+
   //append delimeter
   input = input + " &%";
 
@@ -372,9 +374,6 @@ void  GameController::takeInput() {
       std::cerr << "Invalid Command" << std::endl;
     }
     if (!validInput) {
-      // char randomInput;
-      // //empty while loop to consume buffer prior to input
-      // while ((randomInput = std::cin.get()) != '\n') {}
 
       std::cout << "> ";
       std::getline(std::cin, input);
