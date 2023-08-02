@@ -7,6 +7,7 @@
 #include "Coordinate.h"
 #include <string>
 
+// This method establishes the boards maximum row and column size while implementing a vector.
 Board::Board(int rows, int cols) {
 
   std::vector<Coordinate> temp;
@@ -103,6 +104,7 @@ void Board::printBoard() {
   }
 }
 
+// Lines 108 to 122 implement the getters and setters for the board rows and columns.
 void Board::setRows(int row) {
   this->rows = row;
 }
@@ -120,13 +122,13 @@ int Board::getCols() {
 }
 
 
-
+// Enables co-ordinates to work within the vector.
 std::vector < std::vector<Coordinate>> Board::getCoordinates()
 {
   return this->coordinates;
 }
 
-
+// Ensures tile can be placed on an empty co-ordinate.
 bool Board::isBoardPositionEmpty(int row, int col) {
 
   bool isEmpty = false;
@@ -143,7 +145,7 @@ void Board::setTile(int row, int col, Tile* tile) {
   this->coordinates[row][col].setPlayedTile(tile);
 }
 
-
+// Allows turn system to function and ensure duplicate co-ordinates are not used.
 LinkedList* Board::getTileList(int row, int col, std::string axis) {
 
   bool doesNextTileExist = true;
