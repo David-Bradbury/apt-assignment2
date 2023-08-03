@@ -128,6 +128,10 @@ void GameController::playGame() {
     std::cout << "Player 2 hand" << std::endl;
     player2->printHand();
 
+    std::cout << "****Played Tile Contents****" << std::endl;
+    for (int i = 0; i < this->playedTiles->size(); ++i) {
+      std::cout << "i: " << i << " - " << playedTiles->get(i)->getColour() << ", " << playedTiles->get(i)->getShape() << std::endl;
+    }
 
     printTurn();
     takeInput();
@@ -340,6 +344,15 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
           LinkedList* northSouthLL = board->getTileList(row, col, "ns");
           LinkedList* eastWestLL = board->getTileList(row, col, "ew");
 
+          std::cout << "----------Lists in place tile (before score)---------" << std::endl;
+          for (int i = 0; i < northSouthLL->size(); i++) {
+            std::cout << "ns colour: " << northSouthLL->get(i)->getColour() << ", ns shape" << northSouthLL->get(i)->getShape() << std::endl;
+          }
+          for (int i = 0; i < eastWestLL->size(); i++) {
+            std::cout << "ew colour: " << eastWestLL->get(i)->getColour() << ", ew shape" << eastWestLL->get(i)->getShape() << std::endl;
+          }
+          std::cout << "------------------------------------------" << std::endl;
+
           // Passes only if one of these list isn't empty, meaning there is adjacent tiles on the board.
           if (!northSouthLL->isEmpty() || !eastWestLL->isEmpty()) {
 
@@ -367,9 +380,9 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
 
           if (colValidMove && rowValidMove) {
 
+            this->currPlayer->addToScore(scoreTurn(tileCode, location));
             this->board->setTile(row, col, tile);
             this->playedTiles->addBack(tile);
-            this->currPlayer->addToScore(scoreTurn(tileCode, location));
             this->currPlayer->getHand()->removeTile(tile);
 
             if (this->tileBag->size() > 0) {
@@ -594,6 +607,15 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
     LinkedList* northSouthLL = board->getTileList(row, col, "ns");
     LinkedList* eastWestLL = board->getTileList(row, col, "ew");
 
+    std::cout << "----------Lists in score turn---------" << std::endl;
+    for (int i = 0; i < northSouthLL->size(); i++) {
+      std::cout << "ns colour: " << northSouthLL->get(i)->getColour() << ", ns shape" << northSouthLL->get(i)->getShape() << std::endl;
+    }
+    for (int i = 0; i < eastWestLL->size(); i++) {
+      std::cout << "ew colour: " << eastWestLL->get(i)->getColour() << ", ew shape" << eastWestLL->get(i)->getShape() << std::endl;
+    }
+    std::cout << "------------------------------------------" << std::endl;
+
     if (!northSouthLL->isEmpty()) {
 
       northSouthLL->addBack(tile);
@@ -616,7 +638,7 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
 }
 
 
-int GameController::calculateScore(LinkedList * ll) {
+int GameController::calculateScore(LinkedList* ll) {
 
   int score = 0;
   for (int i = 0; i < ll->size(); i++) {

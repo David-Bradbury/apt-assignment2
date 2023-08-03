@@ -110,17 +110,17 @@ bool Board::isBoardPositionEmpty(int row, int col) {
 LinkedList* Board::getTileList(int row, int col, std::string axis) {
 
   LinkedList* tileList = new LinkedList();
-  bool doesNextTileExist = true;
 
+  bool doesNextTileExist = true;
   int oppositeRow = row;
   int oppositeCol = col;
 
   // Checks South/East depending on axis
-  // first add 1 
+  // first add 1
   if (axis == "ns" && (row < MAX_ROW && row >= 0)) {
     row++;
   }
-  else if (col < MAX_ROW && col >= 0) {
+  else if (axis == "ew" && col < MAX_ROW && col >= 0) {
     col++;
   }
 
@@ -128,13 +128,12 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
   while (doesNextTileExist && (row >= 0 && row < MAX_ROW) && (col >= 0 && col < MAX_COL)) {
 
     if (this->coordinates[row][col].getPlayedTile() != nullptr) {
-
       tileList->addBack(this->coordinates[row][col].getPlayedTile());
 
       if (axis == "ns" && (row < MAX_ROW && row >= 0)) {
         row++;
       }
-      else if (col < MAX_ROW && col >= 0) {
+      else if (axis == "ew" && col < MAX_ROW && col >= 0) {
         col++;
       }
     }
@@ -149,7 +148,7 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
   if (axis == "ns" && (oppositeRow < MAX_ROW && oppositeRow > 0)) {
     oppositeRow--;
   }
-  else if (oppositeCol < MAX_ROW && oppositeCol > 0) {
+  else if (axis == "ew" && oppositeCol < MAX_ROW && oppositeCol > 0) {
     oppositeCol--;
   }
 
@@ -159,21 +158,25 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
     if (this->coordinates[oppositeRow][oppositeCol].getPlayedTile() != nullptr) {
       tileList->addBack(this->coordinates[oppositeRow][oppositeCol].getPlayedTile());
 
-      if (axis == "ns" && (oppositeRow < MAX_ROW && oppositeRow > 0)) {
+      if (axis == "ns" && (oppositeRow < MAX_ROW && oppositeRow >= 0)) {
         oppositeRow--;
+
+        if (oppositeRow < 0) {
+          doesNextTileExist = false;
+        }
       }
-      else if (oppositeCol < MAX_ROW && oppositeCol > 0) {
+      else if (axis == "ew" && oppositeCol < MAX_ROW && oppositeCol >= 0) {
         oppositeCol--;
-      }
-      if (oppositeCol == 0 || oppositeRow == 0) {
-        doesNextTileExist = false;
+
+        if (oppositeCol < 0) {
+          doesNextTileExist = false;
+        }
       }
     }
     else {
       doesNextTileExist = false;
     }
   }
-
   return tileList;
 }
 
@@ -206,6 +209,9 @@ void Board::setRows(int row) {
 void Board::setCols(int col) {
   this->cols = col;
 }
+
+
+
 
 
 
