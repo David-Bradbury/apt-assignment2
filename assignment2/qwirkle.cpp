@@ -24,6 +24,5 @@ int main(void) {
    std::cout << "Goodbye" << std::endl;
 
 
-
    return EXIT_SUCCESS;
 }
