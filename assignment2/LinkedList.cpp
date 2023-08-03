@@ -5,8 +5,8 @@ LinkedList::LinkedList() {
 
    this->head = nullptr;
    this->tail = nullptr;
-
 }
+
 
 LinkedList::~LinkedList() {
 
@@ -19,6 +19,7 @@ LinkedList::~LinkedList() {
       current = nextNode;
    }
 }
+
 
 LinkedList::LinkedList(const LinkedList& other) {
 
@@ -33,10 +34,8 @@ LinkedList::LinkedList(const LinkedList& other) {
 
       if (previous == nullptr) {
          this->head = n;
-
       }
       else {
-
          previous->next = n;
       }
 
@@ -45,8 +44,8 @@ LinkedList::LinkedList(const LinkedList& other) {
    }
 
    tail = previous;
-
 }
+
 
 int LinkedList::size() const {
 
@@ -62,13 +61,13 @@ int LinkedList::size() const {
    return count;
 }
 
-//Get a pointer to the node at index provided
-//Contract= the provided index needs to be within the size range of the list
+
+// Return node at index.
 Tile* LinkedList::get(const int index) const {
    int count = 0;
    Node* current = head;
 
-   //used to return null if index provided is out of bounds   
+   // Used to return null if index provided is out of bounds   
    Node* returnNode = nullptr;
 
    if (index >= 0 && index < size()) {
@@ -83,11 +82,12 @@ Tile* LinkedList::get(const int index) const {
    return returnNode->tile;
 }
 
-///*****WE MAY NOT NEED THIS ONE AND CAN BE DELETED IF WE DONT******
-//Adds a node to the front of the list
+
+// Adds a node to the front of the list
 void LinkedList::addFront(Tile* tile) {
 
    Node* toAdd = new Node(tile, head, nullptr);
+
    //check if list is empty and make toAdd the head if so
    if (head != nullptr) {
       head->previous = toAdd;
@@ -97,11 +97,10 @@ void LinkedList::addFront(Tile* tile) {
 
    }
    head = toAdd;
-
 }
 
 
-//Adds a node with provided tile to the end of the list
+// Adds a node with provided tile to the end of the list
 void LinkedList::addBack(Tile* tile) {
    Node* toAdd = new Node(tile, nullptr, tail);
 
@@ -114,13 +113,10 @@ void LinkedList::addBack(Tile* tile) {
       head = toAdd;
    }
    tail = toAdd;
-
 }
 
 
-//Remove a specified tile from the list
-//N.B. This will only currently delete the first occurance of the provided tile
-//it will not delete duplicates.
+// Remove a specified tile from the list
 void LinkedList::removeTile(Tile* tileToDelete) {
    Node* current = head;
    bool successful = false;
@@ -154,7 +150,8 @@ void LinkedList::removeTile(Tile* tileToDelete) {
    }
 }
 
-//return true if provided tile is in the list
+
+// Return true if provided tile is in the list
 bool LinkedList::tileInList(Tile* tile) {
 
    bool tileInList = false;
@@ -171,8 +168,8 @@ bool LinkedList::tileInList(Tile* tile) {
    }
 
    return tileInList;
-
 }
+
 
 void LinkedList::removeEnd() {
 
@@ -195,10 +192,10 @@ void LinkedList::removeEnd() {
       tail = previousToTail;
 
    }
-
 }
 
-void LinkedList::deleteFront() {
+
+void LinkedList::removeFront() {
 
    if (this->head == nullptr) {
       std::cout << "No front element to remove" << std::endl;
@@ -216,6 +213,7 @@ void LinkedList::deleteFront() {
       delete temp;
    }
 }
+
 
 bool LinkedList::isEmpty() {
 

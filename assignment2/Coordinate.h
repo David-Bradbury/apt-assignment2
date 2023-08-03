@@ -6,16 +6,21 @@
 class Coordinate {
 public:
 
+  // Constructor/Destructor
   Coordinate(int row, int col);
   ~Coordinate();
 
+  // getters
   int getRowCoordinate();
   int getColCoordinate();
+
+  // setters
   void setPlayedTile(Tile* tile);
   Tile* getPlayedTile();
 
 
 private:
+
   int rowCoordinate;
   int colCoordinate;
   Tile* playedTile;

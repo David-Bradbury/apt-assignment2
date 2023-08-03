@@ -23,16 +23,17 @@ public:
 
     // Starts a new game.
     void startNewGame();
-    //validate name input from user, pass by reference.
+
+    // Validate name input from user, pass by reference.
     bool isValidName(std::string& input);
 
     // Loads game from file.
     void loadGame();
 
-    // print student credits.
+    // Print student credits.
     void printCredits();
 
-    // end game.
+    // End game.
     void quitGame();
 
 private:

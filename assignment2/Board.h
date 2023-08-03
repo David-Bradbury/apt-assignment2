@@ -42,14 +42,6 @@ public:
   void setCols(int col);
 
 
-
-
-
-
-
-
-
-
 private:
 
   std::vector<std::vector<Coordinate>> coordinates;

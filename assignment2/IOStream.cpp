@@ -3,7 +3,6 @@
 #include <filesystem>
 #include <fstream>
 #include "LinkedList.h"
-// #include <string>
 #include <sstream>
 
 
@@ -12,10 +11,12 @@ IOStream::IOStream() {
 
 }
 
+
 IOStream::~IOStream() {
   // Delete
 
 }
+
 
 bool IOStream::saveGame(std::string data, std::string fileName) {
 
@@ -29,21 +30,21 @@ bool IOStream::saveGame(std::string data, std::string fileName) {
 
   stream.str(data);
 
-  try
-  {
+  try {
     file.open(save);
     file << data;
     file.close();
     successStatus = true;
   }
-  catch (const std::exception& e)
-  {
+  catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
   }
+
   return successStatus;
 }
 
 std::string IOStream::loadGame(std::string fileName) {
+
   std::ifstream file;
   std::string fileType = getFileType(fileName);
   std::string save = "saved_games/";
@@ -51,32 +52,30 @@ std::string IOStream::loadGame(std::string fileName) {
   char c;
 
   std::string game;
-  if (fileType != "save")
-  {
+
+  if (fileType != "save") {
     std::cerr << "Incorrect Filetype entered" << std::endl;
   }
-  else
-  {
-    try
-    {
+  else {
+
+    try {
+
       file.open(save);
-      while ((c = file.get()) != EOF)
-      {
+      while ((c = file.get()) != EOF) {
         game += c;
       }
 
       file.close();
     }
-    catch (const std::exception& e)
-    {
+    catch (const std::exception& e) {
       std::cerr << e.what() << '\n';
     }
-
   }
+
   return game;
 }
 
-// Gets file type from a passed string
+
 std::string IOStream::getFileType(std::string fileName)
 {
   int stopLocation = fileName.find_first_of('.');

@@ -8,17 +8,17 @@
 #include "Player.h"
 
 
-
-
 Menu::Menu() {
     // We need anything? 
 
 }
 
+
 Menu::~Menu() {
     // Delete
 
 }
+
 
 void Menu::printMenu() {
 
@@ -75,15 +75,12 @@ void Menu::printMenu() {
                 //empty while loop to consume and discard bad input from user until newline is reached.
                 //uses std::cin.get() to keep receiving input.
                 char randomInput;
-                while ((randomInput = std::cin.get()) != '\n') {
-
-                }
-
+                while ((randomInput = std::cin.get()) != '\n') {}
             }
         }
-
     }
 }
+
 
 void Menu::startNewGame() {
 
@@ -187,6 +184,7 @@ bool Menu::isValidName(std::string& input) {
     return valid;
 
 }
+
 
 void Menu::loadGame() {
 
@@ -347,6 +345,7 @@ void Menu::loadGame() {
     gc.printTurn();
     gc.takeInput();
 }
+
 
 void Menu::printCredits() {
 

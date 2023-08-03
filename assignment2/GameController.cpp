@@ -8,6 +8,7 @@
 #include <random>
 #include <sstream>
 
+
 GameController::GameController(std::string player1, std::string player2) {
 
   try {
@@ -23,6 +24,7 @@ GameController::GameController(std::string player1, std::string player2) {
   }
 }
 
+
 GameController::GameController(Player player1, Player player2, Board* board, LinkedList* tileBag) {
   this->player1 = new Player(player1);
   this->player2 = new Player(player2);
@@ -31,12 +33,14 @@ GameController::GameController(Player player1, Player player2, Board* board, Lin
   this->playedTiles = new LinkedList(); // load played tiles
 }
 
+
 GameController::~GameController() {
   delete this->player1;
   delete this->player2;
   delete this->board;
   delete this->tileBag;
 }
+
 
 void  GameController::prepareGame() {
   // Not sure about changing menu structure.
@@ -51,6 +55,7 @@ void  GameController::prepareGame() {
   playGame();
 
 }
+
 
 void  GameController::endGame() {
 
@@ -161,7 +166,6 @@ void  GameController::saveGame(std::string fileName) {
 }
 
 
-
 void  GameController::createTileBag() {
 
   int min = 0;
@@ -199,18 +203,15 @@ void  GameController::createTileBag() {
     {
       std::cerr << e.what() << std::endl;
     }
-
-
-
   }
 }
+
 
 int GameController::generateRandomInt(int min, int max) {
   std::random_device engine;
   // std::default_random_engine engine(10);
   std::uniform_int_distribution<int> uniform_dist(min, max);
   return uniform_dist(engine);
-
 }
 
 
@@ -218,9 +219,9 @@ void  GameController::setupHands() {
 
   for (int i = 0; i < FULL_HAND; i++) {
     player1->addToHand(tileBag->get(0));
-    tileBag->deleteFront();
+    tileBag->removeFront();
     player2->addToHand(tileBag->get(0));
-    tileBag->deleteFront();
+    tileBag->removeFront();
   }
 
   // All following code needs to be removed, here for testing.
@@ -490,7 +491,7 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
             if (this->tileBag->size() > 0) {
 
               this->currPlayer->addToHand(this->tileBag->get(0));
-              this->tileBag->deleteFront();
+              this->tileBag->removeFront();
             }
 
             tilePlaced = true;
@@ -510,7 +511,7 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
           if (this->tileBag->size() > 0) {
 
             this->currPlayer->addToHand(this->tileBag->get(0));
-            this->tileBag->deleteFront();
+            this->tileBag->removeFront();
           }
 
           this->currPlayer->addToScore(1);
@@ -610,7 +611,7 @@ bool  GameController::replaceTile(std::string tileCode) {
 
           this->currPlayer->getHand()->removeTile(tile);
           this->currPlayer->addToHand(this->tileBag->get(0));
-          this->tileBag->deleteFront();
+          this->tileBag->removeFront();
           this->tileBag->addBack(tile);
           turnSuccess = true;
         }

@@ -6,30 +6,44 @@
 class LinkedList {
 public:
 
+   // Constructors / Destructor
    LinkedList();
    ~LinkedList();
    LinkedList(const LinkedList& other);
-   //return the size of the linked list
+
+   // Return the size of the linked list.
    int size() const;
 
-   //retrun node at index
+   // Get a pointer to the node at index provided
+   // Contract = the provided index needs to be within the size range of the list.
    Tile* get(const int index) const;
-   //Add to the front of the list
+
+   // Add to the front of the list.
    void addFront(Tile* tile);
-   //Add to the back of the list
+
+   // Add to the back of the list.
    void addBack(Tile* tile);
-   //delete tile from the list
+
+   // Delete tile from the list.
+   // N.B. This will only currently delete the first occurance of the provided tile
+   // it will not delete duplicates.
    void removeTile(Tile* tileToDelete);
-   //check if tile is in list
+
+   // Check if tile is in list.
    bool tileInList(Tile* tile);
-   //remove the end of the list
+
+   // Remove the end of the list.
    void removeEnd();
 
-   void deleteFront();
+   // Remove the front node of the list.
+   void removeFront();
 
+   // returns true if list is empty.
    bool isEmpty();
 
+
 private:
+
    Node* head;
    Node* tail;
 

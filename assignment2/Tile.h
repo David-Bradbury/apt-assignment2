@@ -10,16 +10,22 @@ typedef int Shape;
 class Tile {
 public:
 
+   // Constructor
    Tile(Shape shape, Colour colour);
-   
-   Shape getShape();
-   Colour getColour();
+
+   // Returns true if tilecode matches other tile.
    bool isSameTile(Tile* other);
 
+   // getters.
+   Shape getShape();
+   Colour getColour();
+
+
 private:
+
    Shape  shape;
    Colour colour;
-   
+
 };
 
 
