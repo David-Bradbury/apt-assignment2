@@ -15,29 +15,39 @@
 class Board {
 public:
 
+  // Contructor / Destructor
   Board(int rows, int cols);
   ~Board();
 
+  // Prints the board out to terminal.
   void printBoard();
-
-  void setRows(int row);
-  void setCols(int col);
-  int getRows();
-  int getCols();
-  void setTile(int row, int col, Tile* tile);
-  std::vector < std::vector<Coordinate>> getCoordinates();
 
   // This function is programming by contract. It is assumed that the caller of this function has
   // guaranteed that row and col fields passed amount to a valid coordinate.
   bool isBoardPositionEmpty(int row, int col);
 
-  // LinkedList* getNorthTiles(int row, int col);
-  // LinkedList* getSouthTiles(int row, int col);
-  // LinkedList* getEastTiles(int row, int col);
-  // LinkedList* getWestTiles(int row, int col);
-
-  //LinkedList* getTileList(int row, int col, int direction, std::string axis);
+  // Returns a linked list of tiles, that are connected to the position and row/col. Contract 
+  // programming. It is assumed the row and col passed to this function are within th bounds of the
+  // board coordinates.
   LinkedList* getTileList(int row, int col, std::string axis);
+
+  // getters
+  std::vector < std::vector<Coordinate>> getCoordinates();
+  int getRows();
+  int getCols();
+
+  // setters
+  void setTile(int row, int col, Tile* tile);
+  void setRows(int row);
+  void setCols(int col);
+
+
+
+
+
+
+
+
 
 
 private:

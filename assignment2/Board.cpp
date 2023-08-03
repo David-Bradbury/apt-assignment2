@@ -13,102 +13,85 @@ Board::Board(int rows, int cols) {
   this->rows = rows;
   this->cols = cols;
 
-  for (int i = 0; i < MAX_ROW; i++)
-  {
-    for (int j = 0; j < MAX_COL; j++)
-    {
+  for (int i = 0; i < MAX_ROW; i++) {
+
+    for (int j = 0; j < MAX_COL; j++) {
+
       temp.push_back(Coordinate(i, j));
     }
+
     this->coordinates.push_back(temp);
     temp.clear();
   }
-
 }
+
 
 Board::~Board() {
   // Delete
 
 }
 
+
 void Board::printBoard() {
+
   // Prints the numbers across the top of the board
-  for (int i = 0; i <= MAX_COL; i++)
-  {
-    if (i > 0 && i < 11)
-    {
+  for (int i = 0; i <= MAX_COL; i++) {
+
+    if (i > 0 && i < 11) {
+
       std::cout << " " << i << " ";
     }
-    else if (i > 10)
-    {
+    else if (i > 10) {
+
       std::cout << i << " ";
     }
-    else
-    {
+    else {
+
       std::cout << "   ";
     }
   }
 
   std::cout << std::endl;
+
   // Prints the line under the numbers at the top of the board
-  for (int i = 1; i < MAX_COL; i++)
-  {
+  for (int i = 1; i < MAX_COL; i++) {
+
     if (i % 3 == 0) {
+
       std::cout << "----";
     }
-    else
+    else {
+
       std::cout << "---";
+    }
   }
+
   std::cout << std::endl;
 
   char y = 'A';
   // Prints the board
-  for (int i = 0; i < MAX_ROW; i++)
-  {
+  for (int i = 0; i < MAX_ROW; i++) {
     // Prints the char on the left side of the board
     std::cout << y << "  |";
     y++;
 
     // Prints the board
-    for (int j = 0; j < MAX_COL; j++)
-    {
+    for (int j = 0; j < MAX_COL; j++) {
 
-      if (this->coordinates[i][j].getPlayedTile() != nullptr)
-      {
+      if (this->coordinates[i][j].getPlayedTile() != nullptr) {
+
         std::cout << "" << this->coordinates[i][j].getPlayedTile()->getColour() << this->coordinates[i][j].getPlayedTile()->getShape();
       }
-      else
-      {
+      else {
+
         std::cout << "  ";
       }
-      std::cout << "|";
 
+      std::cout << "|";
     }
 
     std::cout << std::endl;
   }
-}
-
-void Board::setRows(int row) {
-  this->rows = row;
-}
-
-void Board::setCols(int col) {
-  this->cols = col;
-}
-
-int Board::getRows() {
-  return this->rows;
-}
-
-int Board::getCols() {
-  return this->cols;
-}
-
-
-
-std::vector < std::vector<Coordinate>> Board::getCoordinates()
-{
-  return this->coordinates;
 }
 
 
@@ -124,14 +107,9 @@ bool Board::isBoardPositionEmpty(int row, int col) {
 }
 
 
-void Board::setTile(int row, int col, Tile* tile) {
-  this->coordinates[row][col].setPlayedTile(tile);
-}
-
-
 LinkedList* Board::getTileList(int row, int col, std::string axis) {
 
-  LinkedList* ll = new LinkedList();
+  LinkedList* tileList = new LinkedList();
   bool doesNextTileExist = true;
 
   int oppositeRow = row;
@@ -146,20 +124,18 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
     col++;
   }
 
-
+  // loop until coordinates will not return a tile. Also doing out of bounds checking.
   while (doesNextTileExist && (row >= 0 && row < MAX_ROW) && (col >= 0 && col < MAX_COL)) {
 
     if (this->coordinates[row][col].getPlayedTile() != nullptr) {
-      ll->addBack(this->coordinates[row][col].getPlayedTile());
+
+      tileList->addBack(this->coordinates[row][col].getPlayedTile());
 
       if (axis == "ns" && (row < MAX_ROW && row >= 0)) {
         row++;
       }
       else if (col < MAX_ROW && col >= 0) {
         col++;
-      }
-      if (col == MAX_COL || col == 0 || row == MAX_ROW || row == 0) {
-        doesNextTileExist = false;
       }
     }
     else {
@@ -177,10 +153,11 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
     oppositeCol--;
   }
 
+  // Same as previous while loop, just in the opposite direction.
   while (doesNextTileExist && (oppositeCol >= 0 && oppositeCol < MAX_COL) && (oppositeRow >= 0 && oppositeRow < MAX_ROW)) {
 
     if (this->coordinates[oppositeRow][oppositeCol].getPlayedTile() != nullptr) {
-      ll->addBack(this->coordinates[oppositeRow][oppositeCol].getPlayedTile());
+      tileList->addBack(this->coordinates[oppositeRow][oppositeCol].getPlayedTile());
 
       if (axis == "ns" && (oppositeRow < MAX_ROW && oppositeRow > 0)) {
         oppositeRow--;
@@ -188,7 +165,7 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
       else if (oppositeCol < MAX_ROW && oppositeCol > 0) {
         oppositeCol--;
       }
-      if (oppositeCol == MAX_COL || oppositeCol == 0 || oppositeRow == MAX_ROW || oppositeRow == 0) {
+      if (oppositeCol == 0 || oppositeRow == 0) {
         doesNextTileExist = false;
       }
     }
@@ -197,6 +174,38 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
     }
   }
 
-  return ll;
+  return tileList;
 }
+
+
+std::vector < std::vector<Coordinate>> Board::getCoordinates() {
+  return this->coordinates;
+}
+
+
+int Board::getRows() {
+  return this->rows;
+}
+
+
+int Board::getCols() {
+  return this->cols;
+}
+
+
+void Board::setTile(int row, int col, Tile* tile) {
+  this->coordinates[row][col].setPlayedTile(tile);
+}
+
+
+void Board::setRows(int row) {
+  this->rows = row;
+}
+
+
+void Board::setCols(int col) {
+  this->cols = col;
+}
+
+
 
