@@ -115,13 +115,19 @@ void  GameController::setupHands() {
 
 void GameController::playGame() {
 
-  while (player1->getHand()->size() > 0 && player2->getHand()->size() > 0) {
+  bool eofReceived = false;
+
+  while (!eofReceived && (player1->getHand()->size() > 0 && player2->getHand()->size() > 0)) {
 
     printTurn();
-    takeInput();
+    eofReceived = takeInput();
     changeCurrPlayer();
   }
-  endGame();
+
+  if (!eofReceived) {
+    endGame();
+
+  }
 }
 
 
@@ -144,7 +150,8 @@ void GameController::printTurn() {
 }
 
 
-void  GameController::takeInput() {
+bool GameController::takeInput() {
+  bool eofReceived = false;
   std::string input;
   std::cout << "> ";
   std::getline(std::cin, input);
@@ -220,37 +227,46 @@ void  GameController::takeInput() {
     }
     else if (equalsIgnoreCase(command, "quit")) {
       if (commandCount == 1) {
-        std::cout << "run quit function" << std::endl; // need this? not just make valid input?
+        validInput = true;
+        eofReceived = true;
       }
       else {
         std::cerr << "Invalid number of commands" << std::endl;
       }
     }
     else {
-      std::cerr << "Invalid Command" << std::endl;
+      if (!std::cin.eof()) {
+        std::cerr << "Invalid Command" << std::endl;
+      }
     }
     if (!validInput) {
+      if (!std::cin.eof()) {
+        std::cout << "> ";
+        std::getline(std::cin, input);
+        input = input + " &%";
+        iss.clear();
+        iss.str(input);
 
-      std::cout << "> ";
-      std::getline(std::cin, input);
-      input = input + " &%";
-      iss.clear();
-      iss.str(input);
+        commandCount = -1;
 
-      commandCount = -1;
+        while (!equalsIgnoreCase(command, "&%")) {
 
-      while (!equalsIgnoreCase(command, "&%")) {
+          iss >> command;
+          ++commandCount;
+        }
 
-        iss >> command;
-        ++commandCount;
+        iss.clear();
+        iss.str(input);
       }
-
-      iss.clear();
-      iss.str(input);
     }
 
     // repeat unless valid input or end of file received
   } while (!validInput && !std::cin.eof());
+
+  if (std::cin.eof()) {
+    eofReceived = true;
+  }
+  return eofReceived;
 }
 
 
@@ -404,7 +420,7 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
 }
 
 
-bool GameController::checkValidMove(LinkedList* ll, Tile* tile) {
+bool GameController::checkValidMove(LinkedList * ll, Tile * tile) {
 
   bool tileCanBePlaced = false;
 
@@ -604,7 +620,7 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
 }
 
 
-int GameController::calculateScore(LinkedList* ll) {
+int GameController::calculateScore(LinkedList * ll) {
 
   int score = 0;
   for (int i = 0; i < ll->size(); i++) {
@@ -744,7 +760,7 @@ Tile* GameController::retrievePlayersTile(std::string tileCode) {
 }
 
 
-bool GameController::checkMatchColour(Tile* tileToPlace, Tile* existingTile) {
+bool GameController::checkMatchColour(Tile * tileToPlace, Tile * existingTile) {
   bool match = false;
 
   if (tileToPlace->getColour() == existingTile->getColour()) {
@@ -754,7 +770,7 @@ bool GameController::checkMatchColour(Tile* tileToPlace, Tile* existingTile) {
 }
 
 
-bool GameController::checkMatchShape(Tile* tileToPlace, Tile* existingTile) {
+bool GameController::checkMatchShape(Tile * tileToPlace, Tile * existingTile) {
   bool match = false;
 
   if (tileToPlace->getShape() == existingTile->getShape()) {
@@ -765,7 +781,7 @@ bool GameController::checkMatchShape(Tile* tileToPlace, Tile* existingTile) {
 }
 
 
-void GameController::setCurrPlayer(Player* player) {
+void GameController::setCurrPlayer(Player * player) {
   this->currPlayer = player;
 }
 

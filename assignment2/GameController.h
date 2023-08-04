@@ -53,7 +53,7 @@ public:
 
   // Function where players input are taken and and handled. If it is a valid command passes over
   // to relevant function.
-  void takeInput();
+  bool takeInput();
 
   // Takes a tilecode and if it is in the players hand, replaces the tile with the next tile in
   // the tilebag. The contract part of the this function is that a valid tilecode has been passed.

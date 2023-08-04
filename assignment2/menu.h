@@ -28,7 +28,7 @@ public:
     bool isValidName(std::string& input);
 
     // Loads game from file.
-    void loadGame();
+    bool loadGame();
 
     // Print student credits.
     void printCredits();
