@@ -186,27 +186,27 @@ std::vector < std::vector<Coordinate>> Board::getCoordinates() {
   return this->coordinates;
 }
 
-// Lines 190 - 212 establish getters and setters for the board.
+// Getter for rows.
 int Board::getRows() {
   return this->rows;
 }
 
-
+// Getter for columns.
 int Board::getCols() {
   return this->cols;
 }
 
-
+// Sets tiles on co-ordinates within the board vector.
 void Board::setTile(int row, int col, Tile* tile) {
   this->coordinates[row][col].setPlayedTile(tile);
 }
 
-
+// Sets rows on the board.
 void Board::setRows(int row) {
   this->rows = row;
 }
 
-
+// Sets columns on the board.
 void Board::setCols(int col) {
   this->cols = col;
 }
