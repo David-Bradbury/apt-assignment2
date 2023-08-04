@@ -7,7 +7,7 @@ Tile::Tile(Shape shape, Colour colour) {
 
 }
 
-
+// Ensure shape and colour are seperate variables.
 bool Tile::isSameTile(Tile* other) {
 
    bool isSame = false;
@@ -18,12 +18,12 @@ bool Tile::isSameTile(Tile* other) {
    return isSame;
 }
 
-
+// Getter for shape.
 Shape Tile::getShape() {
    return this->shape;
 }
 
-
+// Getter for colour.
 Colour Tile::getColour() {
    return this->colour;
 }
