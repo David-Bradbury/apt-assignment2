@@ -59,21 +59,19 @@ LinkedList* Player::getHand() {
 }
 
 
-// Should I place a try/catch block in here?
+
 void Player::printHand() {
 
-    if (this->hand->size() == FULL_HAND) {
-        int i = 0;
-        while (i < (FULL_HAND - 1)) {
+
+    if (this->hand->size() > 0) {
+        for (int i = 0; i < this->hand->size() - 1; i++) {
 
             std::cout << this->hand->get(i)->getColour() << this->hand->get(i)->getShape() << ",";
-
-            i++;
         }
-        std::cout << this->hand->get(i)->getColour() << this->hand->get(i)->getShape() << std::endl;
+        std::cout << this->hand->get(this->hand->size() - 1)->getColour() << this->hand->get(this->hand->size() - 1)->getShape() << std::endl;
     }
     else {
-        std::cerr << "Hand can not be printed as hand is not complete." << std::endl;
+        std::cerr << "No tiles in players hand." << std::endl;
     }
 }
 
