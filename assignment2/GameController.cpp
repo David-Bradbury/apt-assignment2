@@ -115,7 +115,8 @@ void  GameController::setupHands() {
 
 void GameController::playGame() {
 
-  while (tileBag->size() > 0 && (player1->getHand()->size() > 0 || player2->getHand()->size() > 0)) {
+  bool eofReceived = false;
+  while ( !eofReceived && tileBag->size() > 0 && (player1->getHand()->size() > 0 || player2->getHand()->size() > 0)) {
 
     // All following code needs to be removed, here for testing.
     std::cout << "****Tile Bag Contents****" << std::endl;
@@ -134,10 +135,15 @@ void GameController::playGame() {
     }
 
     printTurn();
-    takeInput();
+    eofReceived = takeInput();
     changeCurrPlayer();
   }
-  endGame();
+
+  if(!eofReceived) {
+    endGame();
+
+  }
+  
 }
 
 
@@ -160,7 +166,8 @@ void GameController::printTurn() {
 }
 
 
-void  GameController::takeInput() {
+bool  GameController::takeInput() {
+  bool eofReceived = false;
   std::string input;
   std::cout << "> ";
   std::getline(std::cin, input);
@@ -243,30 +250,43 @@ void  GameController::takeInput() {
       }
     }
     else {
-      std::cerr << "Invalid Command" << std::endl;
+      if(!std::cin.eof()) {
+        std::cerr << "Invalid Command" << std::endl;
+      }
+      
     }
     if (!validInput) {
+      if(!std::cin.eof()) {
+        std::cout << "> ";
+        std::getline(std::cin, input);
+        input = input + " &%";
+        iss.clear();
+        iss.str(input);
 
-      std::cout << "> ";
-      std::getline(std::cin, input);
-      input = input + " &%";
-      iss.clear();
-      iss.str(input);
+        commandCount = -1;
 
-      commandCount = -1;
+        while (!equalsIgnoreCase(command, "&%")) {
 
-      while (!equalsIgnoreCase(command, "&%")) {
+          iss >> command;
+          ++commandCount;
+        }
 
-        iss >> command;
-        ++commandCount;
+        iss.clear();
+        iss.str(input);
+    }
+
       }
 
-      iss.clear();
-      iss.str(input);
-    }
+
 
     // repeat unless valid input or end of file received
   } while (!validInput && !std::cin.eof());
+
+  if(std::cin.eof()) {
+    eofReceived = true;
+  }
+
+  return eofReceived;
 }
 
 
