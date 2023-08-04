@@ -10,7 +10,7 @@
 #include <sstream>
 
 
-
+// Method to begin game, informs player menu inputs are ready to be taken.
 int main(void) {
 
    std::cout << "Welcome to Qwirkle!" << std::endl;
