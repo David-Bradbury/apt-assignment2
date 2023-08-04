@@ -10,21 +10,22 @@ class Player
 {
 public:
 
-
+// Constructor/deconstructor for player variables.
     Player();
     Player(std::string name);
     Player(std::string name, LinkedList* hand, int score);
     ~Player();
 
-
+// Prints player name.
     void printDetails(int ID, std::string name);
     std::string getName();
 
-
+// Score variables.
     int getScore();
     void addToScore(int points);
     void printScore();
 
+// Hand variables.
     LinkedList* getHand();
     void printHand();
     void addToHand(Tile* tile);
