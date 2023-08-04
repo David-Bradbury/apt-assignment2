@@ -201,16 +201,16 @@ bool Menu::loadGame() {
         std::cout << "Enter the filename from which to load the game" << std::endl;
 
         std::cout << "> ";
-        std::cin >> filename;      
+        std::cin >> filename;
         save.append(filename);
         std::ifstream file(save);
 
         if (file.fail()) {
             std::cerr << "Error: bad file name" << std::endl;
             validFileName = false;
-        } 
+        }
 
-    } while(!validFileName && !std::cin.eof());
+    } while (!validFileName && !std::cin.eof());
 
 
 
@@ -306,6 +306,7 @@ bool Menu::loadGame() {
         std::stringstream boardStateStream;
         boardStateStream.str(boardState);
 
+        // Board gets deleted in GameController class.
         Board* board = new Board(boardRow, boardCol);
 
 
@@ -327,10 +328,9 @@ bool Menu::loadGame() {
                 int row = state[3] - ASCII;
                 int col = (stoi(state.substr(4)) - 1);
 
+                // Passes ownership of tile* to board
                 board->setTile(row, col, tile);
-                // delete tile;
-                // Deleting breaks the board state as it is a board of pointers.
-                // Need to handle the deleting elsewhere.
+                delete tile;
             }
         }
 
@@ -341,6 +341,7 @@ bool Menu::loadGame() {
         std::stringstream tileBagStream;
         tileBagStream.str(tempTileBag);
 
+        // tileBag gets deleted in the GameController class
         LinkedList* tileBag = new LinkedList();
         std::string tempTile;
 
@@ -369,7 +370,7 @@ bool Menu::loadGame() {
             gc.setCurrPlayer(&p2);
         }
 
-          // Needed to clear cin buffer for first turn only.
+        // Needed to clear cin buffer for first turn only.
         char randomInput;
         while ((randomInput = std::cin.get()) != '\n') {}
         gc.playGame();

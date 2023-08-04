@@ -9,7 +9,7 @@ Coordinate::Coordinate(int row, int col) {
 
 
 Coordinate::~Coordinate() {
-  delete this->playedTile; // LinkedList take care of this?
+  delete this->playedTile;
 }
 
 
@@ -24,7 +24,8 @@ int Coordinate::getColCoordinate() {
 
 
 void Coordinate::setPlayedTile(Tile* tile) {
-  this->playedTile = tile;
+  Tile* tempTile = new Tile(tile->getShape(), tile->getColour());
+  this->playedTile = tempTile;
 }
 
 
