@@ -20,7 +20,7 @@ Menu::~Menu() {
 
 }
 
-
+// Informs user of all available menu inputs with corresponding numbers, 1-4.
 void Menu::printMenu() {
 
     std::cout << "Menu" << std::endl;
@@ -34,6 +34,7 @@ void Menu::printMenu() {
     bool validInput = false;
     bool endOfFile = false;
 
+    // While loop to allow for program to progress to next output based on user input, 1-4.
     while (!validInput && input != EXIT && !endOfFile) {
 
         std::cout << "> ";
@@ -81,7 +82,7 @@ void Menu::printMenu() {
     }
 }
 
-
+// Option 1 begins a new game of Qwirkle.
 void Menu::startNewGame() {
 
     std::cout << "Starting A New Game" << std::endl;
@@ -95,6 +96,7 @@ void Menu::startNewGame() {
     bool validInput = false;
     bool eofReceived = false;
 
+    // Name inputs must be in all uppercase letters.
     while (!validInput && !eofReceived) {
         if (std::cin >> p1Name) {
             if (!isValidName(p1Name)) {
@@ -118,6 +120,7 @@ void Menu::startNewGame() {
         }
     }
 
+    // Only if name 1 is in all uppercase will player 2 prompt appear.
     if (!eofReceived) {
 
         std::cout << "Enter A Name For Player 2 (uppercase characters only)" << std::endl;
@@ -150,6 +153,7 @@ void Menu::startNewGame() {
 
     }
 
+    // Once both player names are accepted, names will be printed and a starting message appears.
     if (!eofReceived) {
 
 
@@ -185,7 +189,7 @@ bool Menu::isValidName(std::string& input) {
 
 }
 
-
+// Option 2 triggers a load of an existing game file, saved as a sequence of strings.
 bool Menu::loadGame() {
 
 
@@ -205,6 +209,7 @@ bool Menu::loadGame() {
         save.append(filename);
         std::ifstream file(save);
 
+        // File name entered must already exist in the saves.
         if (file.fail()) {
             std::cerr << "Error: bad file name" << std::endl;
             validFileName = false;
@@ -378,6 +383,7 @@ bool Menu::loadGame() {
     return eofReceived;
 }
 
+// Option 3 prints all student credentials of the development team.
 void Menu::printCredits() {
 
     std::cout << "------------------------------------------" << std::endl;
@@ -401,6 +407,7 @@ void Menu::printCredits() {
     std::cout << "------------------------------------------" << std::endl;
 }
 
+// Option 4 ends the program in the same manner CTRL+D does at any point in a game.
 void Menu::quitGame() {
 
     std::cout << "Goodbye - Thanks For Playing Quirkle" << std::endl;
