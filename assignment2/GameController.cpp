@@ -243,7 +243,8 @@ bool  GameController::takeInput() {
     }
     else if (equalsIgnoreCase(command, "quit")) {
       if (commandCount == 1) {
-        std::cout << "run quit function" << std::endl; // need this? not just make valid input?
+        validInput =true;
+        eofReceived = true;
       }
       else {
         std::cerr << "Invalid number of commands" << std::endl;
