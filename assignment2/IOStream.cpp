@@ -47,8 +47,8 @@ std::string IOStream::loadGame(std::string fileName) {
 
   std::ifstream file;
   std::string fileType = getFileType(fileName);
-  std::string save = "saved_games/";
-  save.append(fileName);
+  // std::string save = "saved_games/";
+  // save.append(fileName);
   char c;
 
   std::string game;
@@ -60,7 +60,7 @@ std::string IOStream::loadGame(std::string fileName) {
 
     try {
 
-      file.open(save);
+      file.open(fileName);
       while ((c = file.get()) != EOF) {
         game += c;
       }

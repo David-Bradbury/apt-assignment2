@@ -188,29 +188,44 @@ bool Menu::isValidName(std::string& input) {
 
 bool Menu::loadGame() {
 
-    bool eofReceived = true;
 
     std::string filename;
+    std::string save = "saved_games/";
+    bool validFileName = true;
+    bool eofReceived = false;
 
-    std::cout << "Enter The Filename From Which To Load The Game" << std::endl;
 
-    std::cout << "> ";
-    std::cin >> filename;
+    do {
+        validFileName = true;
+        save = "saved_games/";
+        std::cout << "Enter the filename from which to load the game" << std::endl;
+
+        std::cout << "> ";
+        std::cin >> filename;      
+        save.append(filename);
+        std::ifstream file(save);
+
+        if (file.fail()) {
+            std::cerr << "Error: bad file name" << std::endl;
+            validFileName = false;
+        } 
+
+    } while(!validFileName && !std::cin.eof());
+
+
 
     if (std::cin.eof()) {
         eofReceived = true;
     }
+
     if (!eofReceived) {
 
-        std::ifstream file(filename);
-        if (file.fail()) {
-            std::cout << "Bad file name" << std::endl;
-        }
+
 
         //load game from file here, whilst also checking if filename is valid.
 
         IOStream load = IOStream();
-        std::string game = load.loadGame(filename);
+        std::string game = load.loadGame(save);
 
         std::stringstream stream;
         stream.str(game);
@@ -354,8 +369,11 @@ bool Menu::loadGame() {
             gc.setCurrPlayer(&p2);
         }
 
-        gc.printTurn();
-        gc.takeInput();
+          // Needed to clear cin buffer for first turn only.
+        char randomInput;
+        while ((randomInput = std::cin.get()) != '\n') {}
+        gc.playGame();
+
     }
     return eofReceived;
 }
