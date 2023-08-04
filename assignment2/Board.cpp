@@ -9,6 +9,7 @@
 
 Board::Board(int rows, int cols) {
 
+  // Establishes vector of co-ordinates with max constraints for row and column.
   std::vector<Coordinate> temp;
   this->rows = rows;
   this->cols = cols;
@@ -94,7 +95,7 @@ void Board::printBoard() {
   }
 }
 
-
+// Ensures co-ordinate is empty before a tile can be placed.
 bool Board::isBoardPositionEmpty(int row, int col) {
 
   bool isEmpty = false;
@@ -185,7 +186,7 @@ std::vector < std::vector<Coordinate>> Board::getCoordinates() {
   return this->coordinates;
 }
 
-
+// Lines 190 - 212 establish getters and setters for the board.
 int Board::getRows() {
   return this->rows;
 }
