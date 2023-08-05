@@ -194,25 +194,31 @@ bool Menu::loadGame() {
     bool validFileName = true;
     bool eofReceived = false;
 
+    try
+    {
 
-    do {
-        validFileName = true;
-        save = "saved_games/";
-        std::cout << "Enter the filename from which to load the game" << std::endl;
+        do {
+            validFileName = true;
+            // save = "saved_games/";
+            std::cout << "Enter the filename from which to load the game" << std::endl;
 
-        std::cout << "> ";
-        std::cin >> filename;
-        save.append(filename);
-        std::ifstream file(save);
+            std::cout << "> ";
+            std::cin >> filename;
+            save.append(filename);
+            std::ifstream file(save);
 
-        if (file.fail()) {
-            std::cerr << "Error: bad file name" << std::endl;
-            validFileName = false;
-        }
+            if (file.fail()) {
+                std::cerr << "Error: bad file name" << std::endl;
+                validFileName = false;
+            }
 
-    } while (!validFileName && !std::cin.eof());
+        } while (!validFileName && !std::cin.eof());
 
-
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 
     if (std::cin.eof()) {
         eofReceived = true;
@@ -373,6 +379,8 @@ bool Menu::loadGame() {
         // Needed to clear cin buffer for first turn only.
         char randomInput;
         while ((randomInput = std::cin.get()) != '\n') {}
+
+        std::cout << "Qwirkle game successfully loaded" << std::endl;
         gc.playGame();
 
     }
