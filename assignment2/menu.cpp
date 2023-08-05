@@ -208,7 +208,7 @@ bool Menu::loadGame() {
             std::ifstream file(save);
 
             if (file.fail()) {
-                std::cerr << "Error: bad file name" << std::endl;
+                std::cerr << "Error: Can't find file" << std::endl;
                 validFileName = false;
             }
 
