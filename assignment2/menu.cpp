@@ -23,23 +23,36 @@ Menu::~Menu() {
 
 void Menu::printMenu() {
 
-    std::cout << "Menu" << std::endl;
-    std::cout << "-----" << std::endl;
-    std::cout << "1. New Game" << std::endl;
-    std::cout << "2. Load Game" << std::endl;
-    std::cout << "3. Credits (Show Student Information)" << std::endl;
-    std::cout << "4. Quit" << std::endl;
+
 
     int input = 0;
     bool validInput = false;
     bool endOfFile = false;
+    bool creditsRan = false;
 
     while (!validInput && input != EXIT && !endOfFile) {
+        std::cout << "Menu" << std::endl;
+        std::cout << "-----" << std::endl;
+        std::cout << "1. New Game" << std::endl;
+        std::cout << "2. Load Game" << std::endl;
+        std::cout << "3. Credits (Show Student Information)" << std::endl;
+        std::cout << "4. Quit" << std::endl;
+        if(!creditsRan) {
+            std::cout << "> ";
+            creditsRan = false;
+        }
+        
+        while (std::cin.peek() == '\n') {
+            std::cout << "> ";
+            std::cin.get(); // Consume the newline character
+        }
+            
+      
 
-        std::cout << "> ";
 
 
         if (std::cin >> input) {
+
 
             if (input == START) {
                 startNewGame();
@@ -50,13 +63,13 @@ void Menu::printMenu() {
                 validInput = true;
             }
             else if (input == CREDITS) {
-                printCredits();
-                validInput = true;
+                creditsRan = printCredits();
             }
             else if(input != EXIT) {
                 std::cout << "Invalid Input" << std::endl;
 
             }
+
         }
         else {
 
@@ -158,6 +171,7 @@ void Menu::startNewGame() {
         try {
             GameController* gc = new GameController(p1Name, p2Name);
             gc->prepareGame();
+            delete gc;
         }
         catch (const std::exception& e) {
             std::cerr << e.what() << std::endl;
@@ -375,7 +389,7 @@ bool Menu::loadGame() {
     return eofReceived;
 }
 
-void Menu::printCredits() {
+bool Menu::printCredits() {
 
     std::cout << "------------------------------------------" << std::endl;
 
@@ -396,6 +410,8 @@ void Menu::printCredits() {
     std::cout << "Email: s3858853@student.rmit.edu.au" << std::endl;
 
     std::cout << "------------------------------------------" << std::endl;
+
+    return true;
 }
 
 

@@ -387,6 +387,7 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
 
           delete northSouthLL;
           delete eastWestLL;
+
         }
         else {
           //first turn
@@ -407,6 +408,7 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
       else {
         std::cerr << "Tile not in your hand." << std::endl;
       }
+
     }
     catch (const std::exception& e) {
       std::cerr << e.what() << '\n';
@@ -611,6 +613,8 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
 
     delete northSouthLL;
     delete eastWestLL;
+    //*******************************
+    delete tile;
   }
   catch (const std::exception& e) {
     std::cerr << e.what() << '\n';

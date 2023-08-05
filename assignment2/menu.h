@@ -31,7 +31,7 @@ public:
     bool loadGame();
 
     // Print student credits.
-    void printCredits();
+    bool printCredits();
 
 
 
