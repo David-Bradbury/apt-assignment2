@@ -107,6 +107,8 @@ void  GameController::setupHands() {
 
     player1->addToHand(tileBag->get(0));
     tileBag->removeFront();
+  }
+  for (int i = 0; i < FULL_HAND; i++) {
     player2->addToHand(tileBag->get(0));
     tileBag->removeFront();
   }
@@ -613,8 +615,7 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
 
     delete northSouthLL;
     delete eastWestLL;
-    //*******************************
-    delete tile;
+
   }
   catch (const std::exception& e) {
     std::cerr << e.what() << '\n';
