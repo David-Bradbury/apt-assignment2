@@ -33,8 +33,8 @@ public:
     // Print student credits.
     void printCredits();
 
-    // End game.
-    void quitGame();
+
+
 
 private:
 

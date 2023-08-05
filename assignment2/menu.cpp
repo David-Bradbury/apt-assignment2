@@ -53,10 +53,7 @@ void Menu::printMenu() {
                 printCredits();
                 validInput = true;
             }
-            else if (input == EXIT) {
-                quitGame();
-            }
-            else {
+            else if(input != EXIT) {
                 std::cout << "Invalid Input" << std::endl;
 
             }
@@ -401,9 +398,5 @@ void Menu::printCredits() {
     std::cout << "------------------------------------------" << std::endl;
 }
 
-void Menu::quitGame() {
 
-    std::cout << "Goodbye - Thanks For Playing Quirkle" << std::endl;
-
-}
 
