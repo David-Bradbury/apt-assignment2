@@ -216,10 +216,10 @@ bool GameController::takeInput() {
     else if (equalsIgnoreCase(command, "save")) {
       if (commandCount == 2) {
 
-        std::cout << "run save function" << std::endl;
-
         iss >> command;
         saveGame(command);
+
+        std::cout << "Game successfully saved" << std::endl;
       }
       else {
         std::cerr << "Invalid number of commands" << std::endl;
@@ -420,7 +420,7 @@ bool  GameController::placeTile(std::string tileCode, std::string location) {
 }
 
 
-bool GameController::checkValidMove(LinkedList * ll, Tile * tile) {
+bool GameController::checkValidMove(LinkedList* ll, Tile* tile) {
 
   bool tileCanBePlaced = false;
 
@@ -620,7 +620,7 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
 }
 
 
-int GameController::calculateScore(LinkedList * ll) {
+int GameController::calculateScore(LinkedList* ll) {
 
   int score = 0;
   for (int i = 0; i < ll->size(); i++) {
@@ -760,7 +760,7 @@ Tile* GameController::retrievePlayersTile(std::string tileCode) {
 }
 
 
-bool GameController::checkMatchColour(Tile * tileToPlace, Tile * existingTile) {
+bool GameController::checkMatchColour(Tile* tileToPlace, Tile* existingTile) {
   bool match = false;
 
   if (tileToPlace->getColour() == existingTile->getColour()) {
@@ -770,7 +770,7 @@ bool GameController::checkMatchColour(Tile * tileToPlace, Tile * existingTile) {
 }
 
 
-bool GameController::checkMatchShape(Tile * tileToPlace, Tile * existingTile) {
+bool GameController::checkMatchShape(Tile* tileToPlace, Tile* existingTile) {
   bool match = false;
 
   if (tileToPlace->getShape() == existingTile->getShape()) {
@@ -781,7 +781,7 @@ bool GameController::checkMatchShape(Tile * tileToPlace, Tile * existingTile) {
 }
 
 
-void GameController::setCurrPlayer(Player * player) {
+void GameController::setCurrPlayer(Player* player) {
   this->currPlayer = player;
 }
 
