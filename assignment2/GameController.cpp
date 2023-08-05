@@ -87,6 +87,7 @@ void  GameController::createTileBag() {
 
       if (numberOfOccurances < MAX_TILE_OCCURENCES) {
         tileBag->addBack(tileToAdd);
+        delete tileToAdd;
         tileCount++;
       }
       else {
