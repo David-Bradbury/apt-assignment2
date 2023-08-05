@@ -87,7 +87,6 @@ Tile* LinkedList::get(const int index) const {
 void LinkedList::addFront(Tile* tile) {
 
    Node* toAdd = new Node(tile, head, nullptr);
-   delete tile;
 
    //check if list is empty and make toAdd the head if so
    if (head != nullptr) {
@@ -104,7 +103,6 @@ void LinkedList::addFront(Tile* tile) {
 // Adds a node with provided tile to the end of the list
 void LinkedList::addBack(Tile* tile) {
    Node* toAdd = new Node(tile, nullptr, tail);
-   delete tile;
 
    if (tail != nullptr) {
       tail->next = toAdd;
