@@ -161,6 +161,7 @@ void Menu::startNewGame() {
         try {
             GameController* gc = new GameController(p1Name, p2Name);
             gc->prepareGame();
+            delete gc;
         }
         catch (const std::exception& e) {
             std::cerr << e.what() << std::endl;
