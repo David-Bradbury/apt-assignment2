@@ -28,7 +28,7 @@ Board::Board(int rows, int cols) {
 
 
 Board::~Board() {
-  // Delete
+  // Nothing to delete
 
 }
 
@@ -84,24 +84,20 @@ void Board::printBoard() {
 
     // Prints the board
     for (int j = 0; j < MAX_COL; j++) {
-
+      // Prints tile if a tile has been played
       if (this->coordinates[i][j].getPlayedTile() != nullptr) {
-
         std::cout << "" << this->coordinates[i][j].getPlayedTile()->getColour() << this->coordinates[i][j].getPlayedTile()->getShape();
       }
       else {
-
         std::cout << "  ";
       }
-
       std::cout << "|";
     }
-
     std::cout << std::endl;
   }
 }
 
-
+// Checks if board position has a tile played and returns a boolean result.
 bool Board::isBoardPositionEmpty(int row, int col) {
 
   bool isEmpty = false;
@@ -189,11 +185,11 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
 
 
 std::string Board::getCoordinatesAsString() {
+
   std::string saveData;
+
   for (unsigned int i = 0; i < this->coordinates.size(); i++) {
-
     for (unsigned int j = 0; j < this->coordinates[i].size(); j++) {
-
       if (this->coordinates[i][j].getPlayedTile() != nullptr) {
 
         saveData += this->coordinates[i][j].getPlayedTile()->getColour();
