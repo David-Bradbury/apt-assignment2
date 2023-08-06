@@ -533,7 +533,7 @@ void  GameController::saveGame(std::string fileName) {
   // Board State
 
   if (this->playedTiles->size() == 0) {
-    saveData += " ";
+    saveData += "0";
   }
   else {
     saveData += this->board->getCoordinatesAsString();

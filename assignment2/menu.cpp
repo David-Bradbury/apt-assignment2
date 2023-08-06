@@ -194,15 +194,12 @@ bool Menu::isValidName(std::string& input) {
 
 }
 
-
 bool Menu::loadGame() {
-
 
     std::string filename;
     std::string save = "saved_games/";
     bool validFileName = true;
     bool eofReceived = false;
-
 
     do {
         validFileName = true;
@@ -221,15 +218,11 @@ bool Menu::loadGame() {
 
     } while (!validFileName && !std::cin.eof());
 
-
-
     if (std::cin.eof()) {
         eofReceived = true;
     }
 
     if (!eofReceived) {
-
-
 
         //load game from file here, whilst also checking if filename is valid.
 
@@ -312,36 +305,42 @@ bool Menu::loadGame() {
 
         std::string boardState;
         stream >> boardState;
-        std::stringstream boardStateStream;
-        boardStateStream.str(boardState);
 
         Board* board = new Board(boardRow, boardCol);
 
         LinkedList* playedTiles = new LinkedList();
-        // Load Board State
-        std::string state;
-        while (std::getline(boardStateStream, state, ','))
-        {
-            if (state.size() <= 2)
+        if (boardState != "0") {
+
+            std::stringstream boardStateStream;
+            boardStateStream.str(boardState);
+
+
+            // Load Board State
+            std::string state;
+
+            while (std::getline(boardStateStream, state, ','))
             {
+                if (state.size() <= 2)
+                {
 
-            }
-            else
-            {
-                char colour = std::toupper(state[0]);
-                int shape = state[1] - '0';
+                }
+                else
+                {
+                    char colour = std::toupper(state[0]);
+                    int shape = state[1] - '0';
 
-                Tile* tile = new Tile(shape, colour);
+                    Tile* tile = new Tile(shape, colour);
 
-                int row = state[3] - ASCII;
-                int col = (stoi(state.substr(4)) - 1);
+                    int row = state[3] - ASCII;
+                    int col = (stoi(state.substr(4)) - 1);
 
-                board->setTile(row, col, tile);
-                playedTiles->addBack(tile);
+                    board->setTile(row, col, tile);
+                    playedTiles->addBack(tile);
+                }
             }
         }
 
-        // Create/load Tile Bag
+        // Create/Load Tile Bag
 
         std::string tempTileBag;
         stream >> tempTileBag;

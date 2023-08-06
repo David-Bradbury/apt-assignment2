@@ -13,6 +13,7 @@ Board::Board(int rows, int cols) {
   this->rows = rows;
   this->cols = cols;
 
+  // Instantiates the private coordinates vector variable  
   for (int i = 0; i < MAX_ROW; i++) {
 
     for (int j = 0; j < MAX_COL; j++) {
