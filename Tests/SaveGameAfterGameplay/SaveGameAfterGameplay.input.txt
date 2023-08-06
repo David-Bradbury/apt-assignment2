@@ -1,0 +1,9 @@
+1
+JOHN
+JANE
+Place B4 at H12
+Place B6 at I12
+Place B6 at H13
+Place B5 at I13
+Place B2 at J12
+save TestingGame1

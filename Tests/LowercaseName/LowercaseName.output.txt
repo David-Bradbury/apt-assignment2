@@ -1,0 +1,14 @@
+Welcome to Qwirkle!
+-------------------
+Menu
+-----
+1. New Game
+2. Load Game
+3. Credits (Show Student Information)
+4. Quit
+> 1
+Starting A New Game
+
+Enter A Name For Player 1 (uppercase characters only)
+> john
+Error: please enter a valid name for Player 1 (uppercase characters only)

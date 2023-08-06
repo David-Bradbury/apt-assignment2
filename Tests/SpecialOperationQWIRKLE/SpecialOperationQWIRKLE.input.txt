@@ -1,0 +1,34 @@
+1
+JOHN
+JANE
+Place B12 at H12
+Place B3 at I12
+Place O3 at I13
+Place B5 at G12
+Place R5 at G11
+Place R4 at G10
+Replace G2
+Place B1 at J12
+Place R2 at F11
+Place R6 at E11
+Place R4 at D11
+Place Y3 at I14
+Place B2 at F10
+Place R2 at F9
+Place Y5 at J14
+Place Y6 at K14
+Replace G6
+Place O2 at F9
+Place O4 at G9
+Place O6 at H9
+Replace Y6
+Place R1 at C11
+Replace P6
+Replace R1
+Replace B5
+Replace R4
+Replace R2
+Place R3 at B11
+
+
+

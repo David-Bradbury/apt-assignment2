@@ -1,0 +1,86 @@
+1
+JOHN
+JANE
+Place O1 at L13
+Place O3 at M13
+Place O4 at N13
+Place Y4 at N14
+Place B4 at N15
+Place Y1 at O14
+Place G1 at L12
+Place Y6 at P14
+Place P6 at P15
+Place Y1 at L14
+Place Y2 at Q14
+Place R6 at P16
+Place G2 at Q13
+Place R5 at Q16
+Place O2 at K13
+Place G5 at Q17
+Place B2 at Q12
+Place G6 at P17
+Place P2 at Q11
+Place G2 at R17
+Place R2 at Q10
+Place R1 at L11
+Place O5 at J13
+Place P5 at Q18
+Place B2 at M15
+Place R3 at K11
+Place B5 at Q19
+Replace P6
+Place G1 at S17
+Replace G5
+Place P5 at R11
+Place P3 at S11
+Replace Y6
+Place Y5 at R14
+Place R2 at J11
+Place G3 at T17
+Place B1 at L15
+Place B3 at K15
+Place R5 at I11
+Replace Y4
+Place Y3 at S14
+Place B5 at J15
+Place O2 at Q9
+Place B6 at I15
+Place P2 at S10
+Place B4 at J16
+Place P4 at P11
+Place B6 at J17
+Place B3 at J18
+Place P1 at U11
+Place P1 at S9
+Place O5 at Q20
+Place B1 at J19
+Place O6 at I13
+Place R1 at T9
+Place R4 at H11
+Place O1 at U9
+Place Y5 at Q21
+Place G4 at U17
+Place R6 at G11
+Place R3 at G10
+Place R4 at G9
+Place P6 at V11
+Place Y2 at J10
+Place Y6 at I17
+Place G6 at H17
+Place O6 at G17
+Place Y4 at R21
+Place P4 at S8
+Place Y3 at S21
+Place P3 at S22
+Place O3 at G18
+Place G3 at F18
+Place G4 at F9
+Place G5 at F19
+Place O4 at E9
+
+
+
+
+
+
+

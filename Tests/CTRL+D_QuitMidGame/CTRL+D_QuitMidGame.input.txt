@@ -1,0 +1,5 @@
+1
+JOHN
+JANE
+Place P1 at H12
+CTRL+D
