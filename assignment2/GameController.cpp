@@ -620,10 +620,14 @@ int  GameController::scoreTurn(std::string tileCode, std::string location) {
 int GameController::calculateScore(LinkedList* ll) {
 
   int score = 0;
+  // iterates over linkedlist and adds a point for each element.
+  // Possible implementation could be to just add ll->size() to score
+  // but we decided incrementing the score would be safer.
   for (int i = 0; i < ll->size(); i++) {
     score++;
   }
 
+  // doubles score if qwirkle is achieved
   if (score == QWIRKLE) {
     score = score * 2;
     std::cout << "QWIRKLE!!!" << std::endl;
