@@ -31,6 +31,12 @@ Board::~Board() {
 
 }
 
+Board::Board(const Board& other) {
+  this->rows = other.rows;
+  this->cols = other.cols;
+  this->coordinates = other.coordinates;
+}
+
 
 void Board::printBoard() {
 
@@ -181,9 +187,31 @@ LinkedList* Board::getTileList(int row, int col, std::string axis) {
 }
 
 
-std::vector < std::vector<Coordinate>> Board::getCoordinates() {
-  return this->coordinates;
+std::string Board::getCoordinatesAsString() {
+  std::string saveData;
+  for (unsigned int i = 0; i < this->coordinates.size(); i++) {
+
+    for (unsigned int j = 0; j < this->coordinates[i].size(); j++) {
+
+      if (this->coordinates[i][j].getPlayedTile() != nullptr) {
+
+        saveData += this->coordinates[i][j].getPlayedTile()->getColour();
+        saveData += std::to_string(this->coordinates[i][j].getPlayedTile()->getShape());
+        saveData += '@';
+        saveData += char(this->coordinates[i][j].getRowCoordinate() + ASCII);
+        saveData += std::to_string(this->coordinates[i][j].getColCoordinate() + 1);
+        saveData += ',';
+      }
+    }
+  }
+
+  // Remove trailing ','
+  saveData.resize(saveData.length() - 1);
+  return saveData;
 }
+
+
+
 
 
 int Board::getRows() {

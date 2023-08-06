@@ -33,11 +33,6 @@ Player::~Player() {
     delete this->hand;
 }
 
-
-void Player::printDetails(int ID, std::string name) {
-
-}
-
 std::string Player::getName() {
     return this->name;
 

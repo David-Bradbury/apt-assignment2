@@ -9,7 +9,7 @@ Coordinate::Coordinate(int row, int col) {
 
 
 Coordinate::~Coordinate() {
-  delete this->playedTile; // LinkedList take care of this?
+  delete this->playedTile;
 }
 
 

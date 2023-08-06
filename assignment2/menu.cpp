@@ -10,13 +10,11 @@
 
 
 Menu::Menu() {
-    // We need anything? 
 
 }
 
 
 Menu::~Menu() {
-    // Delete
 
 }
 
@@ -394,15 +392,15 @@ bool Menu::printCredits() {
 
     std::cout << "Name: David Bradbury" << std::endl;
     std::cout << "Student ID: s3775590" << std::endl;
-    std::cout << "Email: s3775590@student.rmit.edu.au" << std::endl;
+    std::cout << "Email: s3775590@student.rmit.edu.au\n" << std::endl;
 
     std::cout << "Name: Josh Coppen" << std::endl;
     std::cout << "Student ID: s3775648" << std::endl;
-    std::cout << "Email: s3775648@student.rmit.edu.au" << std::endl;
+    std::cout << "Email: s3775648@student.rmit.edu.au\n" << std::endl;
 
     std::cout << "Name: Jack Lynch" << std::endl;
     std::cout << "Student ID: s3782003" << std::endl;
-    std::cout << "Email: s3782003@student.rmit.edu.au" << std::endl;
+    std::cout << "Email: s3782003@student.rmit.edu.au\n" << std::endl;
 
     std::cout << "Name: David Pulvirenti" << std::endl;
     std::cout << "Student ID: s3858853" << std::endl;

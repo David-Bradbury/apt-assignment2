@@ -18,6 +18,7 @@ public:
   // Contructor / Destructor
   Board(int rows, int cols);
   ~Board();
+  Board(const Board& other);
 
   // Prints the board out to terminal.
   void printBoard();
@@ -32,7 +33,7 @@ public:
   LinkedList* getTileList(int row, int col, std::string axis);
 
   // getters
-  std::vector < std::vector<Coordinate>> getCoordinates();
+  std::string getCoordinatesAsString();
   int getRows();
   int getCols();
 

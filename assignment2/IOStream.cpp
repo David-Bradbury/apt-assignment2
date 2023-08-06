@@ -7,13 +7,11 @@
 
 
 IOStream::IOStream() {
-  // We need anything? 
 
 }
 
 
 IOStream::~IOStream() {
-  // Delete
 
 }
 
@@ -47,8 +45,6 @@ std::string IOStream::loadGame(std::string fileName) {
 
   std::ifstream file;
   std::string fileType = getFileType(fileName);
-  // std::string save = "saved_games/";
-  // save.append(fileName);
   char c;
 
   std::string game;

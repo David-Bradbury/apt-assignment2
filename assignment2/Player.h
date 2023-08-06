@@ -10,26 +10,30 @@ class Player
 {
 public:
 
-
+    // Constructors/Destructors
     Player();
     Player(std::string name);
     Player(std::string name, LinkedList* hand, int score);
     ~Player();
 
-
-    void printDetails(int ID, std::string name);
+    // Getters/Setters
     std::string getName();
-
-
     int getScore();
-    void addToScore(int points);
-    void printScore();
-
     LinkedList* getHand();
-    void printHand();
+    void setName(std::string name);
+
+    // Adds to players score
+    void addToScore(int points);
+    // Adds tile to players hand
     void addToHand(Tile* tile);
 
-    void setName(std::string name);
+    // Prints players score
+    void printScore();
+    // Prints players hand separated by comma's
+    void printHand();
+
+
+
 
 private:
 
