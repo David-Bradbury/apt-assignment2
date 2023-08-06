@@ -21,10 +21,10 @@ Board::Board(int rows, int cols) {
     }
 
     this->coordinates.push_back(temp);
-    for (unsigned int k = 0; k < temp.size(); k++)
-    {
-      delete temp[k];
-    }
+    // for (unsigned int k = 0; k < temp.size(); k++)
+    // {
+    //   // delete temp[k];
+    // }
 
     temp.clear();
   }
