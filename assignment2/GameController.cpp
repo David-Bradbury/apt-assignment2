@@ -527,7 +527,7 @@ void  GameController::saveGame(std::string fileName) {
   saveData += '\n';
 
   // Board State
-  std::vector<std::vector<Coordinate>> positions = this->board->getCoordinates();
+  std::vector<std::vector<Coordinate*>> positions = this->board->getCoordinates();
 
   if (this->playedTiles->size() == 0) {
     saveData += " ";
@@ -538,13 +538,13 @@ void  GameController::saveGame(std::string fileName) {
 
       for (unsigned int j = 0; j < positions[i].size(); j++) {
 
-        if (positions[i][j].getPlayedTile() != nullptr) {
+        if (positions[i][j]->getPlayedTile() != nullptr) {
 
-          saveData += positions[i][j].getPlayedTile()->getColour();
-          saveData += std::to_string(positions[i][j].getPlayedTile()->getShape());
+          saveData += positions[i][j]->getPlayedTile()->getColour();
+          saveData += std::to_string(positions[i][j]->getPlayedTile()->getShape());
           saveData += '@';
-          saveData += char(positions[i][j].getRowCoordinate() + ASCII);
-          saveData += std::to_string(positions[i][j].getColCoordinate() + 1);
+          saveData += char(positions[i][j]->getRowCoordinate() + ASCII);
+          saveData += std::to_string(positions[i][j]->getColCoordinate() + 1);
           saveData += ',';
         }
       }

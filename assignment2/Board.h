@@ -32,7 +32,7 @@ public:
   LinkedList* getTileList(int row, int col, std::string axis);
 
   // getters
-  std::vector < std::vector<Coordinate>> getCoordinates();
+  std::vector < std::vector<Coordinate*>> getCoordinates();
   int getRows();
   int getCols();
 
@@ -44,7 +44,7 @@ public:
 
 private:
 
-  std::vector<std::vector<Coordinate>> coordinates;
+  std::vector<std::vector<Coordinate*>> coordinates;
   int rows;
   int cols;
 
