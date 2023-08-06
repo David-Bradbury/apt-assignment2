@@ -348,17 +348,20 @@ bool Menu::loadGame() {
         tileBagStream.str(tempTileBag);
 
         LinkedList* tileBag = new LinkedList();
-        std::string tempTile;
+        if (tempTileBag != "0") {
 
-        while (std::getline(tileBagStream, tempTile, ','))
-        {
-            char colour = std::toupper(tempTile[0]);
-            int shape = tempTile[1] - '0';
+            std::string tempTile;
 
-            Tile* tile = new Tile(shape, colour);
+            while (std::getline(tileBagStream, tempTile, ','))
+            {
+                char colour = std::toupper(tempTile[0]);
+                int shape = tempTile[1] - '0';
 
-            tileBag->addBack(tile);
-            delete tile;
+                Tile* tile = new Tile(shape, colour);
+
+                tileBag->addBack(tile);
+                delete tile;
+            }
         }
 
         std::string currentPlayer;

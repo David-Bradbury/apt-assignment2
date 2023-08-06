@@ -542,15 +542,20 @@ void  GameController::saveGame(std::string fileName) {
   saveData += '\n';
 
   // Board Tile Bag
-  for (int i = 0; i < this->tileBag->size(); i++) {
+  if (this->tileBag->size() == 0) {
+    saveData += "0";
+  }
+  else {
+    for (int i = 0; i < this->tileBag->size(); i++) {
 
-    saveData += tileBag->get(i)->getColour();
-    saveData += std::to_string(tileBag->get(i)->getShape());
-    saveData += ',';
+      saveData += tileBag->get(i)->getColour();
+      saveData += std::to_string(tileBag->get(i)->getShape());
+      saveData += ',';
+    }
+    // Remove trailing ','
+    saveData.resize(saveData.length() - 1);
   }
 
-  // Remove trailing ','
-  saveData.resize(saveData.length() - 1);
   saveData += '\n';
 
   // Current Player Name
