@@ -26,7 +26,7 @@ public:
   // Constructors / Destructors
   GameController(std::string player1, std::string player2);
   // Overloaded Constructor for loading game.
-  GameController(Player player1, Player player2, Board* board, LinkedList* tileBag);
+  GameController(Player* player1, Player* player2, Board* board, LinkedList* tileBag, LinkedList* playedTiles);
   ~GameController();
 
   // The function that prepares the game by creating the tilebag, dealing the player

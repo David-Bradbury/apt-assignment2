@@ -25,15 +25,15 @@ GameController::GameController(std::string player1, std::string player2) {
 }
 
 
-GameController::GameController(Player player1, Player player2, Board* board, LinkedList* tileBag) {
+GameController::GameController(Player* player1, Player* player2, Board* board, LinkedList* tileBag, LinkedList* playedTiles) {
 
   try {
 
-    this->player1 = new Player(player1);
-    this->player2 = new Player(player2);
+    this->player1 = player1;
+    this->player2 = player2;
     this->board = board;
     this->tileBag = tileBag;
-    this->playedTiles = new LinkedList(); // load played tiles
+    this->playedTiles = playedTiles; // load played tiles
   }
   catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
@@ -219,10 +219,10 @@ bool GameController::takeInput() {
     else if (equalsIgnoreCase(command, "save")) {
       if (commandCount == 2) {
 
-        std::cout << "run save function" << std::endl;
-
         iss >> command;
         saveGame(command);
+        std::cout << "Game saved successfully" << std::endl;
+
       }
       else {
         std::cerr << "Invalid number of commands" << std::endl;

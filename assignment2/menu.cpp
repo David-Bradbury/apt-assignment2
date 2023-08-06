@@ -37,17 +37,17 @@ void Menu::printMenu() {
         std::cout << "2. Load Game" << std::endl;
         std::cout << "3. Credits (Show Student Information)" << std::endl;
         std::cout << "4. Quit" << std::endl;
-        if(!creditsRan) {
+        if (!creditsRan) {
             std::cout << "> ";
             creditsRan = false;
         }
-        
+
         while (std::cin.peek() == '\n') {
             std::cout << "> ";
             std::cin.get(); // Consume the newline character
         }
-            
-      
+
+
 
 
 
@@ -65,7 +65,7 @@ void Menu::printMenu() {
             else if (input == CREDITS) {
                 creditsRan = printCredits();
             }
-            else if(input != EXIT) {
+            else if (input != EXIT) {
                 std::cout << "Invalid Input" << std::endl;
 
             }
@@ -212,16 +212,16 @@ bool Menu::loadGame() {
         std::cout << "Enter the filename from which to load the game" << std::endl;
 
         std::cout << "> ";
-        std::cin >> filename;      
+        std::cin >> filename;
         save.append(filename);
         std::ifstream file(save);
 
         if (file.fail()) {
-            std::cerr << "Error: bad file name" << std::endl;
+            std::cerr << "Error: can't find file" << std::endl;
             validFileName = false;
-        } 
+        }
 
-    } while(!validFileName && !std::cin.eof());
+    } while (!validFileName && !std::cin.eof());
 
 
 
@@ -268,7 +268,7 @@ bool Menu::loadGame() {
             delete tile;
         }
 
-        Player p1 = Player(p1Name, p1Hand, p1Score);
+        Player* p1 = new Player(p1Name, p1Hand, p1Score);
 
         // Create Player Two
 
@@ -296,7 +296,7 @@ bool Menu::loadGame() {
             delete tile;
         }
 
-        Player p2 = Player(p2Name, p2Hand, p2Score);
+        Player* p2 = new Player(p2Name, p2Hand, p2Score);
 
         // Get Board Size and create board
 
@@ -319,7 +319,7 @@ bool Menu::loadGame() {
 
         Board* board = new Board(boardRow, boardCol);
 
-
+        LinkedList* playedTiles = new LinkedList();
         // Load Board State
         std::string state;
         while (std::getline(boardStateStream, state, ','))
@@ -339,9 +339,7 @@ bool Menu::loadGame() {
                 int col = (stoi(state.substr(4)) - 1);
 
                 board->setTile(row, col, tile);
-                // delete tile;
-                // Deleting breaks the board state as it is a board of pointers.
-                // Need to handle the deleting elsewhere.
+                playedTiles->addBack(tile);
             }
         }
 
@@ -369,21 +367,22 @@ bool Menu::loadGame() {
         std::string currentPlayer;
         stream >> currentPlayer;
 
-        GameController gc = GameController(p1, p2, board, tileBag);
+        GameController* gc = new GameController(p1, p2, board, tileBag, playedTiles);
 
-        if (p1.getName() == currentPlayer)
+        if (p1->getName() == currentPlayer)
         {
-            gc.setCurrPlayer(&p1);
+            gc->setCurrPlayer(p1);
         }
         else
         {
-            gc.setCurrPlayer(&p2);
+            gc->setCurrPlayer(p2);
         }
 
-          // Needed to clear cin buffer for first turn only.
+        // Needed to clear cin buffer for first turn only.
         char randomInput;
         while ((randomInput = std::cin.get()) != '\n') {}
-        gc.playGame();
+        gc->playGame();
+        delete gc;
 
     }
     return eofReceived;

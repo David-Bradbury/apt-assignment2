@@ -30,7 +30,7 @@ Player::Player(std::string name, LinkedList* hand, int score) {
 }
 
 Player::~Player() {
-
+    delete this->hand;
 }
 
 
