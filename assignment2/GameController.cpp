@@ -221,7 +221,7 @@ bool GameController::takeInput() {
 
         iss >> command;
         saveGame(command);
-        std::cout << "Game saved successfully" << std::endl;
+        std::cout << "Game successfully saved" << std::endl;
 
       }
       else {
@@ -536,7 +536,7 @@ void  GameController::saveGame(std::string fileName) {
     saveData += " ";
   }
   else {
-    saveData += this->board->getCoordinates();
+    saveData += this->board->getCoordinatesAsString();
   }
 
   saveData += '\n';
@@ -557,7 +557,16 @@ void  GameController::saveGame(std::string fileName) {
   saveData += this->currPlayer->getName();
 
   // Save the game
-  stream.saveGame(saveData, fileName);
+  try
+  {
+    stream.saveGame(saveData, fileName);
+  }
+  catch (const std::exception& e)
+  {
+    std::cerr << e.what() << '\n';
+  }
+
+
 
 }
 

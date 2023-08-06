@@ -379,6 +379,7 @@ bool Menu::loadGame() {
         // Needed to clear cin buffer for first turn only.
         char randomInput;
         while ((randomInput = std::cin.get()) != '\n') {}
+        std::cout << "Qwirkle game successfully loaded" << std::endl;
         gc->playGame();
         delete gc;
 
